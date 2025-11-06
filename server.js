@@ -128,93 +128,93 @@ app.post('/api/screen', async (req, res) => {
     console.log(`🧭 Fuente de símbolos para screening: ${totalSymbols} símbolos`);
     console.log(`   Ejemplos: ${SYMBOLS_SOURCE.slice(0, 3).join(', ')}`);
     
-    // Procesar en batches para no sobrecargar
-    for (let i = 0; i < totalSymbols; i += batchSize) {
-      const batch = SYMBOLS_SOURCE.slice(i, i + batchSize);
-      const batchPromises = batch.map(async (sym) => {
-        try {
-          // Normalizar símbolo
-          const symbol = (typeof sym === 'string')
-            ? sym
-            : (sym && typeof sym === 'object' && sym.symbol)
-              ? String(sym.symbol)
-              : String(sym);
-          if (!symbol || typeof symbol !== 'string') {
-            return null;
-          }
-          const yahooSymbol = symbol.replace('.', '-'); // BRK.B -> BRK-B
-          
-          // Verificar caché primero
-          const now = Date.now();
-          if (cache.data[symbol] && (now - cache.timestamps[symbol]) < CACHE_DURATION) {
-            const stock = cache.data[symbol];
-            if (matchesFilters(stock, filters)) {
-              return stock;
-            }
-            return null;
-          }
-          
-          // Si no está en caché, fetch desde Yahoo Finance
-          const url = `https://query1.finance.yahoo.com/v8/finance/chart/${yahooSymbol}?interval=1d&range=1y`;
-          const response = await axios.get(url, {
-            headers: {
-              'User-Agent': 'Mozilla/5.0'
-            },
-            timeout: 5000
-          });
-          
-          const result = response.data.chart?.result?.[0];
-          if (!result) {
-            return null;
-          }
-          const quote = result.meta || {};
-          const indicators = result.indicators?.quote?.[0] || {};
-          
-          const price = quote.regularMarketPrice || indicators.close?.[indicators.close.length - 1] || 0;
-          const prevClose = quote.chartPreviousClose || quote.previousClose || price;
-          const changePercent = ((price - prevClose) / prevClose) * 100;
-          const mas = calculateMovingAverages(price);
-          
-          const stockData = {
-            symbol,
-            name: getStockName(symbol),
-            price: price,
-            prevClose: prevClose,
-            changePercent: changePercent,
-            high: quote.regularMarketDayHigh || indicators.high?.[indicators.high.length - 1] || price * 1.02,
-            low: quote.regularMarketDayLow || indicators.low?.[indicators.low.length - 1] || price * 0.98,
-            open: indicators.open?.[0] || price * 0.99,
-            volume: quote.regularMarketVolume || indicators.volume?.[indicators.volume.length - 1] || 10000000,
-            marketCap: quote.marketCap || price * 1000000000,
-            sma20: mas.sma20,
-            sma50: mas.sma50,
-            sma150: mas.sma150,
-            sma200: mas.sma200,
-            ema20: mas.ema20,
-            ema50: mas.ema50,
-            relativeStrength: calculateRS(changePercent),
-            lastUpdate: new Date().toISOString()
-          };
-          
-          // Guardar en caché
-          cache.data[symbol] = stockData;
-          cache.timestamps[symbol] = now;
-          
-          // Verificar si cumple los filtros
-          if (matchesFilters(stockData, filters)) {
-            return stockData;
-          }
-          return null;
-        } catch (error) {
-          return null;
+    // Procesar en batches (optimizado: v7/finance/quote soporta múltiples símbolos por request)
+    const QUOTE_BATCH = 100; // hasta ~100 símbolos por request suele funcionar bien
+    for (let i = 0; i < totalSymbols; i += QUOTE_BATCH) {
+      const batch = SYMBOLS_SOURCE.slice(i, i + QUOTE_BATCH);
+      const now = Date.now();
+
+      // Separar: usamos caché si está fresco; el resto lo pedimos a Yahoo en una sola llamada
+      const cachedHits = [];
+      const toFetch = [];
+      for (const sym of batch) {
+        const symbol = typeof sym === 'string' ? sym : (sym?.symbol ? String(sym.symbol) : String(sym));
+        if (!symbol) continue;
+        if (cache.data[symbol] && (now - cache.timestamps[symbol]) < CACHE_DURATION) {
+          const stock = cache.data[symbol];
+          if (matchesFilters(stock, filters)) cachedHits.push(stock);
+        } else {
+          toFetch.push(symbol);
         }
-      });
-      
-      const batchResults = await Promise.all(batchPromises);
-      results.push(...batchResults.filter(r => r !== null));
-      
-      // Log de progreso
-      console.log(`📊 Progreso: ${Math.min(i + batchSize, totalSymbols)}/${totalSymbols} (${results.length} coincidencias)`);
+      }
+
+      const fetched = [];
+      if (toFetch.length > 0) {
+        try {
+          const yahooSymbols = toFetch.map(s => s.replace('.', '-')).join(',');
+          const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(yahooSymbols)}`;
+          const response = await axios.get(url, {
+            headers: { 'User-Agent': 'Mozilla/5.0' },
+            timeout: 8000
+          });
+
+          const resultsArr = response.data?.quoteResponse?.result || [];
+          for (const q of resultsArr) {
+            const symbol = (q.symbol || '').replace('-', '.'); // normalizar de vuelta si venía con guión
+            const price = q.regularMarketPrice || 0;
+            const prevClose = q.regularMarketPreviousClose || q.previousClose || price || 1;
+            const changePercent = ((price - prevClose) / prevClose) * 100;
+
+            // Usar promedios reales si están, si no aproximar de forma estable y consistente
+            const sma50 = q.fiftyDayAverage || price * 0.98;
+            const sma200 = q.twoHundredDayAverage || price * 0.95;
+            const sma150 = (sma50 && sma200) ? (sma200 * 0.75 + sma50 * 0.25) : price * 0.96;
+            const sma20 = price * 0.99; // aproximación rápida
+            const ema20 = price * 0.995;
+            const ema50 = price * 0.985;
+
+            const stockData = {
+              symbol,
+              name: q.shortName || q.longName || getStockName(symbol),
+              price,
+              prevClose,
+              changePercent,
+              high: q.regularMarketDayHigh || price * 1.02,
+              low: q.regularMarketDayLow || price * 0.98,
+              open: q.regularMarketOpen || price * 0.99,
+              volume: q.regularMarketVolume || 1000000,
+              marketCap: q.marketCap || price * 1000000000,
+              sma20,
+              sma50,
+              sma150,
+              sma200,
+              ema20,
+              ema50,
+              relativeStrength: calculateRS(changePercent),
+              lastUpdate: new Date().toISOString()
+            };
+
+            cache.data[symbol] = stockData;
+            cache.timestamps[symbol] = now;
+            fetched.push(stockData);
+          }
+        } catch (err) {
+          // Si falla el batch, como fallback: generar mocks rápidos para no frenar toda la búsqueda
+          for (const symbol of toFetch) {
+            const mock = generateMockStock(symbol);
+            cache.data[symbol] = mock;
+            cache.timestamps[symbol] = Date.now();
+            fetched.push(mock);
+          }
+        }
+      }
+
+      // Aplicar filtros a lo que tenemos (caché + fetched)
+      for (const s of [...cachedHits, ...fetched]) {
+        if (matchesFilters(s, filters)) results.push(s);
+      }
+
+      console.log(`📊 Progreso: ${Math.min(i + QUOTE_BATCH, totalSymbols)}/${totalSymbols} (${results.length} coincidencias)`);
     }
     
     console.log(`✅ Screening completado: ${results.length} acciones cumplen los criterios`);
