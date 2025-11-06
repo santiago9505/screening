@@ -120,13 +120,30 @@ app.post('/api/screen', async (req, res) => {
     
     const results = [];
     const batchSize = 50; // Procesar en lotes de 50
-    const totalStocks = ALL_US_STOCKS.length;
+    // Usar SIEMPRE una lista de símbolos (strings), no objetos
+    const SYMBOLS_SOURCE = (ALL_US_SYMBOLS && ALL_US_SYMBOLS.length > 0)
+      ? ALL_US_SYMBOLS
+      : ALL_STOCKS; // fallback reducido
+    const totalSymbols = SYMBOLS_SOURCE.length;
+    console.log(`🧭 Fuente de símbolos para screening: ${totalSymbols} símbolos`);
+    console.log(`   Ejemplos: ${SYMBOLS_SOURCE.slice(0, 3).join(', ')}`);
     
     // Procesar en batches para no sobrecargar
-    for (let i = 0; i < totalStocks; i += batchSize) {
-      const batch = ALL_US_STOCKS.slice(i, i + batchSize);
-      const batchPromises = batch.map(async (symbol) => {
+    for (let i = 0; i < totalSymbols; i += batchSize) {
+      const batch = SYMBOLS_SOURCE.slice(i, i + batchSize);
+      const batchPromises = batch.map(async (sym) => {
         try {
+          // Normalizar símbolo
+          const symbol = (typeof sym === 'string')
+            ? sym
+            : (sym && typeof sym === 'object' && sym.symbol)
+              ? String(sym.symbol)
+              : String(sym);
+          if (!symbol || typeof symbol !== 'string') {
+            return null;
+          }
+          const yahooSymbol = symbol.replace('.', '-'); // BRK.B -> BRK-B
+          
           // Verificar caché primero
           const now = Date.now();
           if (cache.data[symbol] && (now - cache.timestamps[symbol]) < CACHE_DURATION) {
@@ -138,7 +155,7 @@ app.post('/api/screen', async (req, res) => {
           }
           
           // Si no está en caché, fetch desde Yahoo Finance
-          const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1y`;
+          const url = `https://query1.finance.yahoo.com/v8/finance/chart/${yahooSymbol}?interval=1d&range=1y`;
           const response = await axios.get(url, {
             headers: {
               'User-Agent': 'Mozilla/5.0'
@@ -146,8 +163,12 @@ app.post('/api/screen', async (req, res) => {
             timeout: 5000
           });
           
-          const quote = response.data.chart.result[0].meta;
-          const indicators = response.data.chart.result[0].indicators.quote[0];
+          const result = response.data.chart?.result?.[0];
+          if (!result) {
+            return null;
+          }
+          const quote = result.meta || {};
+          const indicators = result.indicators?.quote?.[0] || {};
           
           const price = quote.regularMarketPrice || indicators.close?.[indicators.close.length - 1] || 0;
           const prevClose = quote.chartPreviousClose || quote.previousClose || price;
@@ -193,7 +214,7 @@ app.post('/api/screen', async (req, res) => {
       results.push(...batchResults.filter(r => r !== null));
       
       // Log de progreso
-      console.log(`📊 Progreso: ${Math.min(i + batchSize, totalStocks)}/${totalStocks} (${results.length} coincidencias)`);
+      console.log(`📊 Progreso: ${Math.min(i + batchSize, totalSymbols)}/${totalSymbols} (${results.length} coincidencias)`);
     }
     
     console.log(`✅ Screening completado: ${results.length} acciones cumplen los criterios`);

@@ -30,7 +30,7 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
 
   const handleApply = async () => {
     setIsScreening(true);
-    setScreeningProgress('Iniciando screening de todas las acciones del mercado...');
+    setScreeningProgress('🔍 Iniciando screening...');
     
     try {
       // Limpiar filtros: remover valores undefined, null y NaN
@@ -42,23 +42,37 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
         }
       });
       
+      // Validar que hay al menos un filtro
+      if (Object.keys(cleanFilters).length === 0) {
+        alert('Por favor selecciona al menos un filtro');
+        setIsScreening(false);
+        return;
+      }
+      
       console.log('🔍 Filtros a aplicar:', cleanFilters);
+      setScreeningProgress('📊 Escaneando todas las acciones del mercado...');
       
       // Hacer screening en el backend sobre TODAS las acciones
-      const response = await axios.post('http://localhost:3002/api/screen', cleanFilters);
+      const response = await axios.post('http://localhost:3002/api/screen', cleanFilters, {
+        timeout: 120000 // 2 minutos de timeout
+      });
       const results = response.data;
       
-      setScreeningProgress(`✅ Completado! ${results.length} acciones encontradas`);
+      console.log(`✅ Screening completado: ${results.length} acciones encontradas`);
+      setScreeningProgress(`✅ ¡Listo! ${results.length} acciones encontradas`);
       
       // Esperar un momento para que el usuario vea el mensaje
       setTimeout(() => {
         onApplyFilters(cleanFilters, results);
-        onClose();
-      }, 1000);
-    } catch (error) {
+        setIsScreening(false);
+      }, 1500);
+    } catch (error: any) {
       console.error('Error en screening:', error);
-      setScreeningProgress('❌ Error al realizar el screening');
-      setIsScreening(false);
+      const errorMsg = error.response?.data?.error || error.message || 'Error desconocido';
+      setScreeningProgress(`❌ Error: ${errorMsg}`);
+      setTimeout(() => {
+        setIsScreening(false);
+      }, 3000);
     }
   };
 
@@ -244,11 +258,16 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
         {/* Botones de acción */}
         <div className="sticky bottom-0 bg-dark-200 border-t border-gray-700 p-4">
           {isScreening ? (
-            <div className="text-center">
-              <Loader className="animate-spin text-accent-blue mx-auto mb-2" size={32} />
-              <p className="text-sm text-gray-400">{screeningProgress}</p>
-              <p className="text-xs text-gray-500 mt-2">
-                Esto puede tardar 1-2 minutos para escanear todas las acciones del mercado
+            <div className="text-center py-4">
+              <div className="bg-accent-blue/10 border border-accent-blue/30 rounded-lg p-6 mb-4">
+                <Loader className="animate-spin text-accent-blue mx-auto mb-3" size={40} />
+                <p className="text-base text-white font-semibold mb-2">{screeningProgress}</p>
+                <p className="text-xs text-gray-400">
+                  Escaneando miles de acciones del mercado de EEUU
+                </p>
+              </div>
+              <p className="text-xs text-gray-500">
+                ⏱️ Esto puede tardar 1-2 minutos. Por favor espera...
               </p>
             </div>
           ) : (
@@ -261,9 +280,10 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
               </button>
               <button
                 onClick={handleApply}
-                className="flex-1 px-4 py-2 bg-accent-blue hover:bg-blue-600 text-white rounded-lg transition-colors font-semibold"
+                className="flex-1 px-4 py-2 bg-accent-blue hover:bg-blue-600 text-white rounded-lg transition-colors font-semibold flex items-center justify-center gap-2"
               >
-                🔍 Escanear Todas las Acciones
+                <Filter size={16} />
+                Escanear Todas las Acciones
               </button>
             </div>
           )}

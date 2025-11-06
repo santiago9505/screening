@@ -205,25 +205,28 @@ function App() {
     
     // Si hay resultados del screening del backend, usarlos
     if (results) {
+      console.log(`✅ Filtros aplicados: ${results.length} acciones encontradas`);
       setScreenedStocks(results);
       
       // Si estamos creando una watchlist con filtros
       if (isCreatingWatchlistWithFilters) {
-        // Pedir nombre de la lista
-        const symbols = results.map(s => s.symbol);
-        if (symbols.length === 0) {
+        // Verificar que hay resultados
+        if (results.length === 0) {
           alert('No se encontraron acciones que cumplan los criterios');
           setIsCreatingWatchlistWithFilters(false);
+          setShowFilters(false);
           return;
         }
         
-        // Mostrar modal para nombre de lista
+        console.log(`📝 Mostrando modal para nombrar watchlist con ${results.length} acciones`);
+        // Cerrar filtros y mostrar modal para nombre
         setShowFilters(false);
-        // El modal de nombre se muestra en el render
+        // El modal de nombre se muestra automáticamente en el render
       }
-      // NO actualizar stocks aquí - usar screenedStocks en getFilteredStocks()
     } else {
-      setScreenedStocks([]); // Limpiar resultados de screening
+      // Limpiar resultados de screening (cuando se resetean filtros)
+      console.log('🧹 Limpiando resultados de screening');
+      setScreenedStocks([]);
     }
   };
 
@@ -246,11 +249,19 @@ function App() {
       createdAt: new Date(),
     };
     
+    console.log(`✅ Watchlist creada: "${newWatchlist.name}" con ${symbols.length} acciones`);
+    
     setWatchlists([...watchlists, newWatchlist]);
     setActiveWatchlist(newWatchlist.id);
+    
+    // Limpiar estados
     setIsCreatingWatchlistWithFilters(false);
     setNewWatchlistName('');
-    setStocks(screenedStocks); // Mostrar las acciones de la nueva lista
+    setShowFilters(false);
+    setActiveFilters({});
+    
+    // Mantener screenedStocks para que se muestren en la lista
+    // El filtro activo mostrará las acciones de esta watchlist
   };
 
   return (
@@ -564,25 +575,38 @@ function App() {
       {isCreatingWatchlistWithFilters && screenedStocks.length > 0 && !showFilters && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
           <div className="bg-dark-200 rounded-lg shadow-2xl p-6 w-96 border border-gray-700">
-            <h3 className="text-lg font-semibold text-white mb-4">Guardar Watchlist</h3>
-            <p className="text-sm text-gray-400 mb-4">
-              Se encontraron <strong className="text-accent-blue">{screenedStocks.length} acciones</strong> que cumplen tus criterios.
-            </p>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-2xl">✅</span>
+              <h3 className="text-lg font-semibold text-white">Guardar Watchlist</h3>
+            </div>
+            
+            <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-4">
+              <p className="text-sm text-green-400 mb-2">
+                <strong>¡Screening completado!</strong>
+              </p>
+              <p className="text-sm text-gray-300">
+                Se encontraron <strong className="text-accent-blue text-lg">{screenedStocks.length}</strong> acciones que cumplen tus criterios.
+              </p>
+            </div>
+            
+            <label className="block text-sm text-gray-400 mb-2">Nombre de la lista:</label>
             <input
               type="text"
               value={newWatchlistName}
               onChange={(e) => setNewWatchlistName(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSaveWatchlistWithResults()}
-              placeholder="Nombre de la lista..."
+              placeholder="Ej: Acciones con RS > 80"
               className="w-full bg-dark-100 text-white px-4 py-2 rounded border border-gray-600 focus:border-accent-blue focus:outline-none mb-4"
               autoFocus
             />
+            
             <div className="flex gap-2 justify-end">
               <button
                 onClick={() => {
                   setIsCreatingWatchlistWithFilters(false);
                   setNewWatchlistName('');
                   setScreenedStocks([]);
+                  setActiveFilters({});
                 }}
                 className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded transition-colors"
               >
@@ -590,7 +614,8 @@ function App() {
               </button>
               <button
                 onClick={handleSaveWatchlistWithResults}
-                className="px-4 py-2 bg-accent-blue hover:bg-blue-600 text-white rounded transition-colors flex items-center gap-2"
+                disabled={!newWatchlistName.trim()}
+                className="px-4 py-2 bg-accent-blue hover:bg-blue-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded transition-colors flex items-center gap-2"
               >
                 <Check size={16} />
                 Crear Lista
