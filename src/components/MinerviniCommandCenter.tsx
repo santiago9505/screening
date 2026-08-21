@@ -22,6 +22,7 @@ interface MinerviniCommandCenterProps {
   selectedStock: Stock | null;
   onSelectStock: (stock: Stock) => void;
   onApplyResults: (stocks: Stock[], label: string) => void;
+  compact?: boolean;
 }
 
 const PRESETS = [
@@ -38,6 +39,7 @@ export default function MinerviniCommandCenter({
   selectedStock,
   onSelectStock,
   onApplyResults,
+  compact = false,
 }: MinerviniCommandCenterProps) {
   const [draft, setDraft] = useState('');
   const [executedQuery, setExecutedQuery] = useState<string>(PRESETS[0].query);
@@ -58,6 +60,49 @@ export default function MinerviniCommandCenter({
     setExecutedQuery(preset.query);
     setDraft('');
   };
+
+  if (compact) {
+    return (
+      <section className="sepa-focus-strip" aria-label="Centro de comando Minervini compacto">
+        <div className={`focus-regime ${regime.tone}`} title={regime.rationale}>
+          <span className="regime-beacon" />
+          <div><small>Régimen</small><strong>{regime.state}</strong></div>
+          <b>{regime.score}</b>
+        </div>
+
+        <div className="focus-market-metrics">
+          <span><small>Amplitud</small><b>{marketPulse.breadth}%</b></span>
+          <span><small>SMA 50</small><b>{marketPulse.trendQuality}%</b></span>
+          <span><small>Líderes</small><b>{marketPulse.leaders.toLocaleString('es-CO')}</b></span>
+        </div>
+
+        <form className="focus-copilot-query" onSubmit={submit}>
+          <BrainCircuit size={14} />
+          <input
+            value={draft}
+            onChange={(event) => setDraft(event.target.value)}
+            placeholder="Filtra con IA: RS 90, EPS y ventas >25%, no extendidas…"
+            aria-label="Consulta compacta del copiloto SEPA"
+          />
+          <button type="submit">Analizar <ArrowRight size={12} /></button>
+        </form>
+
+        <div className="focus-shortlist">
+          <span><Crosshair size={11} /> {result.candidates.length} líderes</span>
+          {result.candidates.slice(0, 4).map(({ stock, score }) => (
+            <button
+              key={stock.symbol}
+              className={selectedStock?.symbol === stock.symbol ? 'active' : ''}
+              onClick={() => onSelectStock(stock)}
+              title={`${stock.setupProfile?.type || 'Candidato'} · Score ${score}`}
+            >
+              {stock.symbol}<b>{score}</b>
+            </button>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="sepa-command-center" aria-label="Centro de comando Minervini">

@@ -1,6 +1,8 @@
 import {
   Activity,
   BarChart3,
+  ChevronDown,
+  ChevronUp,
   Database,
   Filter,
   FlaskConical,
@@ -9,11 +11,12 @@ import {
   Mail,
   PanelRightOpen,
   RefreshCw,
+  Rows,
   ShieldCheck,
   Sparkles,
   TrendingUp,
 } from 'lucide-react';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { FilterCriteria, StockFilters } from './StockFilters';
 import { FundamentalsView } from './FundamentalsView';
 import FundamentalsStrip from './FundamentalsStrip';
@@ -96,6 +99,8 @@ const PulseMetric = ({ label, value, detail, tone = 'neutral' }: {
 );
 
 export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps) {
+  const [isCockpitExpanded, setIsCockpitExpanded] = useState(false);
+  const [showQuarterStrip, setShowQuarterStrip] = useState(false);
   const activeFilterCount = Object.keys(props.activeFilters).length;
   const selectedWatchlist = props.watchlists.find((watchlist) => watchlist.id === props.activeWatchlist);
   const contextLabel = props.screenedStocks.length > 0
@@ -108,7 +113,7 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
       : 'TradingView EOD';
 
   return (
-    <div className="app-shell">
+    <div className="app-shell chart-first">
       <header className="workspace-header">
         <div className="brand-lockup">
           <div className="brand-mark"><TrendingUp size={19} strokeWidth={2.4} /></div>
@@ -157,6 +162,10 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
             </div>
 
             <div className="action-cluster">
+              <button className={`toolbar-action ${isCockpitExpanded ? 'active' : ''}`} onClick={() => setIsCockpitExpanded((current) => !current)}>
+                {isCockpitExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                {isCockpitExpanded ? 'Contraer cockpit' : 'Abrir cockpit'}
+              </button>
               <button
                 className="toolbar-action"
                 onClick={props.onOpenMinerviniLists}
@@ -182,6 +191,7 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
             selectedStock={props.selectedStock}
             onSelectStock={props.onSelectStock}
             onApplyResults={props.onApplyIntelligence}
+            compact={!isCockpitExpanded}
           />
 
           <div className="watchlist-rail">
@@ -206,7 +216,7 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
             />
           </div>
 
-          <section className="market-pulse" aria-label="Pulso del universo">
+          {isCockpitExpanded && <section className="market-pulse" aria-label="Pulso del universo">
             <div className="pulse-heading">
               <Activity size={15} />
               <div><span>Market pulse</span><small>Lectura del universo activo</small></div>
@@ -216,7 +226,7 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
             <PulseMetric label="Sobre SMA 50" value={`${props.marketPulse.trendQuality}%`} detail="Calidad de tendencia" tone={props.marketPulse.trendQuality >= 60 ? 'positive' : 'neutral'} />
             <PulseMetric label="Líderes RS" value={props.marketPulse.leaders.toLocaleString('es-CO')} detail="Rating 80 o superior" />
             <div className="pulse-trust"><ShieldCheck size={14} /><span>Datos validados<br /><small>Sin simulaciones</small></span></div>
-          </section>
+          </section>}
 
           {props.loadError && <div className="system-alert">{props.loadError}</div>}
 
@@ -244,12 +254,21 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
                         <span>RS <b>{Math.round(props.selectedStock.relativeStrength)}</b></span>
                         <span>Vol <b>{(props.selectedStock.volume / 1_000_000).toFixed(1)}M</b></span>
                         <span>RVol <b>{(props.selectedStock.relativeVolume10d || 0).toFixed(2)}×</b></span>
+                        {props.fundamentals?.quarterlyData?.length ? (
+                          <button
+                            className={`chart-quarter-toggle ${showQuarterStrip ? 'active' : ''}`}
+                            onClick={() => setShowQuarterStrip((current) => !current)}
+                            title={showQuarterStrip ? 'Ocultar fundamentales trimestrales' : 'Mostrar fundamentales trimestrales'}
+                          >
+                            <Rows size={12} /> {showQuarterStrip ? 'Ocultar trimestres' : 'Trimestres'}
+                          </button>
+                        ) : null}
                       </div>
                     </div>
                     <div className="chart-surface">
                       <TradingViewChart symbol={props.selectedStock.symbol} theme="dark" />
                     </div>
-                    {props.fundamentals?.quarterlyData?.length ? <FundamentalsStrip fundamentals={props.fundamentals} /> : null}
+                    {showQuarterStrip && props.fundamentals?.quarterlyData?.length ? <FundamentalsStrip fundamentals={props.fundamentals} /> : null}
                   </div>
 
                   {props.showInfoSidebar ? (
