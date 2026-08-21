@@ -29,7 +29,7 @@ Northstar es un workspace profesional para descubrir líderes, leer la amplitud 
 
 ### Web
 
-La versión de GitHub Pages consulta TradingView directamente. No necesita servidor, Firebase ni API keys en el navegador. El copiloto y el ranking corren localmente en el dispositivo para conservar velocidad y explicabilidad. El correo privado y el histórico de setups permanecen desactivados por seguridad.
+La versión de GitHub Pages consume un snapshot EOD de TradingView generado dentro del workflow y servido desde el mismo dominio. No necesita servidor, Firebase ni API keys en el navegador, evita bloqueos CORS y abre el universo con una sola descarga cacheable. El copiloto y el ranking corren localmente en el dispositivo para conservar velocidad y explicabilidad. El correo privado y el histórico de setups permanecen desactivados por seguridad.
 
 ### Escritorio / motor privado
 

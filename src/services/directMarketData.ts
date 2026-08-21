@@ -4,6 +4,7 @@ import { evaluateMinerviniStock } from './minerviniIntelligence';
 
 const TRADINGVIEW_SCANNER_URL = 'https://scanner.tradingview.com/america/scan';
 const DIRECT_MARKET_LIMIT = 2800;
+const STATIC_SNAPSHOT_PATH = 'data/market-snapshot.json';
 
 const MARKET_COLUMNS = [
   'name',
@@ -62,6 +63,21 @@ const INDEX_SYMBOLS: Record<string, string> = {
   'RUSSELL:RUT': '^RUT',
   'CBOE:VIX': '^VIX',
   'TVC:US10Y': '^TNX',
+};
+
+interface StaticMarketSnapshot {
+  generatedAt: string;
+  rows: Array<{ s: string; d: unknown[] }>;
+  indexRows: Array<{ s: string; d: unknown[] }>;
+}
+
+let staticSnapshotPromise: Promise<StaticMarketSnapshot> | null = null;
+
+const isHostedWebRuntime = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  return window.location.protocol !== 'file:'
+    && window.location.hostname !== 'localhost'
+    && window.location.hostname !== '127.0.0.1';
 };
 
 const numeric = (value: unknown): number => {
@@ -188,7 +204,29 @@ const postScanner = async (payload: Record<string, unknown>): Promise<Stock[]> =
   return mapRows(response.data?.data || []);
 };
 
+const fetchStaticSnapshot = async (): Promise<StaticMarketSnapshot> => {
+  if (!staticSnapshotPromise) {
+    const basePath = String(import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
+    staticSnapshotPromise = axios.get<StaticMarketSnapshot>(`${basePath}${STATIC_SNAPSHOT_PATH}`, {
+      timeout: 20000,
+      headers: { Accept: 'application/json' },
+    }).then((response) => response.data).catch((error) => {
+      staticSnapshotPromise = null;
+      throw error;
+    });
+  }
+  return staticSnapshotPromise;
+};
+
+const fetchHostedMarket = async (mode: 'default' | 'all' | 'indices'): Promise<Stock[]> => {
+  const snapshot = await fetchStaticSnapshot();
+  const rows = mode === 'indices' ? snapshot.indexRows : snapshot.rows;
+  return mapRows(rows || []);
+};
+
 export const fetchDirectMarket = async (mode: 'default' | 'all' | 'indices' = 'all'): Promise<Stock[]> => {
+  if (isHostedWebRuntime()) return fetchHostedMarket(mode);
+
   if (mode === 'indices') {
     return postScanner({
       symbols: { tickers: INDEX_TICKERS, query: { types: [] } },
@@ -213,6 +251,11 @@ export const fetchDirectMarket = async (mode: 'default' | 'all' | 'indices' = 'a
 
 export const fetchDirectSymbols = async (symbols: string[]): Promise<Stock[]> => {
   if (symbols.length === 0) return [];
+  if (isHostedWebRuntime()) {
+    const symbolSet = new Set(symbols.map((symbol) => symbol.toUpperCase()));
+    const snapshotStocks = await fetchHostedMarket('all');
+    return snapshotStocks.filter((stock) => symbolSet.has(stock.symbol.toUpperCase()));
+  }
   const tickers = symbols.map((symbol) => {
     const indexTicker = Object.entries(INDEX_SYMBOLS).find(([, local]) => local === symbol)?.[0];
     if (indexTicker) return indexTicker;

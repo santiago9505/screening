@@ -4,6 +4,8 @@ on:
   push:
     branches: [codex/northstar]
   workflow_dispatch:
+  schedule:
+    - cron: '30 22 * * 1-5'
 
 permissions:
   contents: read
@@ -29,6 +31,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Generate EOD market snapshot
+        run: node scripts/build-market-snapshot.mjs
 
       - name: Build web app
         run: npm run build

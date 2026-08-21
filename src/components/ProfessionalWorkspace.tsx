@@ -105,7 +105,7 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
     ? 'Motor privado'
     : props.dataProvider === 'cache'
       ? 'Última sesión'
-      : 'TradingView directo';
+      : 'TradingView EOD';
 
   return (
     <div className="app-shell">
