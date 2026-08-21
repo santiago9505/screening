@@ -28,6 +28,7 @@ const StockSidebar: React.FC<StockSidebarProps> = ({ stocks, selectedStock, onSe
   const [sortField, setSortField] = useState<SortField>('setupScore');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const [stateFilter, setStateFilter] = useState<StateFilter>('All');
+  const [visibleLimit, setVisibleLimit] = useState(160);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const selectedRowRef = useRef<HTMLTableRowElement>(null);
   const lastSelectionSource = useRef<'keyboard' | 'click'>('click');
@@ -98,6 +99,12 @@ const StockSidebar: React.FC<StockSidebarProps> = ({ stocks, selectedStock, onSe
     });
   }, [filteredStocks, sortDirection, sortField]);
 
+  const visibleStocks = useMemo(() => sortedStocks.slice(0, visibleLimit), [sortedStocks, visibleLimit]);
+
+  useEffect(() => {
+    setVisibleLimit(160);
+  }, [searchTerm, stateFilter, stocks]);
+
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
@@ -123,13 +130,14 @@ const StockSidebar: React.FC<StockSidebarProps> = ({ stocks, selectedStock, onSe
 
       if (newIndex >= 0 && newIndex < sortedStocks.length) {
         lastSelectionSource.current = 'keyboard';
+        if (newIndex >= visibleLimit) setVisibleLimit(newIndex + 80);
         onSelectStock(sortedStocks[newIndex]);
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [onSelectStock, selectedStock, sortedStocks]);
+  }, [onSelectStock, selectedStock, sortedStocks, visibleLimit]);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -250,7 +258,7 @@ const StockSidebar: React.FC<StockSidebarProps> = ({ stocks, selectedStock, onSe
               </tr>
             </thead>
             <tbody>
-              {sortedStocks.map((stock) => {
+              {visibleStocks.map((stock) => {
                 const isSelected = selectedStock?.symbol === stock.symbol;
                 const changePercent = getDisplayChangePercent(stock);
                 const isPositive = changePercent >= 0;
@@ -313,6 +321,15 @@ const StockSidebar: React.FC<StockSidebarProps> = ({ stocks, selectedStock, onSe
                   </tr>
                 );
               })}
+              {visibleLimit < sortedStocks.length && (
+                <tr className="border-b border-white/[0.045]">
+                  <td colSpan={11} className="p-3 text-center">
+                    <button className="load-more-stocks" onClick={() => setVisibleLimit((current) => current + 240)}>
+                      Mostrar 240 más · {sortedStocks.length - visibleLimit} pendientes
+                    </button>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         )}

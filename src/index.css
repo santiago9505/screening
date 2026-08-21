@@ -242,6 +242,8 @@ textarea:focus-visible {
 .stock-universe-panel th { color: #788599; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
 .stock-universe-panel tbody td { font-variant-numeric: tabular-nums; }
 .stock-universe-panel tbody tr { height: 42px; }
+.load-more-stocks { padding: 6px 12px; border: 1px solid rgba(77, 227, 181, .14); border-radius: 6px; background: rgba(77, 227, 181, .05); color: #77cdb2; font-size: 9px; font-weight: 700; }
+.load-more-stocks:hover { border-color: rgba(77, 227, 181, .28); background: rgba(77, 227, 181, .08); color: #a2efd7; }
 .sidebar-loading { width: 420px; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border-right: 1px solid var(--line); background: var(--surface); }
 .sidebar-loading strong { color: #dce3ec; font-size: 12px; }
 .sidebar-loading span { color: #566276; font-size: 10px; }
