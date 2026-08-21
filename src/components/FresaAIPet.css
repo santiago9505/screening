@@ -1,0 +1,112 @@
+.fresa-ai-pet {
+  --brand-pink: #f43f7f;
+  --brand-white: #ffffff;
+  --pet-width: 96px;
+  --pet-height: 104px;
+  --pet-frame: 0;
+  --pet-row: 0;
+  --pet-x: 0px;
+  --pet-y: 0px;
+  position: fixed;
+  z-index: 80;
+  width: calc(var(--pet-width) + 18px);
+  height: calc(var(--pet-height) + 18px);
+  border: 0;
+  padding: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: grab;
+  transform: translate3d(var(--pet-x), var(--pet-y), 0);
+  touch-action: none;
+}
+
+.fresa-ai-pet--bottom-right {
+  right: 24px;
+  bottom: 24px;
+}
+
+.fresa-ai-pet--bottom-left {
+  left: 24px;
+  bottom: 24px;
+}
+
+.fresa-ai-pet:active {
+  cursor: grabbing;
+}
+
+.fresa-ai-pet__glow {
+  position: absolute;
+  inset: 18px 12px 4px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(244, 63, 127, 0.34), transparent 62%),
+    radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.38), transparent 58%);
+  filter: blur(13px);
+  opacity: 0.95;
+}
+
+.fresa-ai-pet__sprite {
+  position: absolute;
+  left: 9px;
+  top: 6px;
+  width: var(--pet-width);
+  height: var(--pet-height);
+  background-repeat: no-repeat;
+  background-size: calc(var(--pet-width) * 8) calc(var(--pet-height) * 9);
+  background-position:
+    calc(var(--pet-frame) * var(--pet-width) * -1)
+    calc(var(--pet-row) * var(--pet-height) * -1);
+  image-rendering: auto;
+  filter: drop-shadow(0 18px 28px rgba(244, 63, 127, 0.28));
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.fresa-ai-pet:hover .fresa-ai-pet__sprite {
+  transform: translateY(-3px) rotate(-2deg);
+  filter: drop-shadow(0 22px 34px rgba(244, 63, 127, 0.38));
+}
+
+.fresa-ai-pet__badge {
+  position: absolute;
+  right: 4px;
+  top: 8px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 7px;
+  border: 2px solid var(--brand-white);
+  border-radius: 999px;
+  background: var(--brand-pink);
+  color: var(--brand-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 12px 30px rgba(244, 63, 127, 0.45);
+}
+
+@media (prefers-color-scheme: dark) {
+  .fresa-ai-pet__glow {
+    opacity: 1;
+    filter: blur(15px);
+  }
+}
+
+@media (max-width: 640px) {
+  .fresa-ai-pet--bottom-right {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .fresa-ai-pet--bottom-left {
+    left: 14px;
+    bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fresa-ai-pet__sprite {
+    transition: none;
+  }
+}

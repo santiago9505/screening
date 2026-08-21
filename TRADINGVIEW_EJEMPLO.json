@@ -1,0 +1,162 @@
+{
+  "FUENTE": "TradingView Scanner API",
+  "ENDPOINT": "https://scanner.tradingview.com/america/scan",
+  "METODO": "POST",
+  "FORMATO_REQUEST": {
+    "symbols": {
+      "tickers": [
+        "NASDAQ:AAPL",
+        "NYSE:BABA"
+      ],
+      "query": {
+        "types": []
+      }
+    },
+    "columns": [
+      "name",
+      "close",
+      "volume",
+      "RSI",
+      "SMA50",
+      "etc..."
+    ]
+  },
+  "FORMATO_RESPONSE": {
+    "totalCount": 4,
+    "data": [
+      {
+        "s": "NASDAQ:AAPL",
+        "d": "Array de valores correspondientes a las columnas solicitadas"
+      }
+    ]
+  },
+  "EJEMPLO_AAPL": {
+    "name": "AAPL",
+    "close": 268.47,
+    "change": -0.481891982058774,
+    "change_abs": -1.2999999999999545,
+    "Recommend.All": 0.28787878787878785,
+    "volume": 48227361,
+    "Value.Traded": 12947599607.670002,
+    "market_cap_basic": 3967007384200,
+    "price_earnings_ttm": 35.991312857774865,
+    "earnings_per_share_basic_ttm": 7.4879,
+    "number_of_employees": 166000,
+    "sector": "Electronic Technology",
+    "description": "Apple Inc.",
+    "Perf.W": -3.0759233185313484,
+    "Perf.1M": 4.65850615936381,
+    "Perf.3M": 21.57315582121995,
+    "Perf.6M": 34.90954773869348,
+    "Perf.Y": 19.519198664440747,
+    "Perf.YTD": 7.849596272044358,
+    "RSI": 63.66216416401971,
+    "RSI[1]": 66.69976065812979,
+    "Stoch.K": 67.06214478837997,
+    "Stoch.D": 71.99845899518456,
+    "MACD.macd": 5.558625809760031,
+    "MACD.signal": 5.703222751381642,
+    "ADX": 30.18442958091797,
+    "AO": 10.221008823529644,
+    "Mom": 5.650000000000034,
+    "CCI20": 61.024543534757086,
+    "SMA5": 269.494,
+    "SMA10": 269.67500000000007,
+    "SMA20": 262.35599999999937,
+    "SMA50": 252.25220000000002,
+    "SMA100": 233.5443000000002,
+    "SMA200": 224.39749999999995,
+    "EMA5": 269.2509107222616,
+    "EMA10": 267.941712998385,
+    "EMA20": 263.9739173621721,
+    "EMA50": 252.8715904947414,
+    "EMA100": 240.69038820097666,
+    "EMA200": 230.58066019072496,
+    "open": 269.795,
+    "high": 272.29,
+    "low": 266.77,
+    "VWAP": 269.1766666666667,
+    "Recommend.Other": -0.09090909090909091,
+    "Recommend.MA": 0.6666666666666666
+  },
+  "CAMPOS_DISPONIBLES": {
+    "BASICOS": [
+      "name - Nombre completo",
+      "close - Precio de cierre/actual",
+      "change - Cambio porcentual",
+      "change_abs - Cambio absoluto en $",
+      "open - Precio de apertura",
+      "high - Máximo del día",
+      "low - Mínimo del día",
+      "volume - Volumen",
+      "Value.Traded - Valor negociado",
+      "VWAP - Volume Weighted Average Price"
+    ],
+    "FUNDAMENTALES": [
+      "market_cap_basic - Capitalización de mercado",
+      "price_earnings_ttm - P/E Ratio (TTM)",
+      "earnings_per_share_basic_ttm - EPS (TTM)",
+      "number_of_employees - Número de empleados",
+      "sector - Sector",
+      "description - Descripción de la empresa"
+    ],
+    "PERFORMANCE": [
+      "Perf.W - Performance semanal (%)",
+      "Perf.1M - Performance 1 mes (%)",
+      "Perf.3M - Performance 3 meses (%)",
+      "Perf.6M - Performance 6 meses (%)",
+      "Perf.Y - Performance anual (%)",
+      "Perf.YTD - Performance año a la fecha (%)"
+    ],
+    "INDICADORES_TECNICOS": [
+      "RSI - Relative Strength Index (14)",
+      "RSI14 - RSI de 14 períodos",
+      "RSI[1] - RSI del período anterior",
+      "Stoch.K - Estocástico K",
+      "Stoch.D - Estocástico D",
+      "MACD.macd - MACD línea",
+      "MACD.signal - MACD señal",
+      "ADX - Average Directional Index",
+      "AO - Awesome Oscillator",
+      "Mom - Momentum",
+      "CCI20 - Commodity Channel Index (20)"
+    ],
+    "MEDIAS_MOVILES_SIMPLES": [
+      "SMA5 - Media móvil simple 5 períodos",
+      "SMA10 - Media móvil simple 10 períodos",
+      "SMA20 - Media móvil simple 20 períodos",
+      "SMA50 - Media móvil simple 50 períodos",
+      "SMA100 - Media móvil simple 100 períodos",
+      "SMA200 - Media móvil simple 200 períodos"
+    ],
+    "MEDIAS_MOVILES_EXPONENCIALES": [
+      "EMA5 - Media móvil exponencial 5 períodos",
+      "EMA10 - Media móvil exponencial 10 períodos",
+      "EMA20 - Media móvil exponencial 20 períodos",
+      "EMA50 - Media móvil exponencial 50 períodos",
+      "EMA100 - Media móvil exponencial 100 períodos",
+      "EMA200 - Media móvil exponencial 200 períodos"
+    ],
+    "RECOMENDACIONES": [
+      "Recommend.All - Recomendación general (-1 a 1)",
+      "Recommend.MA - Recomendación basada en medias móviles",
+      "Recommend.Other - Otras recomendaciones"
+    ]
+  },
+  "VENTAJAS": [
+    "✅ Totalmente GRATIS, sin API key",
+    "✅ Datos en tiempo real",
+    "✅ TODOS los indicadores técnicos calculados",
+    "✅ Medias móviles (SMA y EMA) ya calculadas",
+    "✅ Datos fundamentales (P/E, EPS, market cap)",
+    "✅ Performance histórica (1W, 1M, 3M, 6M, 1Y)",
+    "✅ Sin rate limiting aparente (al menos 5000 stocks por request)",
+    "✅ Muy confiable y rápido"
+  ],
+  "LIMITACIONES": [
+    "⚠️ No incluye ADRs (BABA, JOYY, BBVA no aparecen con búsqueda general)",
+    "⚠️ Requiere especificar exchange (NASDAQ:, NYSE:, etc)",
+    "⚠️ Máximo ~5000 stocks por request",
+    "⚠️ Algunos ADRs necesitan búsqueda específica por símbolo"
+  ]
+}

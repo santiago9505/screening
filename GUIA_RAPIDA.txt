@@ -1,0 +1,134 @@
+┌────────────────────────────────────────────────────────────┐
+│                                                            │
+│         🚀 STOCK SCREENER PRO - GUÍA RÁPIDA 🚀           │
+│                                                            │
+└────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════
+  PASO 1: CREAR EL INSTALADOR
+═══════════════════════════════════════════════════════════════
+
+📂 En esta carpeta (C:\Users\santi\Documents\Screener):
+
+   👉 Doble clic en: INSTALAR.bat
+
+   O desde PowerShell:
+   
+   npm run build
+   npm run dist
+
+⏱️  Tiempo: 3-5 minutos
+
+✅ Resultado: release\Stock Screener Pro Setup 1.0.0.exe
+
+
+═══════════════════════════════════════════════════════════════
+  PASO 2: INSTALAR EN TU PC
+═══════════════════════════════════════════════════════════════
+
+1. Ve a la carpeta: release\
+2. Doble clic en: Stock Screener Pro Setup 1.0.0.exe
+3. Sigue el instalador:
+   - Acepta términos
+   - Elige ubicación (o deja por defecto)
+   - Marca "Crear acceso directo"
+   - Click "Instalar"
+
+⏱️  Tiempo: 30 segundos
+
+✅ Resultado: App instalada y lista para usar
+
+
+═══════════════════════════════════════════════════════════════
+  PASO 3: ABRIR Y USAR
+═══════════════════════════════════════════════════════════════
+
+🖥️  OPCIÓN A: Doble clic en ícono del escritorio
+
+🔍 OPCIÓN B: Menú Inicio → "Stock Screener Pro"
+
+✅ La app abre automáticamente:
+   - Servidor backend ✓
+   - Frontend completo ✓
+   - Sin terminal ✓
+   - Sin VS Code ✓
+
+
+═══════════════════════════════════════════════════════════════
+  ICONOS INCLUIDOS
+═══════════════════════════════════════════════════════════════
+
+✅ icon.png - Imagen PNG de alta calidad
+✅ icon.ico - Ícono multi-resolución para Windows
+
+Diseño: Gráfico de barras azul con línea de tendencia dorada
+
+
+═══════════════════════════════════════════════════════════════
+  ARCHIVOS IMPORTANTES
+═══════════════════════════════════════════════════════════════
+
+📄 INSTALAR.bat              ← Click aquí para crear instalador
+📄 LEEME_INSTALACION.md      ← Guía completa y simple
+📄 INSTALACION.md            ← Guía técnica detallada
+📄 icon.ico                  ← Ícono de la aplicación
+📂 release/                  ← Aquí se crea el instalador
+
+
+═══════════════════════════════════════════════════════════════
+  USO DIARIO
+═══════════════════════════════════════════════════════════════
+
+1. Doble clic en "Stock Screener Pro"
+2. ¡Listo! Empieza a analizar acciones
+3. Al cerrar, todo se apaga automáticamente
+
+
+═══════════════════════════════════════════════════════════════
+  PARA OTRAS COMPUTADORAS
+═══════════════════════════════════════════════════════════════
+
+Solo comparte el archivo:
+📦 release\Stock Screener Pro Setup 1.0.0.exe
+
+El usuario lo ejecuta y listo. No necesita Node.js ni nada más.
+
+
+═══════════════════════════════════════════════════════════════
+  COMANDOS ÚTILES
+═══════════════════════════════════════════════════════════════
+
+Desarrollo:
+  npm run electron:dev        # App con recarga automática
+
+Recrear instalador:
+  npm run build && npm run dist
+
+Navegador (método anterior):
+  npm start
+
+
+═══════════════════════════════════════════════════════════════
+  ¿PROBLEMAS?
+═══════════════════════════════════════════════════════════════
+
+❌ "npm run dist falla"
+   → Ejecuta: npm run build
+
+❌ "App no abre"
+   → Cierra procesos de Node.js manualmente
+
+❌ "Puerto en uso"
+   → Reinicia la PC
+
+
+═══════════════════════════════════════════════════════════════
+  ✨ ¡TODO LISTO! ✨
+═══════════════════════════════════════════════════════════════
+
+Tu Stock Screener ahora es una aplicación profesional de Windows.
+
+Siguiente paso: Doble clic en INSTALAR.bat
+
+═══════════════════════════════════════════════════════════════

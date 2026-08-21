@@ -1,0 +1,229 @@
+{
+  "FUENTE_DE_DATOS": "Yahoo Finance API",
+  "ENDPOINT": "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?interval=1d&range=1y",
+  "METODO": "GET",
+  "EJEMPLO_ACCION_APPLE": {
+    "symbol": "AAPL",
+    "name": "Apple Inc.",
+    "price": 268.47,
+    "prevClose": 269.77,
+    "changePercent": -0.48,
+    "high": 272.29,
+    "low": 266.78,
+    "open": 267.50,
+    "volume": 45140079,
+    "marketCap": 4067000000000,
+    "sma20": 0,
+    "sma50": 251.34,
+    "sma150": 245.67,
+    "sma200": 232.89,
+    "ema20": 0,
+    "ema50": 0,
+    "relativeStrength": 48,
+    "lastUpdate": "2025-11-08T00:00:00.000Z"
+  },
+  "DATOS_RAW_YAHOO_FINANCE": {
+    "descripcion": "Respuesta directa de Yahoo Finance API",
+    "meta": {
+      "regularMarketPrice": 268.47,
+      "chartPreviousClose": 269.77,
+      "regularMarketDayHigh": 272.29,
+      "regularMarketDayLow": 266.78,
+      "regularMarketOpen": 267.50,
+      "regularMarketVolume": 45140079,
+      "marketCap": 4067000000000,
+      "currency": "USD",
+      "symbol": "AAPL",
+      "exchangeName": "NMS",
+      "instrumentType": "EQUITY",
+      "firstTradeDate": 345479400,
+      "regularMarketTime": 1731024000,
+      "gmtoffset": -18000,
+      "timezone": "EST",
+      "exchangeTimezoneName": "America/New_York"
+    },
+    "indicators": {
+      "quote": [
+        {
+          "descripcion": "Cada array contiene ~250 valores (1 año de datos diarios)",
+          "close": "Array de precios de cierre: [223.45, 224.12, 225.89, ..., 268.47]",
+          "high": "Array de máximos diarios: [224.50, 225.30, 227.00, ..., 272.29]",
+          "low": "Array de mínimos diarios: [222.10, 223.50, 225.00, ..., 266.78]",
+          "open": "Array de aperturas: [223.50, 224.00, 226.00, ..., 267.50]",
+          "volume": "Array de volúmenes: [52000000, 48000000, ..., 45140079]",
+          "ejemplo_ultimos_5_cierres": [269.05, 270.04, 270.14, 269.77, 268.47]
+        }
+      ]
+    }
+  },
+  "TRANSFORMACION_SERVIDOR": {
+    "descripcion": "Cómo el servidor transforma los datos de Yahoo Finance",
+    "pasos": [
+      "1. Obtiene meta.regularMarketPrice como 'price'",
+      "2. Obtiene meta.chartPreviousClose como 'prevClose'",
+      "3. Calcula changePercent: ((price - prevClose) / prevClose) * 100",
+      "4. Extrae indicators.quote[0].close (array de ~250 precios)",
+      "5. Calcula SMA50: promedio de últimos 50 valores del array",
+      "6. Calcula SMA200: promedio de últimos 200 valores del array",
+      "7. Calcula SMA150: promedio de últimos 150 o (SMA50 + SMA200) / 2",
+      "8. Busca nombre en all-us-stocks.json usando getStockName(symbol)",
+      "9. Calcula relativeStrength: normalización de changePercent entre 0-100",
+      "10. Retorna objeto completo con todos los campos"
+    ]
+  },
+  "CAMPOS_RETORNADOS": {
+    "symbol": {
+      "tipo": "string",
+      "descripcion": "Ticker de la acción",
+      "ejemplo": "AAPL"
+    },
+    "name": {
+      "tipo": "string",
+      "descripcion": "Nombre completo de la empresa (desde all-us-stocks.json)",
+      "ejemplo": "Apple Inc."
+    },
+    "price": {
+      "tipo": "number",
+      "descripcion": "Precio actual del mercado en USD",
+      "fuente": "meta.regularMarketPrice",
+      "ejemplo": 268.47
+    },
+    "prevClose": {
+      "tipo": "number",
+      "descripcion": "Precio de cierre del día anterior",
+      "fuente": "meta.chartPreviousClose",
+      "ejemplo": 269.77
+    },
+    "changePercent": {
+      "tipo": "number",
+      "descripcion": "Cambio porcentual vs cierre anterior",
+      "calculo": "((price - prevClose) / prevClose) * 100",
+      "ejemplo": -0.48
+    },
+    "high": {
+      "tipo": "number",
+      "descripcion": "Precio máximo del día",
+      "fuente": "meta.regularMarketDayHigh",
+      "ejemplo": 272.29
+    },
+    "low": {
+      "tipo": "number",
+      "descripcion": "Precio mínimo del día",
+      "fuente": "meta.regularMarketDayLow",
+      "ejemplo": 266.78
+    },
+    "open": {
+      "tipo": "number",
+      "descripcion": "Precio de apertura del día",
+      "fuente": "meta.regularMarketOpen",
+      "ejemplo": 267.50
+    },
+    "volume": {
+      "tipo": "number",
+      "descripcion": "Volumen de acciones negociadas",
+      "fuente": "meta.regularMarketVolume",
+      "ejemplo": 45140079
+    },
+    "marketCap": {
+      "tipo": "number",
+      "descripcion": "Capitalización de mercado en USD",
+      "fuente": "meta.marketCap (si disponible, sino estimado)",
+      "ejemplo": 4067000000000
+    },
+    "sma20": {
+      "tipo": "number",
+      "descripcion": "Media móvil simple de 20 días",
+      "estado": "NO CALCULADA (siempre retorna 0)",
+      "ejemplo": 0
+    },
+    "sma50": {
+      "tipo": "number",
+      "descripcion": "Media móvil simple de 50 días",
+      "calculo": "Promedio de últimos 50 precios de cierre",
+      "ejemplo": 251.34
+    },
+    "sma150": {
+      "tipo": "number",
+      "descripcion": "Media móvil simple de 150 días",
+      "calculo": "Promedio de últimos 150 precios o (SMA50 + SMA200) / 2",
+      "ejemplo": 245.67
+    },
+    "sma200": {
+      "tipo": "number",
+      "descripcion": "Media móvil simple de 200 días",
+      "calculo": "Promedio de últimos 200 precios de cierre",
+      "ejemplo": 232.89
+    },
+    "ema20": {
+      "tipo": "number",
+      "descripcion": "Media móvil exponencial de 20 días",
+      "estado": "NO CALCULADA (siempre retorna 0)",
+      "ejemplo": 0
+    },
+    "ema50": {
+      "tipo": "number",
+      "descripcion": "Media móvil exponencial de 50 días",
+      "estado": "NO CALCULADA (siempre retorna 0)",
+      "ejemplo": 0
+    },
+    "relativeStrength": {
+      "tipo": "number",
+      "descripcion": "Fuerza relativa normalizada 0-100",
+      "calculo": "Basado en changePercent, normalizado entre 0-100",
+      "ejemplo": 48
+    },
+    "lastUpdate": {
+      "tipo": "string (ISO 8601)",
+      "descripcion": "Timestamp de última actualización",
+      "ejemplo": "2025-11-08T00:00:00.000Z"
+    }
+  },
+  "CACHE": {
+    "duracion": "5 minutos (300 segundos)",
+    "proposito": "Evitar llamadas repetidas a Yahoo Finance",
+    "almacenamiento": "En memoria (se pierde al reiniciar servidor)"
+  },
+  "LIMITACIONES_YAHOO_FINANCE": [
+    "Servicio gratuito sin SLA garantizado",
+    "Rate limiting: ~2000 requests/hora (aprox)",
+    "Error 429 Too Many Requests cuando se excede límite",
+    "Puede fallar con error 401 Unauthorized intermitentemente",
+    "Algunos símbolos pueden retornar datos incompletos",
+    "No incluye todos los indicadores técnicos (RSI, MACD, etc)",
+    "Histórico limitado a lo que retorna Yahoo (generalmente 1 año con range=1y)"
+  ],
+  "ALTERNATIVAS_CONSIDERADAS": {
+    "TradingView_Scanner": {
+      "endpoint": "https://scanner.tradingview.com/america/scan",
+      "ventajas": ["Datos confiables", "Muchos indicadores técnicos"],
+      "desventajas": ["No incluye ADRs", "Solo 5000 stocks por request"],
+      "estado": "Usada previamente, problemas con ADRs faltantes"
+    },
+    "Finnhub": {
+      "endpoint": "https://finnhub.io/api/v1/quote",
+      "ventajas": ["60 calls/minuto gratis", "Datos en tiempo real"],
+      "desventajas": ["Límite muy bajo para 6000+ stocks", "Tomaría >1 hora cargar todo"],
+      "estado": "Implementada pero muy lenta para screening completo"
+    },
+    "Alpha_Vantage": {
+      "endpoint": "https://www.alphavantage.co/query",
+      "ventajas": ["25 calls/minuto gratis", "Datos fundamentales"],
+      "desventajas": ["Límite muy bajo", "Más lento que Finnhub"],
+      "estado": "Considerada como fallback"
+    }
+  },
+  "RECOMENDACION_MEJORAS": {
+    "corto_plazo": [
+      "Calcular SMA20 (requiere últimos 20 precios del histórico)",
+      "Calcular EMA20 y EMA50 (requiere algoritmo de media exponencial)",
+      "Mejorar manejo de errores 429 con retry automático",
+      "Implementar cache persistente (Redis o archivo JSON)"
+    ],
+    "largo_plazo": [
+      "Migrar a Finnhub + cache agresivo (pre-cargar datos cada hora)",
+      "Implementar WebSocket para datos en tiempo real",
+      "Agregar más indicadores técnicos (RSI, MACD, Bollinger Bands)",
+      "Considerar API de pago para mayor confiabilidad"
+    ]
+  }
+}

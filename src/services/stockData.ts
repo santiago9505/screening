@@ -3,7 +3,7 @@ import { Stock, QuarterlyData, StockFundamentals } from '../types';
 
 // Finnhub API - Gratuita con 60 llamadas/minuto
 // Regístrate en: https://finnhub.io/
-const FINNHUB_API_KEY = 'd46cpjpr01qgc9es7ac0d46cpjpr01qgc9es7acg'; // API key configurada
+const FINNHUB_API_KEY = import.meta.env.VITE_FINNHUB_API_KEY || '';
 const FINNHUB_BASE_URL = 'https://finnhub.io/api/v1';
 
 // Alpha Vantage API - Alternativa gratuita
@@ -152,12 +152,16 @@ class StockDataService {
         symbol,
         name: profile.name || symbol,
         price: quote.c,
-        change: quote.d || 0,
+        prevClose: quote.pc || quote.c,
         changePercent: quote.dp || 0,
+        high: quote.h || quote.c,
+        low: quote.l || quote.c,
+        open: quote.o || quote.c,
         volume: profile.shareOutstanding || 0,
         marketCap: profile.marketCapitalization || 0,
         sma20,
         sma50,
+        sma150: sma50,
         sma200,
         ema20,
         ema50,
@@ -186,10 +190,23 @@ class StockDataService {
       const quarterlyData: QuarterlyData[] = quarterlyEarnings.slice(0, 8).map((q: any, index: number) => {
         const prevEPS = quarterlyEarnings[index + 1]?.reportedEPS || q.reportedEPS;
         const epsGrowth = prevEPS ? ((q.reportedEPS - prevEPS) / prevEPS) * 100 : 0;
+        const periodEnd = String(q.fiscalDateEnding || '');
+        const parsedDate = new Date(periodEnd);
+        const year = Number.isNaN(parsedDate.getTime())
+          ? parseInt(periodEnd.substring(0, 4), 10)
+          : parsedDate.getUTCFullYear();
+        const month = Number.isNaN(parsedDate.getTime())
+          ? parseInt(periodEnd.substring(5, 7), 10)
+          : parsedDate.getUTCMonth() + 1;
+        const fiscalQuarter = Math.min(4, Math.max(1, Math.floor((month - 1) / 3) + 1));
 
         return {
-          quarter: q.fiscalDateEnding.substring(5, 7),
-          year: parseInt(q.fiscalDateEnding.substring(0, 4)),
+          quarter: `Q${fiscalQuarter}`,
+          year,
+          periodEnd,
+          reportedDate: null,
+          fiscalYear: year,
+          fiscalQuarter,
           eps: parseFloat(q.reportedEPS) || 0,
           epsGrowth,
           revenue: parseFloat(q.estimatedEPS) * 1000000 || 0, // Estimado
@@ -202,10 +219,7 @@ class StockDataService {
 
       return {
         symbol,
-        quarterlyData,
-        peRatio: 0, // Placeholder
-        forwardPE: 0, // Placeholder
-        pegRatio: 0 // Placeholder
+        quarterlyData
       };
     } catch (error) {
       console.error(`Error fetching fundamentals for ${symbol}:`, error);

@@ -1,0 +1,25 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <rect width="256" height="256" rx="32" fill="url(#grad1)"/>
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Chart bars -->
+  <rect x="40" y="140" width="24" height="60" rx="4" fill="#ef5350" opacity="0.9"/>
+  <rect x="72" y="120" width="24" height="80" rx="4" fill="#26a69a" opacity="0.9"/>
+  <rect x="104" y="100" width="24" height="100" rx="4" fill="#26a69a" opacity="0.9"/>
+  <rect x="136" y="80" width="24" height="120" rx="4" fill="#26a69a" opacity="0.9"/>
+  <rect x="168" y="60" width="24" height="140" rx="4" fill="#26a69a" opacity="0.9"/>
+  <rect x="200" y="90" width="24" height="110" rx="4" fill="#ef5350" opacity="0.9"/>
+  
+  <!-- Trend line -->
+  <path d="M 40 160 Q 80 140, 120 120 T 200 80" stroke="#fbbf24" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Title -->
+  <text x="128" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">STOCK</text>
+  <text x="128" y="235" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">SCREENER</text>
+</svg>

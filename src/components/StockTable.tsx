@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Stock, Watchlist, ScreenerFilters } from '../types';
-import { Search, Filter, TrendingUp, ListPlus, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, Filter, ListPlus, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface StockTableProps {
   stocks: Stock[];
@@ -72,7 +72,8 @@ export const StockTable: React.FC<StockTableProps> = ({
     return sortDirection === 'asc' ? <ChevronUp size={14} /> : <ChevronDown size={14} />;
   };
 
-  const formatNumber = (num: number, decimals: number = 2): string => {
+  const formatNumber = (num: number | undefined, decimals: number = 2): string => {
+    if (!num || isNaN(num)) return '$0.00';
     if (num >= 1e12) return `$${(num / 1e12).toFixed(decimals)}T`;
     if (num >= 1e9) return `$${(num / 1e9).toFixed(decimals)}B`;
     if (num >= 1e6) return `$${(num / 1e6).toFixed(decimals)}M`;
@@ -233,34 +234,34 @@ export const StockTable: React.FC<StockTableProps> = ({
                 </td>
                 <td className="px-4 py-3 text-gray-300 text-sm">{stock.name}</td>
                 <td className="px-4 py-3 text-right font-semibold text-white">
-                  ${stock.price.toFixed(2)}
+                  ${(stock.price || 0).toFixed(2)}
                 </td>
                 <td className={`px-4 py-3 text-right font-semibold ${
-                  stock.changePercent >= 0 ? 'text-accent-green' : 'text-accent-red'
+                  (stock.changePercent || 0) >= 0 ? 'text-accent-green' : 'text-accent-red'
                 }`}>
-                  {stock.changePercent >= 0 ? '+' : ''}{stock.changePercent.toFixed(2)}%
+                  {(stock.changePercent || 0) >= 0 ? '+' : ''}{(stock.changePercent || 0).toFixed(2)}%
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex justify-end">
-                    <span className={`px-2 py-1 rounded text-sm font-bold ${getRSColor(stock.relativeStrength)}`}>
-                      {stock.relativeStrength.toFixed(0)}
+                    <span className={`px-2 py-1 rounded text-sm font-bold ${getRSColor(stock.relativeStrength || 0)}`}>
+                      {(stock.relativeStrength || 0).toFixed(0)}
                     </span>
                   </div>
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex justify-center gap-2">
                     <span className={`px-2 py-1 rounded text-xs ${
-                      stock.price > stock.sma20 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                      (stock.price || 0) > (stock.sma20 || 0) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                     }`}>
                       20
                     </span>
                     <span className={`px-2 py-1 rounded text-xs ${
-                      stock.price > stock.sma50 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                      (stock.price || 0) > (stock.sma50 || 0) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                     }`}>
                       50
                     </span>
                     <span className={`px-2 py-1 rounded text-xs ${
-                      stock.price > stock.sma200 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                      (stock.price || 0) > (stock.sma200 || 0) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                     }`}>
                       200
                     </span>

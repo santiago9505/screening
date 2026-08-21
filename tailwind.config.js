@@ -8,16 +8,20 @@ export default {
     extend: {
       colors: {
         dark: {
-          100: '#1e222d',
-          200: '#2a2e39',
-          300: '#131722',
+          100: '#161d26',
+          200: '#0f151d',
+          300: '#080c12',
         },
         accent: {
-          blue: '#2962ff',
-          green: '#26a69a',
-          red: '#ef5350',
+          blue: '#6f95ff',
+          green: '#4de3b5',
+          red: '#fb7185',
         }
-      }
+      },
+      fontFamily: {
+        sans: ['DM Sans', 'Segoe UI', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'monospace'],
+      },
     },
   },
   plugins: [],

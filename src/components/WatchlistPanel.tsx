@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Watchlist } from '../types';
-import { Plus, Trash2, Edit2, Check, X } from 'lucide-react';
+import { Plus, Trash2, Edit2, Check, X, RefreshCw } from 'lucide-react';
 
 interface WatchlistPanelProps {
   watchlists: Watchlist[];
@@ -9,7 +9,8 @@ interface WatchlistPanelProps {
   onCreateWatchlist: (name: string) => void;
   onDeleteWatchlist: (id: string) => void;
   onRenameWatchlist: (id: string, newName: string) => void;
-  onCreateWithFilters: () => void; // Nueva función para crear con filtros
+  onCreateWithFilters: () => void; // Nueva funcion para crear con filtros
+  onRefreshPresets?: () => void;
 }
 
 export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
@@ -20,6 +21,7 @@ export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
   onDeleteWatchlist,
   onRenameWatchlist,
   onCreateWithFilters,
+  onRefreshPresets,
 }) => {
   const [isCreating, setIsCreating] = useState(false);
   const [newListName, setNewListName] = useState('');
@@ -49,32 +51,20 @@ export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
   };
 
   return (
-    <div className="flex items-center gap-2 overflow-x-auto pb-2">
-      {/* Botón Nueva Lista */}
+    <div className="flex items-center gap-1.5 overflow-x-auto pb-2">
+      {/* Boton Nueva Lista */}
       <button
         onClick={() => setShowCreateOptions(true)}
-        className="whitespace-nowrap bg-accent-blue hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg flex items-center gap-2 transition-colors text-sm"
+        className="whitespace-nowrap border border-emerald-400/20 bg-emerald-400/[0.07] text-emerald-200 px-2.5 h-[27px] rounded-md flex items-center gap-1.5 transition-colors text-[10px] font-semibold hover:bg-emerald-400/[0.12]"
       >
         <Plus size={16} />
         Nueva Lista
       </button>
 
-      {/* Todas las Acciones */}
-      <button
-        onClick={() => onSelectWatchlist(null)}
-        className={`whitespace-nowrap px-4 py-1.5 rounded-lg transition-colors text-sm font-medium ${
-          activeWatchlist === null
-            ? 'bg-accent-blue text-white'
-            : 'bg-dark-100 text-gray-300 hover:bg-dark-300'
-        }`}
-      >
-        Todas las Acciones
-      </button>
-
       {/* Watchlists */}
       {watchlists.map((watchlist) => (
         <div key={watchlist.id} className="relative group">
-          {editingId === watchlist.id ? (
+          {editingId === watchlist.id && !watchlist.isBuiltIn ? (
             <div className="flex items-center gap-2 bg-dark-100 px-3 py-1.5 rounded-lg">
               <input
                 type="text"
@@ -103,17 +93,46 @@ export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
           ) : (
             <button
               onClick={() => onSelectWatchlist(watchlist.id)}
-              className={`whitespace-nowrap px-4 py-1.5 rounded-lg transition-colors text-sm font-medium flex items-center gap-2 ${
+              title={watchlist.presetDescription || watchlist.name}
+              className={`whitespace-nowrap h-[27px] px-2.5 rounded-md border transition-colors text-[10px] font-semibold flex items-center gap-1.5 ${
                 activeWatchlist === watchlist.id
-                  ? 'bg-accent-blue text-white'
-                  : 'bg-dark-100 text-gray-300 hover:bg-dark-300'
+                  ? 'border-emerald-400/20 bg-emerald-400/[0.09] text-emerald-200'
+                  : 'border-transparent text-slate-400 hover:bg-white/[0.035] hover:text-slate-200'
               }`}
             >
               {watchlist.name}
               <span className="text-xs opacity-75">({watchlist.symbols.length})</span>
               
-              {/* Botones de edición (aparecen en hover) */}
-              <div className="hidden group-hover:flex items-center gap-1 ml-2">
+              {/* Indicador de lista dinamica */}
+              {watchlist.isDynamic && (
+                <span className="ml-1.5 text-xs bg-green-500/20 text-green-400 px-1.5 py-0.5 rounded" title="Esta lista se actualiza automaticamente">
+                  LIVE
+                </span>
+              )}
+
+              {watchlist.isBuiltIn && (
+                <span className="ml-1 text-xs bg-accent-blue/20 text-accent-blue px-1.5 py-0.5 rounded" title="Lista Minervini integrada">
+                  MM
+                </span>
+              )}
+
+              {/* Boton de refresh para listas Minervini */}
+              {watchlist.isBuiltIn && onRefreshPresets && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRefreshPresets();
+                  }}
+                  className="hidden group-hover:flex p-1 hover:bg-dark-200 rounded transition-colors ml-1"
+                  title="Forzar actualizacion de listas Minervini"
+                >
+                  <RefreshCw size={12} />
+                </button>
+              )}
+              
+              {/* Botones de edicion (aparecen en hover) */}
+              {!watchlist.isBuiltIn && (
+                <div className="hidden group-hover:flex items-center gap-1 ml-2">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -127,7 +146,7 @@ export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (confirm(`¿Eliminar la lista "${watchlist.name}"?`)) {
+                    if (confirm(`Eliminar la lista "${watchlist.name}"?`)) {
                       onDeleteWatchlist(watchlist.id);
                     }
                   }}
@@ -136,7 +155,8 @@ export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
                 >
                   <Trash2 size={12} />
                 </button>
-              </div>
+                </div>
+              )}
             </button>
           )}
         </div>
@@ -147,7 +167,7 @@ export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
           <div className="bg-dark-200 rounded-lg shadow-2xl p-6 w-96 border border-gray-700">
             <h3 className="text-lg font-semibold text-white mb-4">Crear Nueva Watchlist</h3>
-            <p className="text-sm text-gray-400 mb-6">¿Cómo deseas crear tu lista?</p>
+            <p className="text-sm text-gray-400 mb-6">Como deseas crear tu lista?</p>
             
             <div className="space-y-3">
               <button
@@ -158,11 +178,11 @@ export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
                 className="w-full p-4 bg-dark-100 hover:bg-dark-300 rounded-lg text-left transition-colors border border-gray-700"
               >
                 <div className="flex items-start gap-3">
-                  <div className="text-2xl">📝</div>
+                  <div className="text-2xl">+</div>
                   <div>
-                    <div className="font-semibold text-white mb-1">Lista Vacía</div>
+                    <div className="font-semibold text-white mb-1">Lista Vacia</div>
                     <div className="text-xs text-gray-400">
-                      Crear una lista vacía y agregar acciones manualmente
+                      Crear una lista vacia y agregar acciones manualmente
                     </div>
                   </div>
                 </div>
@@ -176,7 +196,7 @@ export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
                 className="w-full p-4 bg-accent-blue/20 hover:bg-accent-blue/30 rounded-lg text-left transition-colors border border-accent-blue"
               >
                 <div className="flex items-start gap-3">
-                  <div className="text-2xl">🔍</div>
+                  <div className="text-2xl">FX</div>
                   <div>
                     <div className="font-semibold text-white mb-1">Con Filtros Personalizados</div>
                     <div className="text-xs text-gray-400">
@@ -197,7 +217,7 @@ export const WatchlistPanel: React.FC<WatchlistPanelProps> = ({
         </div>
       )}
 
-      {/* Modal crear nueva lista vacía */}
+      {/* Modal crear nueva lista vacia */}
       {isCreating && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
           <div className="bg-dark-200 rounded-lg shadow-2xl p-6 w-96 border border-gray-700">

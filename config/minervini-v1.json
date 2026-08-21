@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "scope": {
+    "market": "USA",
+    "frequency": "EOD",
+    "runAfterClose": true
+  },
+  "universe": {
+    "minPrice": 10,
+    "requireQuote": true
+  },
+  "fundamentals": {
+    "requireCoverage": true,
+    "minEPSGrowth": 20,
+    "minRevenueGrowth": 20,
+    "minNetMargin": 0,
+    "minOperatingMargin": 0,
+    "requireEPSAcceleration": false,
+    "requireRevenueAcceleration": false
+  },
+  "trendTemplate": {
+    "requirePriceAboveSMA50": true,
+    "requirePriceAboveSMA150": true,
+    "requirePriceAboveSMA200": true,
+    "requireSMA150AboveSMA200": true,
+    "requireSMA50AboveSMA150AndSMA200": true,
+    "minPctAbove52WeekLow": 25,
+    "maxPctBelow52WeekHigh": 25
+  },
+  "leadership": {
+    "minRS": 70,
+    "preferredRS": 85,
+    "eliteRS": 90,
+    "requirePositivePerf3M": true,
+    "requirePositivePerf6M": false
+  },
+  "actionability": {
+    "actionableScoreMin": 85,
+    "closeScoreMin": 75,
+    "watchScoreMin": 65,
+    "actionableMaxPctBelow52WeekHigh": 10,
+    "closeMaxPctBelow52WeekHigh": 15,
+    "maxPctAboveSMA20": 12
+  },
+  "weights": {
+    "universe": 10,
+    "fundamentals": 25,
+    "trendTemplate": 20,
+    "leadership": 15,
+    "setup": 15,
+    "actionability": 15
+  },
+  "output": {
+    "actionableLimit": 15,
+    "includeUncovered": true
+  }
+}

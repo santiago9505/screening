@@ -44,7 +44,7 @@ Verás una sección llamada "Your API Key" o similar
 ### 3.2 Copia tu API Key
 La key se ve algo así:
 ```
-c8dh2p9r01qk3jab6c7g
+TU_FINNHUB_API_KEY
 ```
 
 **IMPORTANTE:** 
@@ -91,7 +91,7 @@ const FINNHUB_API_KEY = 'YOUR_FINNHUB_API_KEY';
 
 **DESPUÉS:** (con TU key)
 ```typescript
-const FINNHUB_API_KEY = 'c8dh2p9r01qk3jab6c7g';
+const FINNHUB_API_KEY = 'TU_FINNHUB_API_KEY';
 ```
 
 **⚠️ IMPORTANTE:**
@@ -140,7 +140,7 @@ const FINNHUB_BASE_URL = 'https://finnhub.io/api/v1';
 ```typescript
 // Finnhub API - Gratuita con 60 llamadas/minuto
 // Regístrate en: https://finnhub.io/
-const FINNHUB_API_KEY = 'c8dh2p9r01qk3jab6c7g'; // ✅ TU KEY AQUÍ
+const FINNHUB_API_KEY = 'TU_FINNHUB_API_KEY'; // ✅ TU KEY AQUÍ
 const FINNHUB_BASE_URL = 'https://finnhub.io/api/v1';
 ```
 
@@ -250,7 +250,7 @@ Si quieres datos fundamentales más detallados:
 2. Nómbralo: `mis-api-keys.txt`
 3. Guarda:
    ```
-   Finnhub: c8dh2p9r01qk3jab6c7g
+   Finnhub: TU_FINNHUB_API_KEY
    Alpha Vantage: ABC123XYZ
    ```
 4. Guárdalo en un lugar seguro

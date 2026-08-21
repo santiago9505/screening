@@ -32,7 +32,7 @@ El screener está funcionando pero necesitas una API key para obtener datos real
    
    Por esto (con TU key):
    ```typescript
-   const FINNHUB_API_KEY = 'c8dh2p9r01qk3jab6c7g'; // ← Tu key aquí
+   const FINNHUB_API_KEY = 'TU_FINNHUB_API_KEY'; // ← Tu key aquí
    ```
 
 3. **Guarda el archivo** - El navegador se recargará automáticamente
