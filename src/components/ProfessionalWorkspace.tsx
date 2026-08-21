@@ -11,7 +11,6 @@ import {
   Mail,
   PanelRightOpen,
   RefreshCw,
-  Rows,
   ShieldCheck,
   Sparkles,
   TrendingUp,
@@ -100,7 +99,6 @@ const PulseMetric = ({ label, value, detail, tone = 'neutral' }: {
 
 export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps) {
   const [isCockpitExpanded, setIsCockpitExpanded] = useState(false);
-  const [showQuarterStrip, setShowQuarterStrip] = useState(false);
   const activeFilterCount = Object.keys(props.activeFilters).length;
   const selectedWatchlist = props.watchlists.find((watchlist) => watchlist.id === props.activeWatchlist);
   const contextLabel = props.screenedStocks.length > 0
@@ -254,21 +252,18 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
                         <span>RS <b>{Math.round(props.selectedStock.relativeStrength)}</b></span>
                         <span>Vol <b>{(props.selectedStock.volume / 1_000_000).toFixed(1)}M</b></span>
                         <span>RVol <b>{(props.selectedStock.relativeVolume10d || 0).toFixed(2)}×</b></span>
-                        {props.fundamentals?.quarterlyData?.length ? (
-                          <button
-                            className={`chart-quarter-toggle ${showQuarterStrip ? 'active' : ''}`}
-                            onClick={() => setShowQuarterStrip((current) => !current)}
-                            title={showQuarterStrip ? 'Ocultar fundamentales trimestrales' : 'Mostrar fundamentales trimestrales'}
-                          >
-                            <Rows size={12} /> {showQuarterStrip ? 'Ocultar trimestres' : 'Trimestres'}
-                          </button>
-                        ) : null}
                       </div>
                     </div>
                     <div className="chart-surface">
                       <TradingViewChart symbol={props.selectedStock.symbol} theme="dark" />
                     </div>
-                    {showQuarterStrip && props.fundamentals?.quarterlyData?.length ? <FundamentalsStrip fundamentals={props.fundamentals} /> : null}
+                    <FundamentalsStrip
+                      compact
+                      fundamentals={props.fundamentals}
+                      summary={props.selectedStock.fundamentals}
+                      loading={props.fundamentalsLoading}
+                      onOpenHistory={() => props.setShowFundamentals(true)}
+                    />
                   </div>
 
                   {props.showInfoSidebar ? (

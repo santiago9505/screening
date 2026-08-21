@@ -1,7 +1,12 @@
-import { StockFundamentals } from '../types';
+import { BarChart3, Loader } from 'lucide-react';
+import { StockFundamentalSummary, StockFundamentals } from '../types';
 
 interface FundamentalsStripProps {
-  fundamentals: StockFundamentals;
+  fundamentals?: StockFundamentals | null;
+  summary?: StockFundamentalSummary;
+  compact?: boolean;
+  loading?: boolean;
+  onOpenHistory?: () => void;
 }
 
 const isFiniteNumber = (value: number | null | undefined): value is number => Number.isFinite(value);
@@ -46,8 +51,60 @@ const formatDate = (value: string): string => {
   });
 };
 
-export default function FundamentalsStrip({ fundamentals }: FundamentalsStripProps) {
-  const periods = [...(fundamentals.quarterlyData || [])].slice(-6);
+export default function FundamentalsStrip({
+  fundamentals,
+  summary,
+  compact = false,
+  loading = false,
+  onOpenHistory,
+}: FundamentalsStripProps) {
+  const periods = [...(fundamentals?.quarterlyData || [])].slice(-6);
+
+  if (compact) {
+    const compactPeriods = periods.slice(-5);
+    const sourceLabel = fundamentals?.source || (summary?.hasFundamentals ? 'TradingView · TTM' : 'Cobertura pendiente');
+
+    return (
+      <section className="fundamentals-dock" aria-label="Fundamentales siempre visibles">
+        <div className="fundamentals-dock-header">
+          <div>
+            <span>Fundamentales</span>
+            <b>{compactPeriods.length ? `${compactPeriods.length} trimestres recientes` : 'Resumen TTM'}</b>
+          </div>
+          <span className="fundamentals-source-badge">{sourceLabel}</span>
+          {loading && <span className="fundamentals-sync"><Loader className="animate-spin" size={11} /> Sincronizando</span>}
+          {compactPeriods.length > 0 && onOpenHistory ? (
+            <button onClick={onOpenHistory}><BarChart3 size={11} /> Historial completo</button>
+          ) : null}
+        </div>
+
+        <div className="fundamentals-dock-track">
+          {compactPeriods.length > 0 ? compactPeriods.map((quarter) => (
+            <article key={`${quarter.periodEnd}-${quarter.quarter}-${quarter.year}`} className="fundamentals-quarter-card">
+              <header>
+                <strong>{quarter.quarter} {quarter.year}</strong>
+                <span>{formatDate(quarter.periodEnd)}</span>
+              </header>
+              <div className="fundamentals-quarter-metrics">
+                <div><span>EPS</span><b>{formatEps(quarter.eps)}</b><i className={growthClass(quarter.epsGrowth)}>{formatGrowth(quarter.epsGrowth)}</i></div>
+                <div><span>Ventas</span><b>{formatCurrencyCompact(quarter.revenue)}</b><i className={growthClass(quarter.revenueGrowth)}>{formatGrowth(quarter.revenueGrowth)}</i></div>
+                <div><span>Margen op.</span><b>{formatPercent(quarter.operatingMargin)}</b></div>
+                <div><span>Margen neto</span><b>{formatPercent(quarter.netMargin)}</b></div>
+              </div>
+            </article>
+          )) : (
+            <>
+              <div className="fundamentals-summary-metric"><span>EPS YoY</span><b>{formatGrowth(summary?.epsGrowth)}</b><small>{formatEps(summary?.eps)}</small></div>
+              <div className="fundamentals-summary-metric"><span>Ventas YoY</span><b>{formatGrowth(summary?.revenueGrowth)}</b><small>{formatCurrencyCompact(summary?.revenue)}</small></div>
+              <div className="fundamentals-summary-metric"><span>Margen bruto</span><b>{formatPercent(summary?.grossMargin)}</b><small>TTM</small></div>
+              <div className="fundamentals-summary-metric"><span>Margen operativo</span><b>{formatPercent(summary?.operatingMargin)}</b><small>TTM</small></div>
+              <div className="fundamentals-summary-metric"><span>Margen neto</span><b>{formatPercent(summary?.netMargin)}</b><small>TTM</small></div>
+            </>
+          )}
+        </div>
+      </section>
+    );
+  }
 
   if (periods.length === 0) {
     return null;

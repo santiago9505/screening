@@ -296,10 +296,30 @@ textarea:focus-visible {
 .chart-quick-stats { display: flex; align-items: center; gap: 5px; }
 .chart-quick-stats span { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color: #606d80; font: 500 9px/1 'IBM Plex Mono', monospace; white-space: nowrap; }
 .chart-quick-stats b { color: #aeb9c8; font-weight: 600; }
-.chart-quarter-toggle { min-height: 23px; display: flex; align-items: center; gap: 5px; padding: 0 7px; border: 1px solid var(--line); border-radius: 5px; color: #748196; font-size: 8px; font-weight: 700; white-space: nowrap; }
-.chart-quarter-toggle:hover,
-.chart-quarter-toggle.active { border-color: rgba(111,149,255,.24); background: rgba(111,149,255,.07); color: #b9c7ff; }
 .chart-surface { flex: 1; min-height: 360px; background: #0b0f15; }
+.fundamentals-dock { flex: 0 0 auto; min-height: 104px; padding: 7px 10px 8px; border-top: 1px solid var(--line); background: #0c1219; }
+.fundamentals-dock-header { min-height: 22px; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.fundamentals-dock-header > div { display: flex; align-items: baseline; gap: 7px; }
+.fundamentals-dock-header > div > span { color: #8996a9; font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; }
+.fundamentals-dock-header > div > b { color: #536176; font-size: 8px; font-weight: 600; }
+.fundamentals-source-badge { padding: 3px 6px; border: 1px solid rgba(111,149,255,.2); border-radius: 99px; background: rgba(111,149,255,.06); color: #91a9f6; font-size: 7px; font-weight: 700; }
+.fundamentals-sync { display: flex; align-items: center; gap: 4px; color: #718096; font-size: 7px; }
+.fundamentals-dock-header > button { display: flex; align-items: center; gap: 5px; margin-left: auto; padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color: #7f8ca0; font-size: 7px; font-weight: 700; }
+.fundamentals-dock-header > button:hover { border-color: rgba(111,149,255,.23); color: #bac7f8; }
+.fundamentals-dock-track { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 1px; }
+.fundamentals-quarter-card { min-width: 190px; flex: 1 0 190px; max-width: 260px; padding: 7px 8px; border: 1px solid rgba(255,255,255,.07); border-radius: 7px; background: #101720; }
+.fundamentals-quarter-card > header { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-bottom: 5px; }
+.fundamentals-quarter-card > header strong { color: #dce4ed; font: 600 9px/1 'IBM Plex Mono', monospace; }
+.fundamentals-quarter-card > header span { color: #566276; font-size: 7px; }
+.fundamentals-quarter-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 9px; }
+.fundamentals-quarter-metrics > div { min-width: 0; display: flex; align-items: center; gap: 4px; }
+.fundamentals-quarter-metrics span { color: #59677a; font-size: 7px; white-space: nowrap; }
+.fundamentals-quarter-metrics b { margin-left: auto; color: #c9d4df; font: 600 8px/1 'IBM Plex Mono', monospace; white-space: nowrap; }
+.fundamentals-quarter-metrics i { padding: 2px 3px; border-width: 1px; border-style: solid; border-radius: 3px; font: 600 6px/1 'IBM Plex Mono', monospace; white-space: nowrap; }
+.fundamentals-summary-metric { min-width: 135px; flex: 1; display: grid; grid-template-columns: 1fr auto; gap: 3px 8px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.07); border-radius: 7px; background: #101720; }
+.fundamentals-summary-metric span { color: #59677a; font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.fundamentals-summary-metric b { color: #d2dce7; font: 600 10px/1 'IBM Plex Mono', monospace; }
+.fundamentals-summary-metric small { grid-column: 1 / -1; color: #657287; font: 500 7px/1 'IBM Plex Mono', monospace; }
 .reopen-panel { position: absolute; top: 58px; right: 12px; z-index: 20; width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 8px; background: rgba(18,25,34,.9); color: #93a0b3; box-shadow: 0 12px 30px rgba(0,0,0,.3); }
 .reopen-panel:hover { color: #fff; border-color: rgba(77,227,181,.25); }
 
@@ -411,8 +431,10 @@ kbd { min-width: 20px; display: inline-grid; place-items: center; margin: 0 2px;
   .pulse-metric { padding: 0 11px; min-width: 125px; }
   .status-footer { display: none; }
   .chart-quick-stats span:nth-child(n+2) { display: none; }
-  .chart-quarter-toggle { font-size: 0; }
   .chart-surface { min-height: 300px; }
+  .fundamentals-dock { min-height: 98px; padding-left: 7px; padding-right: 7px; }
+  .fundamentals-dock-header > div > b, .fundamentals-source-badge { display: none; }
+  .fundamentals-quarter-card { min-width: 180px; }
   .stock-universe-panel, .sidebar-loading { width: 46vw; min-width: 260px; }
 }
 
