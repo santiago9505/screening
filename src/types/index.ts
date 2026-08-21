@@ -105,13 +105,16 @@ export interface QuarterlyData {
   reportedDate?: string | null;
   fiscalYear?: number | null;
   fiscalQuarter?: number | null;
-  eps: number;
-  epsGrowth: number;
-  revenue: number;
-  revenueGrowth: number;
-  netMargin: number;
-  operatingMargin: number;
-  grossMargin: number;
+  eps: number | null;
+  epsBasis?: 'reported' | 'reported-ytd-delta' | 'derived-from-filing' | 'derived' | null;
+  epsGrowth: number | null;
+  revenue: number | null;
+  revenueGrowth: number | null;
+  grossMargin: number | null;
+  medicalExpenseRatio?: number | null;
+  sgaExpenseRatio?: number | null;
+  operatingMargin: number | null;
+  netMargin: number | null;
 }
 
 export interface StockFundamentals {

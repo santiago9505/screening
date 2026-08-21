@@ -118,9 +118,9 @@ export default function StockDetailPanel({
           <div className="detail-section-title"><Building2 size={13} /> Calidad fundamental</div>
           <MetricRow label="Capitalización" value={formatCompact(stock.marketCap, true)} />
           <MetricRow label="P / E" value={stock.peRatio ? stock.peRatio.toFixed(1) : '—'} />
-          <MetricRow label="EPS YoY" value={summary?.epsGrowth !== undefined ? `${Number(summary.epsGrowth).toFixed(1)}%` : '—'} positive={summary?.epsGrowth !== undefined ? Number(summary.epsGrowth) > 0 : null} />
-          <MetricRow label="Ventas YoY" value={summary?.revenueGrowth !== undefined ? `${Number(summary.revenueGrowth).toFixed(1)}%` : '—'} positive={summary?.revenueGrowth !== undefined ? Number(summary.revenueGrowth) > 0 : null} />
-          <MetricRow label="Margen neto" value={summary?.netMargin !== undefined ? `${Number(summary.netMargin).toFixed(1)}%` : '—'} positive={summary?.netMargin !== undefined ? Number(summary.netMargin) > 10 : null} />
+          <MetricRow label="EPS YoY" value={Number.isFinite(summary?.epsGrowth) ? `${Number(summary?.epsGrowth).toFixed(1)}%` : '—'} positive={Number.isFinite(summary?.epsGrowth) ? Number(summary?.epsGrowth) > 0 : null} />
+          <MetricRow label="Ingresos YoY" value={Number.isFinite(summary?.revenueGrowth) ? `${Number(summary?.revenueGrowth).toFixed(1)}%` : '—'} positive={Number.isFinite(summary?.revenueGrowth) ? Number(summary?.revenueGrowth) > 0 : null} />
+          <MetricRow label="Margen neto" value={Number.isFinite(summary?.netMargin) ? `${Number(summary?.netMargin).toFixed(1)}%` : '—'} positive={Number.isFinite(summary?.netMargin) ? Number(summary?.netMargin) > 10 : null} />
         </section>
 
         {fundamentalsLoading && <div className="mt-3 text-xs text-slate-500">Sincronizando trimestres…</div>}

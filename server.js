@@ -11,6 +11,7 @@ import {
   calculateRSRatings as calculatePreciseRSRatings,
   calculateRSScoreFromPerformance as calculatePreciseRSScoreFromPerformance
 } from './lib/rs-rating.js';
+import { parseQuarterlyFundamentals as parseFundamentalsStatements } from './lib/fundamentals-parser.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -780,7 +781,7 @@ const fundamentalsCache = {
   lastFullSyncAt: null
 };
 const FUNDAMENTALS_CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 horas
-const FUNDAMENTALS_SCHEMA_VERSION = 2;
+const FUNDAMENTALS_SCHEMA_VERSION = 3;
 const FUNDAMENTALS_CACHE_DIR = join(__dirname, '.cache');
 const FUNDAMENTALS_CACHE_FILE = join(FUNDAMENTALS_CACHE_DIR, 'fundamentals-cache.json');
 const FUNDAMENTALS_PERSIST_DEBOUNCE_MS = 1500;
@@ -1015,7 +1016,7 @@ async function fetchFundamentalsFromSource(symbol) {
     throw new Error(response.data.error);
   }
 
-  const quarterlyData = parseQuarterlyFundamentals((response.data && response.data.data) || []);
+  const quarterlyData = parseFundamentalsStatements((response.data && response.data.data) || []);
   const payload = {
     symbol,
     source: 'finnhub',
@@ -3833,269 +3834,10 @@ app.get('/api/rs-rating/:symbol', (req, res) => {
 
 
 
-function normalizeMetricKey(value) {
-  return String(value || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, '');
-}
-
 function roundTo(value, decimals = 2) {
   if (!Number.isFinite(value)) return 0;
   const factor = Math.pow(10, decimals);
   return Math.round(value * factor) / factor;
-}
-
-function safeGrowth(current, previous) {
-  if (!Number.isFinite(current) || !Number.isFinite(previous) || previous === 0) {
-    return 0;
-  }
-  return roundTo(((current - previous) / Math.abs(previous)) * 100, 1);
-}
-
-function parseDateOrNull(value) {
-  if (!value) return null;
-  const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? null : parsed;
-}
-
-function toISODate(date) {
-  if (!(date instanceof Date) || Number.isNaN(date.getTime())) return null;
-  const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-function getCalendarQuarter(date) {
-  return Math.floor(date.getUTCMonth() / 3) + 1;
-}
-
-function getPeriodDays(startDate, endDate) {
-  if (!startDate || !endDate) return null;
-  const diffMs = endDate.getTime() - startDate.getTime();
-  if (!Number.isFinite(diffMs)) return null;
-  return Math.round(diffMs / (1000 * 60 * 60 * 24));
-}
-
-function pickMetricValue(items, conceptTokens = []) {
-  if (!Array.isArray(items) || items.length === 0) return null;
-
-  for (const token of conceptTokens) {
-    for (const item of items) {
-      const value = Number(item && item.value);
-      if (!Number.isFinite(value)) continue;
-      const concept = normalizeMetricKey(item && item.concept);
-      if (concept.includes(token)) {
-        return value;
-      }
-    }
-  }
-
-  return null;
-}
-
-function deriveQuarterMetric(records, sourceField, targetField) {
-  const previousRawByFiscalYear = new Map();
-
-  records.forEach((record) => {
-    const rawValue = record[sourceField];
-    if (!Number.isFinite(rawValue)) {
-      record[targetField] = null;
-      return;
-    }
-
-    const fiscalYearKey = Number.isFinite(record.fiscalYear) ? record.fiscalYear : record.calendarYear;
-    const quarterIndex = Number.isFinite(record.fiscalQuarter) ? record.fiscalQuarter : record.calendarQuarter;
-    const previousRaw = previousRawByFiscalYear.get(fiscalYearKey);
-
-    if (record.isCumulative && quarterIndex > 1 && Number.isFinite(previousRaw)) {
-      const quarterValue = rawValue - previousRaw;
-      record[targetField] = Number.isFinite(quarterValue) ? quarterValue : rawValue;
-    } else {
-      record[targetField] = rawValue;
-    }
-
-    previousRawByFiscalYear.set(fiscalYearKey, rawValue);
-  });
-}
-
-function deriveQuarterEPS(records) {
-  const previousRawEpsByFiscalYear = new Map();
-
-  records.forEach((record) => {
-    const fiscalYearKey = Number.isFinite(record.fiscalYear) ? record.fiscalYear : record.calendarYear;
-    const quarterIndex = Number.isFinite(record.fiscalQuarter) ? record.fiscalQuarter : record.calendarQuarter;
-    const previousRawEps = previousRawEpsByFiscalYear.get(fiscalYearKey);
-    let eps = Number.isFinite(record.epsRaw) ? record.epsRaw : null;
-
-    if (
-      record.isCumulative &&
-      quarterIndex > 1 &&
-      Number.isFinite(record.epsRaw) &&
-      Number.isFinite(previousRawEps)
-    ) {
-      const quarterEps = record.epsRaw - previousRawEps;
-      eps = Number.isFinite(quarterEps) ? quarterEps : record.epsRaw;
-    }
-
-    if (!Number.isFinite(eps) || Math.abs(eps) < 0.0001) {
-      const shares = Number.isFinite(record.dilutedSharesRaw) && record.dilutedSharesRaw > 0
-        ? record.dilutedSharesRaw
-        : record.basicSharesRaw;
-      if (Number.isFinite(record.netIncome) && Number.isFinite(shares) && shares > 0) {
-        eps = record.netIncome / shares;
-      }
-    }
-
-    record.eps = Number.isFinite(eps) ? eps : null;
-    previousRawEpsByFiscalYear.set(fiscalYearKey, record.epsRaw);
-  });
-}
-
-function toFundamentalRecord(entry) {
-  const endDate = parseDateOrNull(entry && entry.endDate);
-  if (!endDate) return null;
-
-  const now = new Date();
-  if (endDate.getTime() > now.getTime()) {
-    return null;
-  }
-
-  const startDate = parseDateOrNull(entry && entry.startDate);
-  const periodDays = getPeriodDays(startDate, endDate);
-  const fiscalQuarterRaw = Number(entry && entry.quarter);
-  const fiscalYearRaw = Number(entry && entry.year);
-  const acceptedDate = parseDateOrNull(
-    entry && (entry.acceptedDate || entry.filedDate || entry.endDate)
-  );
-  const acceptedDateMs = acceptedDate ? acceptedDate.getTime() : 0;
-
-  const incomeStatement = Array.isArray(entry && entry.report && entry.report.ic)
-    ? entry.report.ic
-    : [];
-
-  const fiscalQuarter = Number.isFinite(fiscalQuarterRaw) && fiscalQuarterRaw >= 1 && fiscalQuarterRaw <= 4
-    ? fiscalQuarterRaw
-    : null;
-  const fiscalYear = Number.isFinite(fiscalYearRaw) ? fiscalYearRaw : null;
-  const calendarQuarter = getCalendarQuarter(endDate);
-  const calendarYear = endDate.getUTCFullYear();
-  const periodEnd = toISODate(endDate);
-  if (!periodEnd) return null;
-
-  const isCumulative = fiscalQuarterRaw === 0 || (Number.isFinite(periodDays) && periodDays > 120);
-
-  return {
-    periodEnd,
-    periodEndMs: endDate.getTime(),
-    reportedDate: acceptedDate ? toISODate(acceptedDate) : null,
-    acceptedDateMs,
-    fiscalYear,
-    fiscalQuarter,
-    calendarYear,
-    calendarQuarter,
-    isCumulative,
-    revenueRaw: pickMetricValue(incomeStatement, [
-      'revenuefromcontractwithcustomerexcludingassessedtax',
-      'salesrevenuenet',
-      'totalrevenue',
-      'revenuesnetofinterestexpense',
-      'operatingrevenues',
-      'revenuesfromexternalcustomers',
-      'revenues'
-    ]),
-    grossProfitRaw: pickMetricValue(incomeStatement, ['grossprofit']),
-    operatingIncomeRaw: pickMetricValue(incomeStatement, ['operatingincomeloss']),
-    netIncomeRaw: pickMetricValue(incomeStatement, [
-      'netincomelossavailabletocommonstockholdersdiluted',
-      'netincomelossavailabletocommonstockholdersbasic',
-      'netincomeloss'
-    ]),
-    epsRaw: pickMetricValue(incomeStatement, [
-      'earningspersharediluted',
-      'earningspersharebasicanddiluted',
-      'earningspersharebasic',
-      'basicanddilutedearningspershare'
-    ]),
-    dilutedSharesRaw: pickMetricValue(incomeStatement, [
-      'weightedaveragenumberofdilutedsharesoutstanding',
-      'weightedaveragenumberofdilutedshares'
-    ]),
-    basicSharesRaw: pickMetricValue(incomeStatement, [
-      'weightedaveragenumberofsharesoutstandingbasic',
-      'weightedaveragenumberofsharesoutstanding'
-    ])
-  };
-}
-
-function parseQuarterlyFundamentals(entries = []) {
-  const byPeriodEnd = new Map();
-
-  entries.forEach((entry) => {
-    const record = toFundamentalRecord(entry);
-    if (!record) return;
-
-    const existing = byPeriodEnd.get(record.periodEnd);
-    if (!existing || record.acceptedDateMs >= existing.acceptedDateMs) {
-      byPeriodEnd.set(record.periodEnd, record);
-    }
-  });
-
-  const records = Array.from(byPeriodEnd.values()).sort((a, b) => a.periodEndMs - b.periodEndMs);
-  if (records.length === 0) {
-    return [];
-  }
-
-  deriveQuarterMetric(records, 'revenueRaw', 'revenue');
-  deriveQuarterMetric(records, 'grossProfitRaw', 'grossProfit');
-  deriveQuarterMetric(records, 'operatingIncomeRaw', 'operatingIncome');
-  deriveQuarterMetric(records, 'netIncomeRaw', 'netIncome');
-  deriveQuarterEPS(records);
-
-  const previousYearByCalendarQuarter = new Map();
-  records.forEach((record) => {
-    previousYearByCalendarQuarter.set(
-      `${record.calendarYear}-Q${record.calendarQuarter}`,
-      record
-    );
-  });
-
-  const quarterlyData = records
-    .map((record) => {
-      const previous = previousYearByCalendarQuarter.get(
-        `${record.calendarYear - 1}-Q${record.calendarQuarter}`
-      );
-
-      const revenue = Number.isFinite(record.revenue) ? record.revenue : 0;
-      const grossProfit = Number.isFinite(record.grossProfit) ? record.grossProfit : 0;
-      const operatingIncome = Number.isFinite(record.operatingIncome) ? record.operatingIncome : 0;
-      const netIncome = Number.isFinite(record.netIncome) ? record.netIncome : 0;
-      const eps = Number.isFinite(record.eps) ? record.eps : 0;
-
-      const grossMargin = revenue > 0 ? (grossProfit / revenue) * 100 : 0;
-      const operatingMargin = revenue > 0 ? (operatingIncome / revenue) * 100 : 0;
-      const netMargin = revenue > 0 ? (netIncome / revenue) * 100 : 0;
-
-      return {
-        quarter: `Q${record.calendarQuarter}`,
-        year: record.calendarYear,
-        periodEnd: record.periodEnd,
-        reportedDate: record.reportedDate,
-        fiscalYear: record.fiscalYear,
-        fiscalQuarter: record.fiscalQuarter,
-        eps: roundTo(eps, 2),
-        epsGrowth: safeGrowth(eps, previous && previous.eps),
-        revenue: roundTo(revenue, 0),
-        revenueGrowth: safeGrowth(revenue, previous && previous.revenue),
-        grossMargin: roundTo(grossMargin, 1),
-        operatingMargin: roundTo(operatingMargin, 1),
-        netMargin: roundTo(netMargin, 1)
-      };
-    })
-    .filter((item) => item.eps !== 0 || item.revenue !== 0)
-    .slice(-12);
-
-  return quarterlyData;
 }
 
 // Endpoint para datos fundamentales

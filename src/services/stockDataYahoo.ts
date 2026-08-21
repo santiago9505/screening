@@ -261,6 +261,11 @@ class StockDataService {
       const parsed = new Date(value).getTime();
       return Number.isFinite(parsed) ? parsed : 0;
     };
+    const finiteOrNull = (value: unknown): number | null => {
+      if (value === null || value === undefined || value === '') return null;
+      const normalized = Number(value);
+      return Number.isFinite(normalized) ? normalized : null;
+    };
     const quarterOrder = (value: string): number => ({ Q1: 1, Q2: 2, Q3: 3, Q4: 4 }[value] || 0);
     const cleanData = (data.quarterlyData || [])
       .map((quarter) => {
@@ -272,13 +277,15 @@ class StockDataService {
           quarter: label,
           year,
           periodEnd: quarter.periodEnd || `${year}-${String(Math.max(1, quarterOrder(label)) * 3).padStart(2, '0')}-01`,
-          eps: Number(quarter.eps) || 0,
-          epsGrowth: Number(quarter.epsGrowth) || 0,
-          revenue: Number(quarter.revenue) || 0,
-          revenueGrowth: Number(quarter.revenueGrowth) || 0,
-          grossMargin: Number(quarter.grossMargin) || 0,
-          operatingMargin: Number(quarter.operatingMargin) || 0,
-          netMargin: Number(quarter.netMargin) || 0,
+          eps: finiteOrNull(quarter.eps),
+          epsGrowth: finiteOrNull(quarter.epsGrowth),
+          revenue: finiteOrNull(quarter.revenue),
+          revenueGrowth: finiteOrNull(quarter.revenueGrowth),
+          grossMargin: finiteOrNull(quarter.grossMargin),
+          medicalExpenseRatio: finiteOrNull(quarter.medicalExpenseRatio),
+          sgaExpenseRatio: finiteOrNull(quarter.sgaExpenseRatio),
+          operatingMargin: finiteOrNull(quarter.operatingMargin),
+          netMargin: finiteOrNull(quarter.netMargin),
         };
       })
       .filter((quarter) => quarter.year > 0)
