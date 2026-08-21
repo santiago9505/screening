@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Filter, X, Loader } from 'lucide-react';
 import { Stock } from '../types';
-import axios from 'axios';
+import { stockDataService } from '../services/stockDataYahoo';
 
 export interface FilterCriteria {
   minPrice?: number;
@@ -16,21 +16,35 @@ export interface FilterCriteria {
   aboveEMA50?: boolean;
   priceChangeMin?: number;
   priceChangeMax?: number;
+  epsGrowthMin?: number;
+  revenueGrowthMin?: number;
+  grossMarginMin?: number;
+  operatingMarginMin?: number;
+  netMarginMin?: number;
+  requireFundamentals?: boolean;
 }
 
 interface StockFiltersProps {
-  onApplyFilters: (criteria: FilterCriteria, results?: Stock[]) => void;
+  onApplyFilters: (criteria: FilterCriteria, results?: Stock[], watchlistName?: string) => void;
   onClose: () => void;
+  isCreatingWatchlist?: boolean;
 }
 
-export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onClose }) => {
+export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onClose, isCreatingWatchlist = false }) => {
   const [filters, setFilters] = useState<FilterCriteria>({});
   const [isScreening, setIsScreening] = useState(false);
   const [screeningProgress, setScreeningProgress] = useState('');
+  const [watchlistName, setWatchlistName] = useState('');
 
   const handleApply = async () => {
+    // Validar nombre de watchlist si es necesario
+    if (isCreatingWatchlist && !watchlistName.trim()) {
+      alert('Por favor ingresa un nombre para la lista');
+      return;
+    }
+
     setIsScreening(true);
-    setScreeningProgress('🔍 Iniciando screening...');
+    setScreeningProgress('Iniciando screening de todas las acciones del mercado...');
     
     try {
       // Limpiar filtros: remover valores undefined, null y NaN
@@ -42,37 +56,22 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
         }
       });
       
-      // Validar que hay al menos un filtro
-      if (Object.keys(cleanFilters).length === 0) {
-        alert('Por favor selecciona al menos un filtro');
-        setIsScreening(false);
-        return;
-      }
+      console.log('[screen] Filtros a aplicar:', cleanFilters);
       
-      console.log('🔍 Filtros a aplicar:', cleanFilters);
-      setScreeningProgress('📊 Escaneando todas las acciones del mercado...');
+      // El servicio usa el motor local cuando está disponible y TradingView directo en la web.
+      const results = await stockDataService.screenStocks(cleanFilters);
       
-      // Hacer screening en el backend sobre TODAS las acciones
-      const response = await axios.post('http://localhost:3002/api/screen', cleanFilters, {
-        timeout: 120000 // 2 minutos de timeout
-      });
-      const results = response.data;
-      
-      console.log(`✅ Screening completado: ${results.length} acciones encontradas`);
-      setScreeningProgress(`✅ ¡Listo! ${results.length} acciones encontradas`);
+      setScreeningProgress(`Completado: ${results.length} acciones encontradas`);
       
       // Esperar un momento para que el usuario vea el mensaje
       setTimeout(() => {
-        onApplyFilters(cleanFilters, results);
-        setIsScreening(false);
-      }, 1500);
-    } catch (error: any) {
+        onApplyFilters(cleanFilters, results, isCreatingWatchlist ? watchlistName.trim() : undefined);
+        onClose();
+      }, 1000);
+    } catch (error) {
       console.error('Error en screening:', error);
-      const errorMsg = error.response?.data?.error || error.message || 'Error desconocido';
-      setScreeningProgress(`❌ Error: ${errorMsg}`);
-      setTimeout(() => {
-        setIsScreening(false);
-      }, 3000);
+      setScreeningProgress('Error al realizar el screening');
+      setIsScreening(false);
     }
   };
 
@@ -98,12 +97,30 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
         </div>
 
         <div className="p-6 space-y-6">
+          {/* Nombre de la lista (solo si se está creando watchlist) */}
+          {isCreatingWatchlist && (
+            <div className="bg-accent-blue/10 border border-accent-blue/30 rounded-lg p-4">
+              <h3 className="text-lg font-semibold text-accent-blue mb-3">Nombre de la lista</h3>
+              <input
+                type="text"
+                value={watchlistName}
+                onChange={(e) => setWatchlistName(e.target.value)}
+                placeholder="Ej: Acciones Momentum RS > 80"
+                className="w-full bg-dark-300 text-white px-3 py-2.5 rounded-lg border border-gray-600 focus:border-accent-blue focus:outline-none"
+                autoFocus
+              />
+              <p className="text-xs text-gray-400 mt-2">
+                Las acciones que cumplan los filtros se agregarán automáticamente a esta lista
+              </p>
+            </div>
+          )}
+
           {/* Filtros de Precio */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">💰 Precio</h3>
+            <h3 className="text-lg font-semibold text-white mb-3">Precio</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Precio Mínimo ($)</label>
+                <label className="block text-sm text-gray-400 mb-2">Precio mínimo ($)</label>
                 <input
                   type="number"
                   value={filters.minPrice || ''}
@@ -113,7 +130,7 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
                 />
               </div>
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Precio Máximo ($)</label>
+                <label className="block text-sm text-gray-400 mb-2">Precio máximo ($)</label>
                 <input
                   type="number"
                   value={filters.maxPrice || ''}
@@ -127,10 +144,10 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
 
           {/* Filtros de Relative Strength */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">📊 Relative Strength (RS)</h3>
+            <h3 className="text-lg font-semibold text-white mb-3">Relative Strength (RS)</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">RS Mínimo</label>
+                <label className="block text-sm text-gray-400 mb-2">RS mínimo</label>
                 <input
                   type="number"
                   min="0"
@@ -142,7 +159,7 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
                 />
               </div>
               <div>
-                <label className="block text-sm text-gray-400 mb-2">RS Máximo</label>
+                <label className="block text-sm text-gray-400 mb-2">RS máximo</label>
                 <input
                   type="number"
                   min="0"
@@ -158,10 +175,10 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
 
           {/* Filtros de Cambio de Precio */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">📈 Cambio de Precio (%)</h3>
+            <h3 className="text-lg font-semibold text-white mb-3">Cambio de precio (%)</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Cambio Mínimo (%)</label>
+                <label className="block text-sm text-gray-400 mb-2">Cambio mínimo (%)</label>
                 <input
                   type="number"
                   value={filters.priceChangeMin || ''}
@@ -171,7 +188,7 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
                 />
               </div>
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Cambio Máximo (%)</label>
+                <label className="block text-sm text-gray-400 mb-2">Cambio máximo (%)</label>
                 <input
                   type="number"
                   value={filters.priceChangeMax || ''}
@@ -185,9 +202,9 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
 
           {/* Filtros de Volumen */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">📊 Volumen</h3>
+            <h3 className="text-lg font-semibold text-white mb-3">Volumen</h3>
             <div>
-              <label className="block text-sm text-gray-400 mb-2">Volumen Mínimo (millones)</label>
+              <label className="block text-sm text-gray-400 mb-2">Volumen mínimo (millones)</label>
               <input
                 type="number"
                 value={filters.minVolume || ''}
@@ -198,9 +215,78 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
             </div>
           </div>
 
-          {/* Filtros de Medias Móviles */}
+          {/* Filtros Fundamentales */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">📉 Medias Móviles</h3>
+            <h3 className="text-lg font-semibold text-white mb-3">Fundamentales</h3>
+            <div className="space-y-4">
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={filters.requireFundamentals || false}
+                  onChange={(e) => setFilters({ ...filters, requireFundamentals: e.target.checked })}
+                  className="w-4 h-4 rounded border-gray-600 text-accent-blue focus:ring-accent-blue focus:ring-2"
+                />
+                <span className="text-white">Solo acciones con fundamentales disponibles</span>
+              </label>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-2">EPS Growth Min (%)</label>
+                  <input
+                    type="number"
+                    value={filters.epsGrowthMin || ''}
+                    onChange={(e) => setFilters({ ...filters, epsGrowthMin: e.target.value ? parseFloat(e.target.value) : undefined })}
+                    placeholder="Ej: 25"
+                    className="w-full bg-dark-300 text-white px-3 py-2 rounded-lg border border-gray-600 focus:border-accent-blue focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-2">Revenue Growth Min (%)</label>
+                  <input
+                    type="number"
+                    value={filters.revenueGrowthMin || ''}
+                    onChange={(e) => setFilters({ ...filters, revenueGrowthMin: e.target.value ? parseFloat(e.target.value) : undefined })}
+                    placeholder="Ej: 20"
+                    className="w-full bg-dark-300 text-white px-3 py-2 rounded-lg border border-gray-600 focus:border-accent-blue focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-2">Gross Margin Min (%)</label>
+                  <input
+                    type="number"
+                    value={filters.grossMarginMin || ''}
+                    onChange={(e) => setFilters({ ...filters, grossMarginMin: e.target.value ? parseFloat(e.target.value) : undefined })}
+                    placeholder="Ej: 35"
+                    className="w-full bg-dark-300 text-white px-3 py-2 rounded-lg border border-gray-600 focus:border-accent-blue focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-2">Operating Margin Min (%)</label>
+                  <input
+                    type="number"
+                    value={filters.operatingMarginMin || ''}
+                    onChange={(e) => setFilters({ ...filters, operatingMarginMin: e.target.value ? parseFloat(e.target.value) : undefined })}
+                    placeholder="Ej: 15"
+                    className="w-full bg-dark-300 text-white px-3 py-2 rounded-lg border border-gray-600 focus:border-accent-blue focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-2">Net Margin Min (%)</label>
+                  <input
+                    type="number"
+                    value={filters.netMarginMin || ''}
+                    onChange={(e) => setFilters({ ...filters, netMarginMin: e.target.value ? parseFloat(e.target.value) : undefined })}
+                    placeholder="Ej: 10"
+                    className="w-full bg-dark-300 text-white px-3 py-2 rounded-lg border border-gray-600 focus:border-accent-blue focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Filtros de medias móviles */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-3">Medias móviles</h3>
             <div className="space-y-3">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input
@@ -258,16 +344,11 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
         {/* Botones de acción */}
         <div className="sticky bottom-0 bg-dark-200 border-t border-gray-700 p-4">
           {isScreening ? (
-            <div className="text-center py-4">
-              <div className="bg-accent-blue/10 border border-accent-blue/30 rounded-lg p-6 mb-4">
-                <Loader className="animate-spin text-accent-blue mx-auto mb-3" size={40} />
-                <p className="text-base text-white font-semibold mb-2">{screeningProgress}</p>
-                <p className="text-xs text-gray-400">
-                  Escaneando miles de acciones del mercado de EEUU
-                </p>
-              </div>
-              <p className="text-xs text-gray-500">
-                ⏱️ Esto puede tardar 1-2 minutos. Por favor espera...
+            <div className="text-center">
+              <Loader className="animate-spin text-accent-blue mx-auto mb-2" size={32} />
+              <p className="text-sm text-gray-400">{screeningProgress}</p>
+              <p className="text-xs text-gray-500 mt-2">
+                Esto puede tardar 1-2 minutos para escanear todas las acciones del mercado
               </p>
             </div>
           ) : (
@@ -280,10 +361,9 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
               </button>
               <button
                 onClick={handleApply}
-                className="flex-1 px-4 py-2 bg-accent-blue hover:bg-blue-600 text-white rounded-lg transition-colors font-semibold flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-2 bg-accent-blue hover:bg-blue-600 text-white rounded-lg transition-colors font-semibold"
               >
-                <Filter size={16} />
-                Escanear Todas las Acciones
+                Escanear todas las acciones
               </button>
             </div>
           )}
@@ -293,7 +373,7 @@ export const StockFilters: React.FC<StockFiltersProps> = ({ onApplyFilters, onCl
   );
 };
 
-// Función para aplicar filtros a la lista de acciones
+ // Función para aplicar filtros a la lista de acciones
 export const applyFilters = (stocks: Stock[], criteria: FilterCriteria): Stock[] => {
   return stocks.filter(stock => {
     // Filtro de precio mínimo
@@ -353,6 +433,33 @@ export const applyFilters = (stocks: Stock[], criteria: FilterCriteria): Stock[]
     
     // Filtro por encima de EMA 50
     if (criteria.aboveEMA50 && stock.price <= stock.ema50) {
+      return false;
+    }
+
+    const fundamentals = stock.fundamentals;
+    const hasFundamentals = Boolean(fundamentals && fundamentals.hasFundamentals);
+
+    if (criteria.requireFundamentals && !hasFundamentals) {
+      return false;
+    }
+
+    if (criteria.epsGrowthMin !== undefined && (!hasFundamentals || (fundamentals?.epsGrowth ?? Number.NEGATIVE_INFINITY) < criteria.epsGrowthMin)) {
+      return false;
+    }
+
+    if (criteria.revenueGrowthMin !== undefined && (!hasFundamentals || (fundamentals?.revenueGrowth ?? Number.NEGATIVE_INFINITY) < criteria.revenueGrowthMin)) {
+      return false;
+    }
+
+    if (criteria.grossMarginMin !== undefined && (!hasFundamentals || (fundamentals?.grossMargin ?? Number.NEGATIVE_INFINITY) < criteria.grossMarginMin)) {
+      return false;
+    }
+
+    if (criteria.operatingMarginMin !== undefined && (!hasFundamentals || (fundamentals?.operatingMargin ?? Number.NEGATIVE_INFINITY) < criteria.operatingMarginMin)) {
+      return false;
+    }
+
+    if (criteria.netMarginMin !== undefined && (!hasFundamentals || (fundamentals?.netMargin ?? Number.NEGATIVE_INFINITY) < criteria.netMarginMin)) {
       return false;
     }
     

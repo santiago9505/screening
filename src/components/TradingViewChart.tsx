@@ -1,168 +1,196 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Loader } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
 
 interface TradingViewChartProps {
   symbol: string;
   theme?: 'light' | 'dark';
 }
 
-// Declare TradingView on window object for TypeScript
 declare global {
   interface Window {
     TradingView: any;
   }
 }
 
+const CHART_SESSION_OVERRIDES = {
+  'mainSeriesProperties.sessionId': 'regular',
+  'mainSeriesProperties.prePostMarket.visible': false,
+  'scalesProperties.showPrePostMarketPriceLabel': false,
+};
+
+const DISABLED_TRADINGVIEW_FEATURES = [
+  'pre_post_market_price_line',
+  'support_overnight_session',
+];
+
+const enforceChartSession = (widget: any) => {
+  try {
+    widget?.applyOverrides?.(CHART_SESSION_OVERRIDES);
+  } catch {}
+};
+
 const TradingViewChart: React.FC<TradingViewChartProps> = ({ symbol, theme = 'dark' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetRef = useRef<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
+  const containerIdRef = useRef<string>(`tv_${Math.random().toString(36).slice(2)}`);
 
   // Convert Yahoo Finance symbol to TradingView format
-  const convertSymbolToTradingView = (yahooSymbol: string): string => {
-    // Índices: ^GSPC -> SPX, ^DJI -> DJI, ^IXIC -> IXIC, ^RUT -> RUT, ^VIX -> VIX, ^TNX -> US10Y
-    if (yahooSymbol === '^GSPC') return 'SPX';
-    if (yahooSymbol === '^DJI') return 'DJI';
-    if (yahooSymbol === '^IXIC') return 'IXIC';
-    if (yahooSymbol === '^NDX') return 'NDX';
-    if (yahooSymbol === '^RUT') return 'RUT';
-    if (yahooSymbol === '^VIX') return 'VIX';
-    if (yahooSymbol === '^TNX') return 'US10Y';
-    
-    // Futuros
-    if (yahooSymbol === 'GC=F') return 'GOLD';
-    if (yahooSymbol === 'CL=F') return 'USOIL';
-    
-    // Crypto: BTC-USD -> BTCUSD
+  const convertSymbol = (yahooSymbol: string): string => {
+    const symbolMap: Record<string, string> = {
+      '^GSPC': 'SPX',
+      '^DJI': 'DJI',
+      '^IXIC': 'NASDAQ:IXIC',
+      '^NDX': 'NASDAQ:NDX',
+      '^RUT': 'TVC:RUT',
+      '^VIX': 'CBOE:VIX',
+      '^TNX': 'TVC:US10Y',
+      'GC=F': 'COMEX:GC1!',
+      'CL=F': 'NYMEX:CL1!',
+      'ES=F': 'CME_MINI:ES1!',
+    };
+
+    if (symbolMap[yahooSymbol]) return symbolMap[yahooSymbol];
     if (yahooSymbol.includes('-USD')) {
-      return yahooSymbol.replace('-USD', 'USD');
+      return `COINBASE:${yahooSymbol.replace('-USD', '')}USD`;
     }
-    
-    // ETFs y acciones normales: mantener como están (SPY, QQQ, VOO, XLE, IBIT, etc.)
     return yahooSymbol;
   };
 
-  const tvSymbol = convertSymbolToTradingView(symbol);
-
   useEffect(() => {
-    setIsLoading(true);
-    
-    // Cleanup previous widget
-    if (widgetRef.current) {
-      widgetRef.current = null;
-    }
+    let mounted = true;
 
-    if (containerRef.current) {
-      containerRef.current.innerHTML = '';
-    }
+    const loadScript = () => {
+      return new Promise<void>((resolve) => {
+        if (window.TradingView) {
+          resolve();
+          return;
+        }
 
-    // Function to create widget
-    const createWidget = () => {
-      if (containerRef.current && window.TradingView) {
-        setIsLoading(false);
-        // Create new widget
-        widgetRef.current = new window.TradingView.widget({
-          autosize: true,
-          symbol: tvSymbol,
-          interval: 'D',
-          timezone: 'America/New_York',
-          theme: theme,
-          style: '1',
-          locale: 'es',
-          toolbar_bg: theme === 'dark' ? '#1e222d' : '#f1f3f6',
-          enable_publishing: false,
-          withdateranges: true,
-          hide_side_toolbar: false,
-          allow_symbol_change: true,
-          container_id: containerRef.current.id,
-          studies: [
-            {
-              id: "MASimple@tv-basicstudies",
-              inputs: { length: 50 }
-            },
-            {
-              id: "MASimple@tv-basicstudies", 
-              inputs: { length: 150 }
-            },
-            {
-              id: "MASimple@tv-basicstudies",
-              inputs: { length: 200 }
+        const existingScript = document.querySelector('script[src="https://s3.tradingview.com/tv.js"]');
+        if (existingScript) {
+          const interval = setInterval(() => {
+            if (window.TradingView) {
+              clearInterval(interval);
+              resolve();
             }
-          ],
-          disabled_features: [],
-          enabled_features: [
-            'header_widget',
-            'header_symbol_search',
-            'symbol_search_hot_key',
-            'header_chart_type',
-            'header_settings',
-            'header_indicators',
-            'header_compare',
-            'header_undo_redo',
-            'header_screenshot',
-            'header_fullscreen_button',
-            'timeframes_toolbar',
-          ],
-          overrides: {
-            'mainSeriesProperties.candleStyle.upColor': '#26a69a',
-            'mainSeriesProperties.candleStyle.downColor': '#ef5350',
-            'mainSeriesProperties.candleStyle.borderUpColor': '#26a69a',
-            'mainSeriesProperties.candleStyle.borderDownColor': '#ef5350',
-            'mainSeriesProperties.candleStyle.wickUpColor': '#26a69a',
-            'mainSeriesProperties.candleStyle.wickDownColor': '#ef5350',
-            'mainSeriesProperties.barStyle.upColor': '#26a69a',
-            'mainSeriesProperties.barStyle.downColor': '#ef5350',
-            'mainSeriesProperties.lineStyle.color': '#2962ff',
-            'mainSeriesProperties.areaStyle.color1': '#2962ff',
-            'mainSeriesProperties.areaStyle.color2': 'rgba(41, 98, 255, 0.1)',
-            'paneProperties.background': theme === 'dark' ? '#131722' : '#ffffff',
-            'paneProperties.backgroundType': 'solid',
-          },
-        });
+          }, 100);
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://s3.tradingview.com/tv.js';
+        script.async = true;
+        script.onload = () => resolve();
+        document.head.appendChild(script);
+      });
+    };
+
+    const initWidget = async () => {
+      await loadScript();
+      if (!mounted || !containerRef.current) return;
+
+      // First time create widget
+      if (!widgetRef.current) {
+        containerRef.current.id = containerIdRef.current;
+        try {
+          if (!window.TradingView?.widget) return;
+          const widget = new window.TradingView.widget({
+            autosize: true,
+            symbol: convertSymbol(symbol),
+            interval: 'D',
+            timezone: 'America/New_York',
+            theme: theme,
+            style: '0',
+            locale: 'es',
+            toolbar_bg: theme === 'dark' ? '#0c1118' : '#f1f3f6',
+            enable_publishing: false,
+            withdateranges: true,
+            hide_side_toolbar: false,
+            allow_symbol_change: true,
+            container_id: containerIdRef.current,
+            disabled_features: DISABLED_TRADINGVIEW_FEATURES,
+            extended_hours: false,
+            doNotStoreSettings: true,
+            studies: [
+              { id: 'MASimple@tv-basicstudies', inputs: { length: 50 } },
+              { id: 'MASimple@tv-basicstudies', inputs: { length: 150 } },
+              { id: 'MASimple@tv-basicstudies', inputs: { length: 200 } }
+            ],
+            overrides: {
+              'mainSeriesProperties.barStyle.upColor': '#26a69a',
+              'mainSeriesProperties.barStyle.downColor': '#ef5350',
+              'paneProperties.background': theme === 'dark' ? '#080c12' : '#ffffff',
+              'paneProperties.backgroundType': 'solid',
+              'paneProperties.vertGridProperties.color': 'rgba(255, 255, 255, 0.035)',
+              'paneProperties.horzGridProperties.color': 'rgba(255, 255, 255, 0.035)',
+              'scalesProperties.textColor': '#788599',
+              ...CHART_SESSION_OVERRIDES
+            }
+          });
+          widgetRef.current = widget;
+          if (widget.onChartReady) {
+            widget.onChartReady(() => {
+              try { widget.activeChart()?.setChartType(0); } catch {}
+              enforceChartSession(widget);
+            });
+          }
+          // Observe container resize once
+          if (window.ResizeObserver && !resizeObserverRef.current) {
+            resizeObserverRef.current = new ResizeObserver(() => {
+              if (!containerRef.current || !widgetRef.current?.resize) return;
+              const r = containerRef.current.getBoundingClientRect();
+              if (r.width > 0 && r.height > 0) {
+                try { widgetRef.current.resize(r.width, r.height); } catch {}
+              }
+            });
+            resizeObserverRef.current.observe(containerRef.current);
+          }
+        } catch (e) {
+          console.error('Error init TradingView widget:', e);
+        }
+      } else {
+        // Update symbol without recreating widget
+        try {
+          const chart = widgetRef.current.activeChart && widgetRef.current.activeChart();
+          if (chart && chart.setSymbol) {
+            chart.setSymbol(convertSymbol(symbol));
+            enforceChartSession(widgetRef.current);
+          } else {
+            // Fallback: recreate if chart API missing
+            widgetRef.current = null;
+            containerRef.current.innerHTML = '';
+            initWidget();
+            return;
+          }
+        } catch (e) {
+          console.warn('Failed to update symbol, recreating widget', e);
+          widgetRef.current = null;
+          containerRef.current.innerHTML = '';
+          initWidget();
+        }
       }
     };
 
-    // Load TradingView script if not already loaded
-    const script = document.createElement('script');
-    script.src = 'https://s3.tradingview.com/tv.js';
-    script.async = true;
-    script.onload = createWidget;
-
-    // Check if script already exists
-    const existingScript = document.querySelector('script[src="https://s3.tradingview.com/tv.js"]');
-    if (!existingScript) {
-      document.head.appendChild(script);
-    } else if (window.TradingView) {
-      createWidget();
-    }
+    initWidget();
 
     return () => {
+      mounted = false;
       if (widgetRef.current) {
+        try {
+          widgetRef.current.remove();
+        } catch (e) {
+          // Ignore
+        }
         widgetRef.current = null;
       }
+      if (resizeObserverRef.current) {
+        try { resizeObserverRef.current.disconnect(); } catch {}
+        resizeObserverRef.current = null;
+      }
     };
-  }, [symbol, theme, tvSymbol]);
+  }, [symbol, theme]);
 
-  return (
-    <div className="tradingview-widget-container w-full h-full relative">
-      {/* Loading indicator */}
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-dark-300/50 z-10">
-          <div className="text-center">
-            <Loader className="animate-spin text-accent-blue mx-auto mb-2" size={40} />
-            <p className="text-sm text-gray-400">Cargando gráfico...</p>
-          </div>
-        </div>
-      )}
-
-      {/* TradingView Chart - Ocupa todo el espacio */}
-      <div
-        ref={containerRef}
-        id={`tradingview_${symbol.replace(/[^a-zA-Z0-9]/g, '_')}`}
-        className="w-full h-full"
-      />
-    </div>
-  );
+  return <div ref={containerRef} className="w-full h-full" />;
 };
 
 export default TradingViewChart;

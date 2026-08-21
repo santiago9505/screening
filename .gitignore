@@ -2,6 +2,7 @@
 node_modules/
 dist/
 build/
+release/
 
 # Logs
 *.log
@@ -31,3 +32,6 @@ lerna-debug.log*
 
 # Testing
 coverage/
+
+# Local cache
+.cache/

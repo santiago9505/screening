@@ -79,8 +79,8 @@ const FINNHUB_API_KEY = 'YOUR_FINNHUB_API_KEY';
 const ALPHA_VANTAGE_API_KEY = 'demo';
 
 // DESPUÉS (con tus keys)
-const FINNHUB_API_KEY = 'c8dh2p9r01qk3jab6c7g';
-const ALPHA_VANTAGE_API_KEY = 'DEMO123ABC';
+const FINNHUB_API_KEY = 'TU_FINNHUB_API_KEY';
+const ALPHA_VANTAGE_API_KEY = 'TU_ALPHA_VANTAGE_API_KEY';
 ```
 
 ## 🆘 Problemas Comunes
