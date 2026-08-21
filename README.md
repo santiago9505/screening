@@ -2,7 +2,7 @@
 
 [Abrir Northstar en internet](https://santiago9505.github.io/screening/)
 
-Northstar es un workspace profesional para descubrir líderes, leer la amplitud del mercado, validar estructuras técnicas y combinar precio, volumen, Relative Strength y fundamentales en una sola superficie de análisis.
+Northstar es un workspace profesional para descubrir líderes, leer la amplitud del mercado, validar estructuras técnicas y combinar precio, volumen, Relative Strength y fundamentales en una sola superficie de análisis. Su motor SEPA está inspirado en la metodología de Mark Minervini y mantiene cada decisión auditable.
 
 ![Northstar social preview](public/og.png)
 
@@ -16,6 +16,12 @@ Northstar es un workspace profesional para descubrir líderes, leer la amplitud 
 - Watchlists manuales y dinámicas persistidas en el dispositivo.
 - Listas de momentum: Trend Template, líderes RS 90+ y candidatos cerca de ruptura.
 - Panel de contexto técnico y fundamental por acción.
+- Centro de comando SEPA con régimen `GO`, `CAUTIOUS`, `DEFENSIVE` y `WATCH ONLY`.
+- Copiloto local explicable: interpreta consultas en español como `RS 90, EPS y ventas > 25%, cerca de máximos`.
+- Score de 100 puntos: universo (10), fundamentales (25), tendencia (20), liderazgo (15), setup (15) y accionabilidad (15).
+- Radar de Trend Template, VCP, Power Play, Primary Base, Breakout y Low Cheat.
+- Plan de riesgo por candidato con referencia de trigger, stop estructural, ROTE 1.25% y posición máxima sugerida.
+- Estados operativos separados: `Actionable`, `Close`, `Watch`, `Uncovered` y `Reject`.
 - Feedback de setups y laboratorio histórico cuando está conectado el motor privado.
 - Navegación por teclado y diseño adaptable.
 
@@ -23,7 +29,7 @@ Northstar es un workspace profesional para descubrir líderes, leer la amplitud 
 
 ### Web
 
-La versión de GitHub Pages consulta TradingView directamente. No necesita servidor, Firebase ni API keys en el navegador. El correo privado y el histórico de setups permanecen desactivados por seguridad.
+La versión de GitHub Pages consulta TradingView directamente. No necesita servidor, Firebase ni API keys en el navegador. El copiloto y el ranking corren localmente en el dispositivo para conservar velocidad y explicabilidad. El correo privado y el histórico de setups permanecen desactivados por seguridad.
 
 ### Escritorio / motor privado
 
@@ -38,7 +44,7 @@ Requisitos: Node.js 20 o superior.
 ```bash
 npm install
 npm run build
-npm run test:rs
+npm test
 ```
 
 El usuario puede iniciar por separado el frontend y el motor privado:
@@ -55,6 +61,12 @@ npm run server
 - `FINNHUB_API_KEY`: se mantiene exclusivamente en el entorno del servidor para fundamentales trimestrales.
 
 No publiques archivos `.env` ni claves dentro del frontend.
+
+## Cómo leer el radar
+
+`Actionable` exige score mínimo de 85, Trend Template, RS 70+, fundamentales cubiertos y una entrada no extendida. `Close` y `Watch` conservan candidatos útiles sin confundir calidad con timing. `Uncovered` significa que faltan datos fundamentales; nunca se convierten silenciosamente en ceros.
+
+VCP, Power Play, Primary Base y otros patrones aparecen como `radar` o `candidate` cuando se infieren desde el snapshot diario. El pivot, las contracciones, la pendiente de SMA 200 y la calidad real de la base deben confirmarse en el gráfico. Esta separación evita presentar una inferencia como un hecho observado.
 
 ## Publicación
 

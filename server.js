@@ -1699,9 +1699,9 @@ function deriveSetupTagsAndType({ stock, evaluation, yearsSinceListing, config }
     coreUniverse &&
     criteria.priceAboveSMA50Pass &&
     Number.isFinite(stock.sma20) && stock.sma20 > 0 && stock.price > stock.sma20 &&
-    Number(metrics.rs) >= config.leadership.eliteRS &&
-    ((Number(stock.perf3M) >= 30) || (Number(stock.perf1M) >= 12)) &&
-    Number.isFinite(metrics.pctBelow52WeekHigh) && metrics.pctBelow52WeekHigh <= 10;
+    Number(metrics.rs) >= config.leadership.preferredRS &&
+    ((Number(stock.perf3M) >= 100) || (Number(stock.perf1M) >= 50)) &&
+    Number.isFinite(metrics.pctBelow52WeekHigh) && metrics.pctBelow52WeekHigh <= 15;
 
   if (isPowerPlay) tags.push('power-play');
 
@@ -1709,11 +1709,20 @@ function deriveSetupTagsAndType({ stock, evaluation, yearsSinceListing, config }
     coreUniverse &&
     coreTrend &&
     Number(metrics.rs) >= 80 &&
-    Number.isFinite(metrics.pctBelow52WeekHigh) && metrics.pctBelow52WeekHigh <= 12 &&
+    Number.isFinite(metrics.pctBelow52WeekHigh) && metrics.pctBelow52WeekHigh <= 10 &&
     criteria.notExtendedFromSMA20Pass &&
-    Number.isFinite(metrics.relativeVolume10d) && metrics.relativeVolume10d <= 1.15 && metrics.relativeVolume10d >= 0.3;
+    Number.isFinite(metrics.relativeVolume10d) && metrics.relativeVolume10d <= 1.05 && metrics.relativeVolume10d >= 0.35;
 
   if (isVCPCandidate) tags.push('vcp-candidate');
+
+  const isPrimaryBase =
+    coreUniverse &&
+    coreTrend &&
+    Number.isFinite(yearsSinceListing) && yearsSinceListing <= 4 &&
+    Number(metrics.rs) >= config.leadership.preferredRS &&
+    Number.isFinite(metrics.pctBelow52WeekHigh) && metrics.pctBelow52WeekHigh <= 15;
+
+  if (isPrimaryBase) tags.push('primary-base');
 
   const isCheat =
     coreTrend &&
@@ -1770,6 +1779,7 @@ function deriveSetupTagsAndType({ stock, evaluation, yearsSinceListing, config }
 
   let setupType = 'Early candidate - manual review required';
   if (isPowerPlay) setupType = 'Power Play candidate';
+  else if (isPrimaryBase) setupType = 'Primary Base candidate';
   else if (isVCPCandidate) setupType = 'VCP candidate';
   else if (isCheat) setupType = 'Cheat candidate';
   else if (isLowCheat) setupType = 'Low-cheat candidate';
@@ -1825,7 +1835,15 @@ function buildSetupProfileFromEvaluation(stock, evaluation, config, feedbackEntr
       positives: evaluation.positives || [],
       negatives: evaluation.negatives || [],
       reviewFlags: evaluation.reviewFlags || [],
-      metrics: evaluation.metrics || {}
+      metrics: evaluation.metrics || {},
+      subscores: evaluation.subscores ? {
+        universe: evaluation.subscores.universe,
+        fundamentals: evaluation.subscores.fundamentals,
+        trend: evaluation.subscores.trendTemplate,
+        leadership: evaluation.subscores.leadership,
+        setup: evaluation.subscores.setup,
+        actionability: evaluation.subscores.actionability
+      } : undefined
     },
     tags,
     autoTags: setupDerived.autoTags,
@@ -1946,6 +1964,7 @@ function getDefaultMinerviniConfig() {
       fundamentals: 25,
       trendTemplate: 20,
       leadership: 15,
+      setup: 15,
       actionability: 15
     },
     output: {
@@ -2435,6 +2454,8 @@ function getCriterionCatalog() {
   return [
     { key: 'quoteAvailable', label: 'Quote usable', block: 'universe' },
     { key: 'minPricePass', label: 'Min price', block: 'universe' },
+    { key: 'liquidVolumePass', label: 'Average volume above 200K', block: 'universe' },
+    { key: 'dollarVolumePass', label: 'Dollar volume above $10M', block: 'universe' },
     { key: 'priceAboveSMA50Pass', label: 'Price above SMA50', block: 'trend' },
     { key: 'priceAboveSMA150Pass', label: 'Price above SMA150', block: 'trend' },
     { key: 'priceAboveSMA200Pass', label: 'Price above SMA200', block: 'trend' },
@@ -2455,7 +2476,12 @@ function getCriterionCatalog() {
     { key: 'revenueAccelerationPass', label: 'Revenue acceleration', block: 'fundamentals' },
     { key: 'nearHighForActionablePass', label: 'Near high for actionable state', block: 'actionability' },
     { key: 'notExtendedFromSMA20Pass', label: 'Not extended from SMA20', block: 'actionability' },
-    { key: 'relativeVolumeHealthyPass', label: 'Relative volume healthy', block: 'actionability' }
+    { key: 'relativeVolumeHealthyPass', label: 'Relative volume healthy', block: 'actionability' },
+    { key: 'setupNearHighPass', label: 'Within 5% of 52-week high', block: 'setup' },
+    { key: 'setupTightToSMA20Pass', label: 'Tight to SMA20', block: 'setup' },
+    { key: 'volumeDryUpProxyPass', label: 'Volume dry-up proxy', block: 'setup' },
+    { key: 'stage2Pass', label: 'Stage 2 structure', block: 'setup' },
+    { key: 'positivePerf1MPass', label: 'Positive 1M performance', block: 'setup' }
   ];
 }
 
@@ -2464,7 +2490,7 @@ function evaluateMinerviniCandidate(stock, config, marketRegime) {
   const hasFundamentals = Boolean(fundamentals && fundamentals.hasFundamentals);
   const price = Number(stock.price) || 0;
   const dollarVolume = Number(stock.dollarVolume) || (price * (Number(stock.volume) || 0));
-  const avgVolume30d = Number(stock.averageVolume30d) || 0;
+  const avgVolume30d = Number(stock.averageVolume30d) || Number(stock.volume) || 0;
   const pctAbove52WeekLow = calculatePercentAboveLow(price, Number(stock.price52WeekLow) || 0);
   const pctBelow52WeekHigh = calculatePercentBelowHigh(price, Number(stock.price52WeekHigh) || 0);
   const pctAboveSMA20 = calculatePercentAboveLine(price, Number(stock.sma20) || 0);
@@ -2474,6 +2500,8 @@ function evaluateMinerviniCandidate(stock, config, marketRegime) {
   const criteria = {
     quoteAvailable: stock.quoteStatus !== 'unavailable' && price > 0,
     minPricePass: price >= config.universe.minPrice,
+    liquidVolumePass: avgVolume30d >= 200000,
+    dollarVolumePass: dollarVolume >= 10000000,
     hasFundamentals,
     epsGrowthPass: hasFundamentals && Number.isFinite(fundamentals.epsGrowth) && fundamentals.epsGrowth >= config.fundamentals.minEPSGrowth,
     revenueGrowthPass: hasFundamentals && Number.isFinite(fundamentals.revenueGrowth) && fundamentals.revenueGrowth >= config.fundamentals.minRevenueGrowth,
@@ -2497,43 +2525,73 @@ function evaluateMinerviniCandidate(stock, config, marketRegime) {
     nearHighForActionablePass: Number.isFinite(pctBelow52WeekHigh) ? pctBelow52WeekHigh <= config.actionability.actionableMaxPctBelow52WeekHigh : false,
     nearHighForClosePass: Number.isFinite(pctBelow52WeekHigh) ? pctBelow52WeekHigh <= config.actionability.closeMaxPctBelow52WeekHigh : false,
     notExtendedFromSMA20Pass: Number.isFinite(pctAboveSMA20) ? pctAboveSMA20 <= config.actionability.maxPctAboveSMA20 : false,
-    relativeVolumeHealthyPass: Number.isFinite(stock.relativeVolume10d) ? stock.relativeVolume10d >= 0.8 : false
+    relativeVolumeHealthyPass: Number.isFinite(stock.relativeVolume10d) ? stock.relativeVolume10d >= 0.8 : false,
+    setupNearHighPass: Number.isFinite(pctBelow52WeekHigh) ? pctBelow52WeekHigh <= 5 : false,
+    setupTightToSMA20Pass: Number.isFinite(pctAboveSMA20) ? pctAboveSMA20 >= -2 && pctAboveSMA20 <= 5 : false,
+    volumeDryUpProxyPass: Number.isFinite(stock.relativeVolume10d) ? stock.relativeVolume10d >= 0.35 && stock.relativeVolume10d <= 1.05 : false,
+    stage2Pass: false,
+    positivePerf1MPass: Number.isFinite(stock.perf1M) ? stock.perf1M > 0 : false
   };
 
-  const universeScore =
-    (criteria.quoteAvailable ? 6 : 0) +
-    (criteria.minPricePass ? 4 : 0);
+  criteria.stage2Pass = criteria.priceAboveSMA50Pass
+    && criteria.priceAboveSMA150Pass
+    && criteria.priceAboveSMA200Pass
+    && criteria.sma150Above200Pass
+    && criteria.sma50Above150And200Pass;
 
-  const fundamentalsScore =
-    (criteria.hasFundamentals ? 5 : 0) +
-    (criteria.epsGrowthPass ? 6 : 0) +
-    (criteria.revenueGrowthPass ? 6 : 0) +
-    (criteria.netMarginPass ? 3 : 0) +
+  const universeScore =
+    (criteria.quoteAvailable ? 2 : 0) +
+    (criteria.minPricePass ? 4 : 0) +
+    (criteria.liquidVolumePass ? 2 : 0) +
+    (criteria.dollarVolumePass ? 2 : 0);
+
+  const epsGrowthValue = hasFundamentals && Number.isFinite(fundamentals.epsGrowth) ? fundamentals.epsGrowth : null;
+  const revenueGrowthValue = hasFundamentals && Number.isFinite(fundamentals.revenueGrowth) ? fundamentals.revenueGrowth : null;
+  const epsGrowthScore = epsGrowthValue === null ? 0 : epsGrowthValue >= 40 ? 8 : epsGrowthValue >= 25 ? 6 : epsGrowthValue >= 20 ? 5 : epsGrowthValue > 0 ? 2 : 0;
+  const revenueGrowthScore = revenueGrowthValue === null ? 0 : revenueGrowthValue >= 40 ? 6 : revenueGrowthValue >= 25 ? 5 : revenueGrowthValue >= 20 ? 4 : revenueGrowthValue > 0 ? 2 : 0;
+
+  const fundamentalsScore = Math.min(25,
+    (criteria.hasFundamentals ? 3 : 0) +
+    epsGrowthScore +
+    revenueGrowthScore +
+    (criteria.netMarginPass ? 2 : 0) +
     (criteria.operatingMarginPass ? 2 : 0) +
-    (criteria.epsAccelerationPass ? 2 : 0) +
-    (criteria.revenueAccelerationPass ? 1 : 0);
+    (criteria.epsAccelerationPass ? 1 : 0) +
+    (criteria.revenueAccelerationPass ? 1 : 0) +
+    (epsGrowthValue !== null && epsGrowthValue > 0 ? 1 : 0) +
+    (revenueGrowthValue !== null && revenueGrowthValue > 0 ? 1 : 0));
 
   const trendScore =
     (criteria.priceAboveSMA50Pass ? 3 : 0) +
     (criteria.priceAboveSMA150Pass ? 3 : 0) +
     (criteria.priceAboveSMA200Pass ? 3 : 0) +
-    (criteria.sma150Above200Pass ? 4 : 0) +
+    (criteria.sma150Above200Pass ? 3 : 0) +
     (criteria.sma50Above150And200Pass ? 3 : 0) +
     (criteria.pctAbove52WeekLowPass ? 2 : 0) +
-    (criteria.pctBelow52WeekHighPass ? 2 : 0);
+    (criteria.pctBelow52WeekHighPass ? 2 : 0) +
+    (Number.isFinite(stock.sma20) && stock.sma20 > 0 && price > stock.sma20 ? 1 : 0);
 
   const leadershipScore =
-    (criteria.rsMinPass ? 6 : 0) +
-    (criteria.preferredRSPass ? 4 : 0) +
+    (Number(stock.relativeStrength) >= 90 ? 8 : Number(stock.relativeStrength) >= 80 ? 6 : criteria.rsMinPass ? 4 : Number(stock.relativeStrength) >= 50 ? 2 : 0) +
     (criteria.positivePerf3MPass ? 3 : 0) +
-    (criteria.positivePerf6MPass ? 2 : 0);
+    (criteria.positivePerf6MPass ? 2 : 0) +
+    (criteria.nearHighForActionablePass ? 2 : 0);
+
+  const setupScore = Math.min(15,
+    (criteria.setupNearHighPass ? 4 : criteria.nearHighForActionablePass ? 3 : criteria.nearHighForClosePass ? 2 : 0) +
+    (criteria.setupTightToSMA20Pass ? 4 : criteria.notExtendedFromSMA20Pass ? 2 : 0) +
+    (criteria.volumeDryUpProxyPass ? 2 : Number(stock.relativeVolume10d) >= 1.3 ? 1 : 0) +
+    (criteria.stage2Pass ? 3 : 0) +
+    (criteria.positivePerf1MPass ? 2 : 0));
 
   const actionabilityScore =
-    (criteria.nearHighForActionablePass ? 7 : (criteria.nearHighForClosePass ? 4 : 0)) +
-    (criteria.notExtendedFromSMA20Pass ? 5 : 0) +
-    (criteria.relativeVolumeHealthyPass ? 3 : 0);
+    (criteria.stage2Pass && criteria.pctAbove52WeekLowPass && criteria.pctBelow52WeekHighPass ? 5 : 0) +
+    (criteria.rsMinPass ? 3 : 0) +
+    (criteria.epsGrowthPass && criteria.revenueGrowthPass ? 3 : 0) +
+    (criteria.liquidVolumePass && criteria.dollarVolumePass ? 2 : 0) +
+    (criteria.notExtendedFromSMA20Pass ? 2 : 0);
 
-  const totalScore = universeScore + fundamentalsScore + trendScore + leadershipScore + actionabilityScore;
+  const totalScore = universeScore + fundamentalsScore + trendScore + leadershipScore + setupScore + actionabilityScore;
 
   const hardPass = [
     criteria.quoteAvailable,
@@ -2609,6 +2667,7 @@ function evaluateMinerviniCandidate(stock, config, marketRegime) {
       fundamentals: fundamentalsScore,
       trendTemplate: trendScore,
       leadership: leadershipScore,
+      setup: setupScore,
       actionability: actionabilityScore
     },
     criteria,

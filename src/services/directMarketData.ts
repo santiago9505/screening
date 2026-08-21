@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { MinerviniPresetListsResponse, Stock, StockSetupProfile } from '../types';
+import { MinerviniPresetListsResponse, Stock } from '../types';
+import { evaluateMinerviniStock } from './minerviniIntelligence';
 
 const TRADINGVIEW_SCANNER_URL = 'https://scanner.tradingview.com/america/scan';
 const DIRECT_MARKET_LIMIT = 2800;
@@ -68,6 +69,12 @@ const numeric = (value: unknown): number => {
   return Number.isFinite(parsed) ? parsed : 0;
 };
 
+const nullableNumeric = (value: unknown): number | null => {
+  if (value === null || value === undefined || value === '') return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
 const percentileRank = (values: number[], value: number): number => {
   if (values.length <= 1) return 50;
   let belowOrEqual = 0;
@@ -77,57 +84,6 @@ const percentileRank = (values: number[], value: number): number => {
   return Math.max(1, Math.min(99, Math.round((belowOrEqual / values.length) * 99)));
 };
 
-const buildSetupProfile = (stock: Stock): StockSetupProfile => {
-  let score = 0;
-  const tags: string[] = [];
-  const positives: string[] = [];
-  const negatives: string[] = [];
-
-  const above50 = stock.sma50 > 0 && stock.price > stock.sma50;
-  const above150 = stock.sma150 > 0 && stock.price > stock.sma150;
-  const above200 = stock.sma200 > 0 && stock.price > stock.sma200;
-  const alignedTrend = stock.sma50 > stock.sma150 && stock.sma150 > stock.sma200;
-  const distanceFromHigh = stock.price52WeekHigh
-    ? ((stock.price52WeekHigh - stock.price) / stock.price52WeekHigh) * 100
-    : 100;
-
-  if (above50) { score += 16; positives.push('Precio sobre SMA 50'); }
-  else negatives.push('Precio bajo SMA 50');
-  if (above150) score += 12;
-  if (above200) { score += 12; positives.push('Precio sobre SMA 200'); }
-  if (alignedTrend) { score += 18; tags.push('trend-template'); positives.push('Medias alineadas'); }
-  if (stock.relativeStrength >= 90) { score += 22; tags.push('rs-90+'); positives.push('Liderazgo relativo'); }
-  else if (stock.relativeStrength >= 75) { score += 14; tags.push('high-rs'); }
-  else if (stock.relativeStrength >= 60) score += 8;
-  if (distanceFromHigh <= 8) { score += 12; tags.push('near-high'); positives.push('Cerca de máximo anual'); }
-  else if (distanceFromHigh <= 15) score += 7;
-  if ((stock.relativeVolume10d || 0) >= 1.3) { score += 8; tags.push('volume-expansion'); }
-
-  score = Math.min(100, score);
-  const state = score >= 78 ? 'Actionable' : score >= 65 ? 'Close' : score >= 48 ? 'Watch' : 'Reject';
-  const type = alignedTrend ? 'Trend Template' : above200 ? 'Trend en construcción' : 'Sin estructura confirmada';
-  const style = state === 'Actionable'
-    ? { color: '#40dca5', badgeClass: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30', rowClass: '' }
-    : state === 'Close'
-      ? { color: '#f6c85f', badgeClass: 'bg-amber-500/15 text-amber-300 border-amber-500/30', rowClass: '' }
-      : state === 'Watch'
-        ? { color: '#70a1ff', badgeClass: 'bg-blue-500/15 text-blue-300 border-blue-500/30', rowClass: '' }
-        : { color: '#7f8b9d', badgeClass: 'bg-slate-500/15 text-slate-300 border-slate-500/30', rowClass: '' };
-
-  return {
-    state,
-    score,
-    hardPass: state === 'Actionable',
-    type,
-    tags,
-    autoTags: tags,
-    manualTags: [],
-    style,
-    positives,
-    negatives,
-    reviewFlags: [],
-  };
-};
 const mapRows = (rows: Array<{ s: string; d: unknown[] }>): Stock[] => {
   const mapped = rows.map((row) => {
     const fields = Object.fromEntries(MARKET_COLUMNS.map((column, index) => [column, row.d[index]]));
@@ -144,6 +100,13 @@ const mapRows = (rows: Array<{ s: string; d: unknown[] }>): Stock[] => {
       numeric(fields['Perf.3M']) * 0.25 +
       numeric(fields['Perf.6M']) * 0.3 +
       numeric(fields['Perf.Y']) * 0.35;
+    const epsTtm = nullableNumeric(fields.earnings_per_share_diluted_ttm);
+    const epsGrowthTtm = nullableNumeric(fields.earnings_per_share_diluted_yoy_growth_ttm);
+    const revenueTtm = nullableNumeric(fields.total_revenue);
+    const revenueGrowthTtm = nullableNumeric(fields.total_revenue_yoy_growth_ttm);
+    const grossMargin = nullableNumeric(fields.gross_margin);
+    const operatingMargin = nullableNumeric(fields.operating_margin);
+    const netMargin = nullableNumeric(fields.net_margin);
 
     return {
       performanceScore,
@@ -182,19 +145,19 @@ const mapRows = (rows: Array<{ s: string; d: unknown[] }>): Stock[] => {
         relativeStrength: 50,
         fundamentals: {
           symbol,
-          hasFundamentals: numeric(fields.earnings_per_share_diluted_ttm) !== 0 || numeric(fields.total_revenue) !== 0,
+          hasFundamentals: epsTtm !== null || revenueTtm !== null,
           coverage: 'fresh' as const,
           updatedAt: new Date().toISOString(),
           latestPeriodEnd: null,
           latestReportedDate: null,
           quarterlyPoints: 0,
-          eps: numeric(fields.earnings_per_share_diluted_ttm),
-          epsGrowth: numeric(fields.earnings_per_share_diluted_yoy_growth_ttm),
-          revenue: numeric(fields.total_revenue),
-          revenueGrowth: numeric(fields.total_revenue_yoy_growth_ttm),
-          grossMargin: numeric(fields.gross_margin),
-          operatingMargin: numeric(fields.operating_margin),
-          netMargin: numeric(fields.net_margin),
+          eps: epsTtm,
+          epsGrowth: epsGrowthTtm,
+          revenue: revenueTtm,
+          revenueGrowth: revenueGrowthTtm,
+          grossMargin,
+          operatingMargin,
+          netMargin,
         },
         lastUpdate: new Date().toISOString(),
         quoteStatus: price > 0 ? 'ok' as const : 'unavailable' as const,
@@ -212,7 +175,7 @@ const mapRows = (rows: Array<{ s: string; d: unknown[] }>): Stock[] => {
       ...stock,
       relativeStrength: percentileRank(scoreUniverse, performanceScore),
     } as Stock;
-    enrichedStock.setupProfile = buildSetupProfile(enrichedStock);
+    enrichedStock.setupProfile = evaluateMinerviniStock(enrichedStock);
     return enrichedStock;
   });
 };

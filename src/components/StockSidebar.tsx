@@ -21,11 +21,13 @@ type SortField =
   | 'sma200';
 
 type SortDirection = 'asc' | 'desc';
+type StateFilter = 'All' | 'Actionable' | 'Close' | 'Watch';
 
 const StockSidebar: React.FC<StockSidebarProps> = ({ stocks, selectedStock, onSelectStock }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState<SortField>('setupScore');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+  const [stateFilter, setStateFilter] = useState<StateFilter>('All');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const selectedRowRef = useRef<HTMLTableRowElement>(null);
   const lastSelectionSource = useRef<'keyboard' | 'click'>('click');
@@ -59,12 +61,17 @@ const StockSidebar: React.FC<StockSidebarProps> = ({ stocks, selectedStock, onSe
   }, [selectedStock]);
 
   const filteredStocks = useMemo(() => {
-    if (!searchTerm) return stocks;
     const term = searchTerm.toLowerCase();
-    return stocks.filter(
-      (stock) => stock.symbol.toLowerCase().includes(term) || stock.name.toLowerCase().includes(term)
-    );
-  }, [stocks, searchTerm]);
+    return stocks.filter((stock) => {
+      const matchesSearch = !searchTerm
+        || stock.symbol.toLowerCase().includes(term)
+        || stock.name.toLowerCase().includes(term);
+      const matchesState = stateFilter === 'All'
+        || stock.setupProfile?.state === stateFilter
+        || (stateFilter === 'Watch' && stock.setupProfile?.state === 'Uncovered');
+      return matchesSearch && matchesState;
+    });
+  }, [stateFilter, stocks, searchTerm]);
 
   const sortedStocks = useMemo(() => {
     return [...filteredStocks].sort((a, b) => {
@@ -190,6 +197,13 @@ const StockSidebar: React.FC<StockSidebarProps> = ({ stocks, selectedStock, onSe
             return <span className="font-mono font-semibold text-emerald-300">#{currentIndex + 1} / {sortedStocks.length}</span>;
           })()}
         </div>
+        <div className="universe-state-filters" aria-label="Filtrar por estado SEPA">
+          {(['All', 'Actionable', 'Close', 'Watch'] as StateFilter[]).map((state) => (
+            <button key={state} className={stateFilter === state ? 'active' : ''} onClick={() => setStateFilter(state)}>
+              {state === 'All' ? 'Todos' : state}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div ref={scrollContainerRef} className="flex-1 overflow-auto">
@@ -272,6 +286,7 @@ const StockSidebar: React.FC<StockSidebarProps> = ({ stocks, selectedStock, onSe
                           <span className={`inline-flex text-[10px] px-1.5 py-0.5 rounded border ${setup.style?.badgeClass || 'bg-gray-600/20 text-gray-300 border-gray-500/30'}`}>
                             {setup.state} · {setup.score}
                           </span>
+                          <div className="truncate text-[9px] font-medium text-slate-500" title={setup.type}>{setup.type}</div>
                           {setup.tags && setup.tags.length > 0 && (
                             <div className="flex flex-wrap gap-1">
                               {setup.tags.slice(0, 2).map((tag) => (

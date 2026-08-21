@@ -38,6 +38,35 @@ export interface StockSetupProfile {
   negatives?: string[];
   reviewFlags?: string[];
   metrics?: Record<string, number | null>;
+  confidence?: number;
+  stage?: 'Stage 2' | 'Stage 2 candidate' | 'Transition' | 'No confirmed trend';
+  setupQuality?: 'A' | 'B' | 'C' | 'Review';
+  subscores?: {
+    universe: number;
+    fundamentals: number;
+    trend: number;
+    leadership: number;
+    setup: number;
+    actionability: number;
+  };
+  riskPlan?: {
+    triggerReference: number | null;
+    stopReference: number | null;
+    riskPct: number | null;
+    distanceToTriggerPct: number | null;
+    rewardRiskTarget: number;
+    suggestedPositionPct: number | null;
+    equityRiskPct: number;
+    extended: boolean;
+  };
+  rules?: Array<{
+    id: string;
+    label: string;
+    kind: 'hard' | 'soft' | 'context' | 'review';
+    pass: boolean | null;
+    value?: string;
+  }>;
+  coverageGaps?: string[];
 }
 
 export interface Stock {

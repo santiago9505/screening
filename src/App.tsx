@@ -12,6 +12,7 @@ import SetupLabModal from './components/SetupLabModal';
 import EmailPanel from './components/EmailPanel';
 import ProfessionalWorkspace from './components/ProfessionalWorkspace';
 import { shouldPreferDirectMarketData } from './config/runtime';
+import { enrichMinerviniUniverse, evaluateMinerviniStock } from './services/minerviniIntelligence';
 // Asistente Fresa AI desactivado temporalmente. Descomentar para reactivarlo.
 // import FresaAIPet, { FresaPetState } from './components/FresaAIPet';
 import {
@@ -79,8 +80,13 @@ function App() {
     return stocks;
   }, [screenedStocks, activeWatchlist, watchlists, stocks]);
 
+  const marketPulseSource = useMemo(() => {
+    if (viewMode === 'all' && !activeWatchlist && allStocksCache.length > stocks.length) return allStocksCache;
+    return stocks;
+  }, [activeWatchlist, allStocksCache, stocks, viewMode]);
+
   const marketPulse = useMemo(() => {
-    const valid = filteredStocks.filter((stock) => Number.isFinite(stock.price) && stock.price > 0);
+    const valid = marketPulseSource.filter((stock) => Number.isFinite(stock.price) && stock.price > 0);
     const total = valid.length;
     const advancers = valid.filter((stock) => stock.changePercent > 0).length;
     const aboveSma50 = valid.filter((stock) => stock.sma50 > 0 && stock.price > stock.sma50).length;
@@ -92,7 +98,15 @@ function App() {
     const trendQuality = total > 0 ? Math.round((aboveSma50 / total) * 100) : 0;
 
     return { total, advancers, breadth, trendQuality, leaders, averageChange };
-  }, [filteredStocks]);
+  }, [marketPulseSource]);
+
+  const intelligenceUniverse = useMemo(() => enrichMinerviniUniverse(marketPulseSource), [marketPulseSource]);
+  const intelligenceStocks = useMemo(() => enrichMinerviniUniverse(filteredStocks), [filteredStocks]);
+  const intelligenceSelectedStock = useMemo(() => {
+    if (!selectedStock) return null;
+    return intelligenceStocks.find((stock) => stock.symbol === selectedStock.symbol)
+      || { ...selectedStock, setupProfile: evaluateMinerviniStock(selectedStock) };
+  }, [intelligenceStocks, selectedStock]);
 
   useEffect(() => {
     watchlistsRef.current = watchlists;
@@ -744,8 +758,9 @@ function App() {
         onDeleteWatchlist={handleDeleteWatchlist}
         onRenameWatchlist={handleRenameWatchlist}
         onCreateWithFilters={handleCreateWatchlistWithFilters}
-        stocks={getFilteredStocks()}
-        selectedStock={selectedStock}
+        stocks={intelligenceStocks}
+        intelligenceUniverse={intelligenceUniverse}
+        selectedStock={intelligenceSelectedStock}
         onSelectStock={handleStockSelect}
         fundamentals={fundamentals}
         fundamentalsLoading={fundamentalsLoading}
@@ -765,6 +780,13 @@ function App() {
         showSetupLab={showSetupLab}
         closeSetupLab={() => setShowSetupLab(false)}
         onSetupSaved={refreshSelectedStockSetup}
+        onApplyIntelligence={(results, label) => {
+          setScreenedStocks(results);
+          setActiveWatchlist(null);
+          setActiveFilters({});
+          if (results.length > 0) setSelectedStock(results[0]);
+          console.log(`[sepa] Radar aplicado: ${label} (${results.length} acciones)`);
+        }}
       />
     );
   }

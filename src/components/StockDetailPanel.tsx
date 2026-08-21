@@ -1,11 +1,16 @@
 import {
   ArrowDownRight,
   ArrowUpRight,
+  AlertTriangle,
   BarChart3,
   Building2,
+  CheckCircle2,
   ChevronRight,
   Gauge,
   LineChart,
+  Shield,
+  Sparkles,
+  Target,
   X,
 } from 'lucide-react';
 import { Stock, StockFundamentals } from '../types';
@@ -56,9 +61,26 @@ export default function StockDetailPanel({
   const positiveTrendChecks = trendChecks.filter((average) => stock.price > average).length;
   const trendScore = trendChecks.length ? Math.round((positiveTrendChecks / trendChecks.length) * 100) : 0;
   const summary = stock.fundamentals;
+  const profile = stock.setupProfile;
+  const risk = profile?.riskPlan;
+  const scoreTone = profile?.state === 'Actionable'
+    ? 'text-emerald-300'
+    : profile?.state === 'Close'
+      ? 'text-amber-300'
+      : profile?.state === 'Reject'
+        ? 'text-rose-300'
+        : 'text-blue-300';
+  const subscoreEntries = profile?.subscores ? [
+    ['Universo', profile.subscores.universe, 10],
+    ['Fundam.', profile.subscores.fundamentals, 25],
+    ['Tendencia', profile.subscores.trend, 20],
+    ['Liderazgo', profile.subscores.leadership, 15],
+    ['Setup', profile.subscores.setup, 15],
+    ['Acción', profile.subscores.actionability, 15],
+  ] as const : [];
 
   return (
-    <aside className="detail-panel w-[326px] shrink-0 overflow-y-auto border-l border-white/[0.07] bg-[#0c1118]">
+    <aside className="detail-panel w-[356px] shrink-0 overflow-y-auto border-l border-white/[0.07] bg-[#0c1118]">
       <div className="sticky top-0 z-20 flex items-center justify-between border-b border-white/[0.07] bg-[#0c1118]/95 px-4 py-3 backdrop-blur-xl">
         <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">
           <Gauge size={13} /> Intelligence panel
@@ -91,6 +113,63 @@ export default function StockDetailPanel({
             <div className="pb-1 text-right text-[10px] uppercase tracking-wider text-slate-600">USD · Daily</div>
           </div>
         </div>
+
+        {profile && (
+          <section className="sepa-score-card">
+            <div className="sepa-score-summary">
+              <div className="sepa-score-ring" style={{ '--sepa-score': `${profile.score * 3.6}deg` } as React.CSSProperties}>
+                <span className={scoreTone}>{profile.score}</span>
+                <small>/100</small>
+              </div>
+              <div>
+                <span className="sepa-kicker"><Sparkles size={11} /> Lectura SEPA</span>
+                <strong>{profile.state} · Calidad {profile.setupQuality || '—'}</strong>
+                <p>{profile.type} · {profile.stage}</p>
+              </div>
+              <div className="confidence-meter">
+                <span>Confianza</span>
+                <b>{profile.confidence ?? 0}%</b>
+              </div>
+            </div>
+            <div className="subscore-grid">
+              {subscoreEntries.map(([label, value, max]) => (
+                <div key={label}>
+                  <span>{label}</span>
+                  <b>{value}<small>/{max}</small></b>
+                  <i><em style={{ width: `${Math.min(100, (value / max) * 100)}%` }} /></i>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {profile && (
+          <section className="ai-thesis-card">
+            <div className="detail-section-title"><Sparkles size={13} /> Tesis explicable</div>
+            {(profile.positives || []).slice(0, 3).map((item) => (
+              <div className="thesis-line positive" key={item}><CheckCircle2 size={12} /><span>{item}</span></div>
+            ))}
+            {(profile.negatives || []).slice(0, 2).map((item) => (
+              <div className="thesis-line negative" key={item}><AlertTriangle size={12} /><span>{item}</span></div>
+            ))}
+            {(profile.coverageGaps || []).slice(0, 1).map((item) => (
+              <div className="thesis-line gap" key={item}><Shield size={12} /><span>{item}</span></div>
+            ))}
+          </section>
+        )}
+
+        {risk && (
+          <section className="risk-plan-card">
+            <div className="detail-section-title"><Target size={13} /> Plan de riesgo · ROTE 1.25%</div>
+            <div className="risk-plan-grid">
+              <div><span>Referencia trigger</span><b>{risk.triggerReference ? `$${risk.triggerReference.toFixed(2)}` : '—'}</b></div>
+              <div><span>Stop estructural</span><b>{risk.stopReference ? `$${risk.stopReference.toFixed(2)}` : '—'}</b></div>
+              <div><span>Riesgo</span><b className={risk.riskPct && risk.riskPct <= 6 ? 'text-emerald-300' : 'text-amber-300'}>{risk.riskPct ? `${risk.riskPct.toFixed(1)}%` : '—'}</b></div>
+              <div><span>Posición máxima</span><b>{risk.suggestedPositionPct ? `${risk.suggestedPositionPct.toFixed(1)}%` : '—'}</b></div>
+            </div>
+            <p>{risk.extended ? 'Extendida: esperar reset o nueva referencia de riesgo.' : `Objetivo inicial de validación: ${risk.rewardRiskTarget.toFixed(1)}R. Confirmar el pivot real en el gráfico.`}</p>
+          </section>
+        )}
 
         <div className="mb-4 grid grid-cols-2 gap-2">
           <div className="metric-tile">

@@ -23,6 +23,7 @@ import StockSidebar from './StockSidebar';
 import TradingViewChart from './TradingViewChart';
 import { WatchlistPanel } from './WatchlistPanel';
 import EmailPanel from './EmailPanel';
+import MinerviniCommandCenter from './MinerviniCommandCenter';
 import { Stock, StockFundamentals, Watchlist } from '../types';
 
 interface MarketPulse {
@@ -60,6 +61,7 @@ interface ProfessionalWorkspaceProps {
   onRenameWatchlist: (id: string, name: string) => void;
   onCreateWithFilters: () => void;
   stocks: Stock[];
+  intelligenceUniverse: Stock[];
   selectedStock: Stock | null;
   onSelectStock: (stock: Stock) => void;
   fundamentals: StockFundamentals | null;
@@ -77,6 +79,7 @@ interface ProfessionalWorkspaceProps {
   showSetupLab: boolean;
   closeSetupLab: () => void;
   onSetupSaved: () => void;
+  onApplyIntelligence: (stocks: Stock[], label: string) => void;
 }
 
 const PulseMetric = ({ label, value, detail, tone = 'neutral' }: {
@@ -172,6 +175,14 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
               </button>
             </div>
           </div>
+
+          <MinerviniCommandCenter
+            universe={props.intelligenceUniverse}
+            marketPulse={props.marketPulse}
+            selectedStock={props.selectedStock}
+            onSelectStock={props.onSelectStock}
+            onApplyResults={props.onApplyIntelligence}
+          />
 
           <div className="watchlist-rail">
             <div className="rail-label"><Layers3 size={13} /> Universos</div>
