@@ -1,0 +1,482 @@
+{
+  "AFRM": {
+    "date": "2021-01-13",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "AHR": {
+    "date": "2023-01-17",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "ALAB": {
+    "date": "2024-03-20",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "ALH": {
+    "date": "2025-10-09",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "AMBQ": {
+    "date": "2025-07-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "ANDG": {
+    "date": "2025-12-17",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "APP": {
+    "date": "2021-04-15",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "ARX": {
+    "date": "2025-07-24",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "AS": {
+    "date": "2024-02-01",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "AUGO": {
+    "date": "2007-07-31",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "AVPT": {
+    "date": "2019-09-19",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "BAM": {
+    "date": "2022-12-01",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "BKSY": {
+    "date": "2019-12-20",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "BMNR": {
+    "date": "2021-05-26",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "BOW": {
+    "date": "2024-05-23",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "BROS": {
+    "date": "2021-09-15",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "BRZE": {
+    "date": "2021-11-17",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "BTSG": {
+    "date": "2024-01-26",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "CAI": {
+    "date": "2025-06-18",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "CAVA": {
+    "date": "2023-06-15",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "COCO": {
+    "date": "2021-10-21",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "COMP": {
+    "date": "2021-04-01",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "CRBG": {
+    "date": "2022-09-15",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "CRC": {
+    "date": "2014-11-13",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "CRDO": {
+    "date": "2022-01-27",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "CRGY": {
+    "date": "2021-12-08",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "DDOG": {
+    "date": "2019-09-19",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "DLO": {
+    "date": "2021-06-03",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "ECG": {
+    "date": "2024-10-28",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "ECO": {
+    "date": "2018-07-04",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "EE": {
+    "date": "2022-04-13",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "ENLT": {
+    "date": "1994-02-11",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "EQPT": {
+    "date": "2026-01-23",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "EQX": {
+    "date": "2007-08-13",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "FIGR": {
+    "date": "2025-09-11",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "FIGS": {
+    "date": "2021-05-27",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "FLNG": {
+    "date": "2009-10-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "FLOC": {
+    "date": "2025-01-17",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "FLYW": {
+    "date": "2021-05-26",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "FPS": {
+    "date": "2026-02-05",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "FROG": {
+    "date": "2020-09-16",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "FSLY": {
+    "date": "2019-05-17",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "GCT": {
+    "date": "2022-08-18",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "GEV": {
+    "date": "2024-02-26",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "GLBE": {
+    "date": "2021-05-12",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "HOOD": {
+    "date": "2021-07-29",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "HRMY": {
+    "date": "2020-08-19",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "INFQ": {
+    "date": "2025-07-07",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "KGS": {
+    "date": "2023-06-29",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "KNTK": {
+    "date": "2017-04-04",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "KRMN": {
+    "date": "2025-02-13",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "KVYO": {
+    "date": "2023-09-20",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "KYMR": {
+    "date": "2020-08-21",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "LION": {
+    "date": "2022-01-06",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "MNDY": {
+    "date": "2021-06-10",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "MP": {
+    "date": "2020-04-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "MRX": {
+    "date": "2024-04-25",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "MSGE": {
+    "date": "2023-04-17",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "NAVN": {
+    "date": "2025-10-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "NESR": {
+    "date": "2017-05-17",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "NTST": {
+    "date": "2020-08-13",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "NU": {
+    "date": "2021-12-09",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "ONTO": {
+    "date": "1984-11-28",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "OUST": {
+    "date": "2020-10-09",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "PAY": {
+    "date": "2021-05-26",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "PL": {
+    "date": "2021-03-05",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "PLTR": {
+    "date": "2020-09-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "PNTG": {
+    "date": "2019-09-19",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "PRVA": {
+    "date": "2021-04-29",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "PTRN": {
+    "date": "2025-09-19",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "RBLX": {
+    "date": "2021-03-10",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "RBRK": {
+    "date": "2024-04-25",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "RDDT": {
+    "date": "2024-03-21",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "RDW": {
+    "date": "2021-01-14",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "RELY": {
+    "date": "2021-09-23",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "RIVN": {
+    "date": "2021-11-10",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "RKLB": {
+    "date": "2020-11-16",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "SEPN": {
+    "date": "2024-10-25",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "SEZL": {
+    "date": "2019-07-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "SHAZ": {
+    "date": "2021-10-27",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "SLDE": {
+    "date": "2025-06-18",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "SNOW": {
+    "date": "2020-09-16",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "SOFI": {
+    "date": "2020-11-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "SUNB": {
+    "date": "2026-03-02",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "TFPM": {
+    "date": "2019-12-11",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "TOST": {
+    "date": "2021-09-22",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "TTAN": {
+    "date": "2024-12-12",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "U": {
+    "date": "2020-09-18",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "UMAC": {
+    "date": "2024-02-14",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "UPST": {
+    "date": "2020-12-16",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "VELO": {
+    "date": "2021-01-25",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "VG": {
+    "date": "2025-01-24",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "VGNT": {
+    "date": "2026-04-01",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "XMTR": {
+    "date": "2021-06-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "XP": {
+    "date": "2019-12-11",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  },
+  "YOU": {
+    "date": "2021-06-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-09-16T16:08:04.867Z"
+  }
+}
