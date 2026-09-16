@@ -26,6 +26,7 @@ import TradingViewChart from './TradingViewChart';
 import { WatchlistPanel } from './WatchlistPanel';
 import EmailPanel from './EmailPanel';
 import MinerviniCommandCenter from './MinerviniCommandCenter';
+import TradingDesk from './TradingDesk';
 import { Stock, StockFundamentals, Watchlist } from '../types';
 
 interface MarketPulse {
@@ -38,8 +39,8 @@ interface MarketPulse {
 }
 
 interface ProfessionalWorkspaceProps {
-  activeSection: 'screener' | 'email';
-  setActiveSection: Dispatch<SetStateAction<'screener' | 'email'>>;
+  activeSection: 'screener' | 'email' | 'desk';
+  setActiveSection: Dispatch<SetStateAction<'screener' | 'email' | 'desk'>>;
   dataProvider: 'local-engine' | 'direct-market' | 'cache';
   loadError: string | null;
   lastUpdate: Date | null;
@@ -131,6 +132,9 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
           <button className={props.activeSection === 'email' ? 'active' : ''} onClick={() => props.setActiveSection('email')}>
             <Mail size={14} /> Research inbox
           </button>
+          <button className={props.activeSection === 'desk' ? 'active' : ''} onClick={() => props.setActiveSection('desk')}>
+            <Activity size={14} /> Seguimiento
+          </button>
         </nav>
 
         <div className="header-status">
@@ -150,7 +154,7 @@ export default function ProfessionalWorkspace(props: ProfessionalWorkspaceProps)
         </div>
       </header>
 
-      {props.activeSection === 'email' ? <EmailPanel /> : (
+      {props.activeSection === 'desk' ? <TradingDesk /> : props.activeSection === 'email' ? <EmailPanel /> : (
         <>
           <div className="command-bar">
             <div className="context-title">

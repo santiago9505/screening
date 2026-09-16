@@ -1,0 +1,72 @@
+name: Daily screening and buy alerts
+
+on:
+  schedule:
+    # 17:37 Colombia, after both US daylight-saving and standard closes.
+    - cron: '37 22 * * 1-5'
+    # Session guard handles DST, exchange holidays and early closes.
+    - cron: '2-57/5 13-20 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Operation
+        type: choice
+        options: [nightly, monitor, email-test]
+        default: nightly
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trading-desk-state
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TRADING_STATE_DIR: .trading-state
+      FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      ALERT_EMAIL_FROM: ${{ secrets.ALERT_EMAIL_FROM }}
+      ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Load durable research state
+        uses: actions/checkout@v4
+        with:
+          ref: trading-data
+          path: .trading-state
+      - name: Restore market history cache
+        if: github.event.schedule == '37 22 * * 1-5' || inputs.mode == 'nightly'
+        uses: actions/cache@v4
+        with:
+          path: .cache/trading-desk-history
+          key: desk-history-${{ github.run_id }}
+          restore-keys: desk-history-
+      - name: Screen the eligible universe after the close
+        if: github.event.schedule == '37 22 * * 1-5' || inputs.mode == 'nightly'
+        run: node scripts/trading-desk/nightly.mjs
+      - name: Check active buy alerts
+        if: (github.event_name == 'schedule' && github.event.schedule != '37 22 * * 1-5') || inputs.mode == 'monitor'
+        run: node scripts/trading-desk/monitor.mjs
+      - name: Test authorized email delivery
+        if: inputs.mode == 'email-test'
+        run: node scripts/trading-desk/test-email.mjs
+      - name: Persist research and publish market-only data
+        if: always()
+        shell: bash
+        run: |
+          if [ -f public/data/trading-desk.json ]; then cp public/data/trading-desk.json .trading-state/public.json; fi
+          cd .trading-state
+          git config user.name "Northstar research"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json public.json ipo-profiles.json observations
+          if ! git diff --cached --quiet; then
+            git commit -m "Update research state ${GITHUB_RUN_ID}"
+            git push origin HEAD:trading-data
+          fi

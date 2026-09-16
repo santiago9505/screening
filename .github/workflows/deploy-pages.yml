@@ -2,10 +2,10 @@ name: Deploy Northstar to GitHub Pages
 
 on:
   push:
-    branches: [codex/northstar]
+    branches: [main, codex/northstar]
   workflow_dispatch:
   schedule:
-    - cron: '30 22 * * 1-5'
+    - cron: '57 22 * * 1-5'
 
 permissions:
   contents: read
@@ -34,6 +34,15 @@ jobs:
 
       - name: Generate EOD market snapshot
         run: node scripts/build-market-snapshot.mjs
+
+      - name: Load latest research for offline fallback
+        uses: actions/checkout@v4
+        with:
+          ref: trading-data
+          path: .published-research
+
+      - name: Copy market-only research
+        run: cp .published-research/public.json public/data/trading-desk.json
 
       - name: Build web app
         run: npm run build

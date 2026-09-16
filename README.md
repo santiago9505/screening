@@ -77,3 +77,8 @@ El workflow de GitHub Actions compila TypeScript, genera el build de producción
 React 18, TypeScript, Vite, Tailwind CSS, TradingView Scanner, TradingView Advanced Chart, Express y Node Test Runner.
 
 > La información mostrada es de mercado y no constituye asesoría financiera.
+
+
+## Seguimiento diario
+
+La pestaña Seguimiento incluye Buy Alert, Watchlist, Recent Sold, IPO y Portafolio. [Reglas, horarios y configuración del correo](docs/trading-desk.md). Las operaciones se registran manualmente en el navegador; no se envían órdenes a IBKR.

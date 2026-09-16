@@ -45,7 +45,7 @@ function App() {
   const [watchlistsReady, setWatchlistsReady] = useState(false);
   const [presetSyncing, setPresetSyncing] = useState(false);
   const [showSetupLab, setShowSetupLab] = useState(false);
-  const [activeSection, setActiveSection] = useState<'screener' | 'email'>('screener');
+  const [activeSection, setActiveSection] = useState<'screener' | 'email' | 'desk'>(() => new URLSearchParams(window.location.search).has('desk') && !new URLSearchParams(window.location.search).has('legacy') ? 'desk' : 'screener');
   const [dataProvider, setDataProvider] = useState<'local-engine' | 'direct-market' | 'cache'>('local-engine');
   const [loadError, setLoadError] = useState<string | null>(null);
   const fundamentalsRequestRef = useRef(0);
