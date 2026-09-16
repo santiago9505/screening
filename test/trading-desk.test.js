@@ -1,7 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
-import {readFile} from 'node:fs/promises';
+import {readFile,mkdtemp,mkdir,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {execFileSync} from 'node:child_process';
 import {dailyMetrics,rankUniverse,classify,evaluateAlert,listChanges} from '../scripts/trading-desk/engine.mjs';
 import {lastClosedSession,isMarketOpen,shiftSession} from '../scripts/trading-desk/calendar.mjs';
 import {sendAlert} from '../scripts/trading-desk/mailer.mjs';
@@ -71,4 +74,14 @@ test('email never claims successful delivery without a provider acknowledgment',
   assert.equal(bodies[0].headers['Idempotency-Key'],bodies[1].headers['Idempotency-Key']);
   assert.equal(bodies[0].body,bodies[1].body);
   await assert.rejects(()=>sendAlert(event,plan,cfg,async()=>({ok:false,status:503}),env));
+});
+test('closed-market and failed runs publish durable state, never the bundled seed',async()=>{
+  const dir=await mkdtemp(path.join(tmpdir(),'northstar-publish-'));
+  await mkdir(path.join(dir,'public/data'),{recursive:true});
+  await writeFile(path.join(dir,'public/data/trading-desk.json'),JSON.stringify({session:'old-seed'}));
+  await writeFile(path.join(dir,'state.json'),JSON.stringify({report:{session:'newest-close',email:{configured:false}},alerts:[{id:'x',deliveryId:'private-provider-id'}]}));
+  execFileSync(process.execPath,[path.resolve('scripts/trading-desk/publish-state.mjs')],{cwd:dir,env:{...process.env,TRADING_STATE_DIR:dir}});
+  const published=JSON.parse(await readFile(path.join(dir,'public/data/trading-desk.json'),'utf8'));
+  assert.equal(published.session,'newest-close');
+  assert.equal(published.alerts[0].deliveryId,undefined);
 });
