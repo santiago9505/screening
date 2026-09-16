@@ -54,7 +54,7 @@ for(const r of rows) {
 await writeJson(path.join(stateDir,'ipo-profiles.json'),profiles);
 const valid=rows.filter(r=>r.metrics.valid).length;
 const complete=scan.complete && valid===rows.length && !!spy?.valid && !!qqq?.valid;
-const context={session,nextSession,rs:rankUniverse(rows),sectors,complete:scan.complete&&!!spy?.valid&&!!qqq?.valid&&!preview,
+const context={session,nextSession,preview,rs:rankUniverse(rows),sectors,complete:scan.complete&&!!spy?.valid&&!!qqq?.valid&&!preview,
   spyReturn63:spy?.return63??Infinity,marketGood:!!(spy?.valid&&qqq?.valid&&spy.close>spy.sma50&&qqq.close>qqq.sma50)};
 const assessed=rows.map(r=>classify(r,context,cfg));
 const candidates=assessed.filter(r=>r.bucket!=='removed').sort((a,b)=>(b.rs??-1)-(a.rs??-1));

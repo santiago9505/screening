@@ -66,7 +66,7 @@ export function classify(row,context,cfg) {
   const perShare=trigger?trigger-m.stop+(trigger+m.stop)*cfg.oneWayCostBps/10000:null;
   const shares=perShare>0?Math.max(0,Math.floor(Math.min(cfg.initialCapital*cfg.riskPerTradePct/100/perShare,cfg.initialCapital*cfg.maxPositionPct/100/(trigger*(1+cfg.oneWayCostBps/10000))))):0;
   const blockers=[];
-  if(!context.complete) blockers.push('Cobertura incompleta del universo');
+  if(!context.complete) blockers.push(context.preview?'Esperar el análisis al cierre':'Cobertura incompleta del universo');
   if(!m.valid) blockers.push(m.reason);
   if(!growth) blockers.push('Fundamentales insuficientes o fuera del filtro');
   if(!m.trend) blockers.push('No cumple tendencia completa');
@@ -79,6 +79,7 @@ export function classify(row,context,cfg) {
   if(stopPct===null || stopPct<cfg.minStopPct || stopPct>cfg.maxStopPct || maxEntry<trigger) blockers.push('Stop fuera del rango permitido');
   if(!shares) blockers.push('No cabe una acción entera en el riesgo piloto');
   const bucket=near?'buy-alert':promising?(isIpo?'ipo':'watchlist'):'removed';
+  const setupReasons=blockers.filter(b=>b.startsWith('RS ') || b.startsWith('Falta contracción') || b.startsWith('Lejos del') || b.startsWith('No cumple tendencia'));
   return {symbol:row.symbol,name:row.vendor.description,sector:row.vendor.sector,bucket,rs,
     metrics:m,epsGrowth:finite(eps)?eps:null,salesGrowth:finite(sales)?sales:null,
     ipoDate,ipoSource:row.ipoSource??null,firstTradeDate:m.firstTradeDate??null,isIpo,
@@ -87,7 +88,7 @@ export function classify(row,context,cfg) {
       trigger,maxEntry,stop:m.stop,shares,plannedRisk:round(shares*perShare),avgVolume50:m.avgVolume50,
       armed:blockers.length===0,requiresVolume:1.5,status:blockers.length?'blocked':'armed'}:null,
     reason:bucket==='buy-alert'?'Cerca del pivot con contracción; revisar condiciones de activación':
-      promising?'Calidad suficiente; patrón todavía en desarrollo':blockers.slice(0,2).join('. ')};
+      promising?(setupReasons.slice(0,2).join('. ')||'Patrón en desarrollo; revisar condiciones de activación'):blockers.filter(b=>!b.startsWith('Esperar el')).slice(0,2).join('. ')};
 }
 
 export function evaluateAlert(plan,quote,now,cfg) {
