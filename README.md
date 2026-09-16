@@ -70,7 +70,7 @@ VCP, Power Play, Primary Base y otros patrones aparecen como `radar` o `candidat
 
 ## Publicación
 
-El workflow de GitHub Actions compila TypeScript, genera el build de producción y publica `dist` en GitHub Pages con cada push a `codex/northstar`.
+El workflow de GitHub Actions compila y publica `dist` en GitHub Pages con los cambios de `main` o `codex/northstar`, y a las 17:57 de Colombia de lunes a viernes. El screening de Seguimiento corre a las 17:37 de Colombia; el monitor comprueba las alertas cada cinco minutos durante la sesión NYSE. Los workflows programados están en la rama por defecto `main`. GitHub puede retrasar las ejecuciones.
 
 ## Stack
 
