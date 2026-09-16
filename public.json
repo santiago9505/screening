@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "ruleVersion": "1.0.0",
-  "generatedAt": "2026-09-16T16:15:30.992Z",
+  "generatedAt": "2026-09-16T16:26:42.348Z",
   "session": "2026-09-15",
   "nextSession": "2026-09-16",
   "preview": true,
@@ -15,10 +15,10 @@
     "sourceTotal": 4965,
     "sourceReceived": 4965,
     "common": 3110,
-    "liquid": 2129,
-    "validHistory": 2124,
+    "liquid": 2128,
+    "validHistory": 2123,
     "failedHistory": 5,
-    "rsRanked": 2092
+    "rsRanked": 2090
   },
   "market": {
     "favorable": false,
@@ -248,10 +248,10 @@
         "return63": 0.20200075792131839
       },
       "Non-Energy Minerals": {
-        "count": 69,
-        "above50": 38,
-        "breadth": 55.072463768115945,
-        "return63": -0.030656700988857033
+        "count": 68,
+        "above50": 37,
+        "breadth": 54.411764705882355,
+        "return63": -0.03247365454446382
       },
       "Electronic Technology": {
         "count": 178,
@@ -332,9 +332,9 @@
         "return63": 0.040885513849486986
       },
       "Consumer Durables": {
-        "count": 47,
+        "count": 48,
         "above50": 9,
-        "breadth": 19.148936170212767,
+        "breadth": 18.75,
         "return63": -0.029214510469714863
       },
       "Energy Minerals": {
@@ -344,10 +344,10 @@
         "return63": 0.2467875435470006
       },
       "Consumer Non-Durables": {
-        "count": 81,
+        "count": 80,
         "above50": 16,
-        "breadth": 19.753086419753085,
-        "return63": -0.043206612141642904
+        "breadth": 20,
+        "return63": -0.042100577968149366
       },
       "Communications": {
         "count": 16,
@@ -369,7 +369,7 @@
       "name": "Dell Technologies, Inc. Class C",
       "sector": "Electronic Technology",
       "bucket": "watchlist",
-      "rs": 97.93233082706767,
+      "rs": 97.88434414668548,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -380,7 +380,7 @@
         "sma200": 265.8797497558594,
         "trend": true,
         "medianDollarVolume20": 3303215749.27063,
-        "totalReturn126": 2.488518422284853,
+        "totalReturn126": 2.48851808062455,
         "return63": 0.328647908754778,
         "ranges": [
           19.00778447607612,
@@ -420,7 +420,7 @@
       "name": "Corcept Therapeutics Incorporated.",
       "sector": "Health Technology",
       "bucket": "watchlist",
-      "rs": 97.88533834586467,
+      "rs": 97.83732957216738,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -472,7 +472,7 @@
       "name": "Hewlett Packard Enterprise Co.",
       "sector": "Electronic Technology",
       "bucket": "watchlist",
-      "rs": 97.32142857142857,
+      "rs": 97.27315467795016,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -524,7 +524,7 @@
       "name": "Advanced Micro Devices, Inc.",
       "sector": "Electronic Technology",
       "bucket": "watchlist",
-      "rs": 97.27443609022556,
+      "rs": 97.22614010343206,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -575,7 +575,7 @@
       "name": "Humana Inc.",
       "sector": "Health Services",
       "bucket": "watchlist",
-      "rs": 96.71052631578948,
+      "rs": 96.66196520921486,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -626,7 +626,7 @@
       "name": "Andersen Group, Inc. Class A",
       "sector": "Consumer Services",
       "bucket": "ipo",
-      "rs": 96.56954887218045,
+      "rs": 96.52092148566055,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -679,7 +679,7 @@
       "name": "Okeanis Eco Tankers Corp.",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 94.92481203007519,
+      "rs": 94.87541137752703,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -730,7 +730,7 @@
       "name": "Fortinet, Inc.",
       "sector": "Technology Services",
       "bucket": "watchlist",
-      "rs": 94.73684210526316,
+      "rs": 94.68735307945462,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -780,7 +780,7 @@
       "name": "HF Sinclair Corporation",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 94.26691729323308,
+      "rs": 94.21720733427362,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -830,7 +830,7 @@
       "name": "Red Violet, Inc.",
       "sector": "Technology Services",
       "bucket": "watchlist",
-      "rs": 93.84398496240601,
+      "rs": 93.79407616361073,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -880,7 +880,7 @@
       "name": "Marex Group Limited",
       "sector": "Technology Services",
       "bucket": "ipo",
-      "rs": 93.796992481203,
+      "rs": 93.74706158909262,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -931,7 +931,7 @@
       "name": "Twilio, Inc. Class A",
       "sector": "Technology Services",
       "bucket": "watchlist",
-      "rs": 93.32706766917293,
+      "rs": 93.27691584391161,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -981,7 +981,7 @@
       "name": "Dorian LPG Ltd.",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 93.28007518796993,
+      "rs": 93.22990126939351,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1032,7 +1032,7 @@
       "name": "NetApp, Inc.",
       "sector": "Electronic Technology",
       "bucket": "watchlist",
-      "rs": 92.81015037593986,
+      "rs": 92.75975552421251,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1084,7 +1084,7 @@
       "name": "CVR Energy, Inc.",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 92.62218045112782,
+      "rs": 92.5716972261401,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1134,7 +1134,7 @@
       "name": "Marathon Petroleum Corporation",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 91.77631578947368,
+      "rs": 91.72543488481429,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1184,7 +1184,7 @@
       "name": "International Seaways, Inc.",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 91.68233082706767,
+      "rs": 91.63140573577809,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1195,7 +1195,7 @@
         "sma200": 75.60170000076295,
         "trend": true,
         "medianDollarVolume20": 57289516.022109985,
-        "totalReturn126": 0.7997849821276191,
+        "totalReturn126": 0.7997850968173121,
         "return63": 0.32342455493482447,
         "ranges": [
           13.376247622384335,
@@ -1235,7 +1235,7 @@
       "name": "Frequency Electronics, Inc.",
       "sector": "Electronic Technology",
       "bucket": "watchlist",
-      "rs": 91.2593984962406,
+      "rs": 91.20827456511519,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1287,7 +1287,7 @@
       "name": "Valero Energy Corporation",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 90.69548872180451,
+      "rs": 90.64409967089797,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1298,7 +1298,7 @@
         "sma200": 246.01315170288086,
         "trend": true,
         "medianDollarVolume20": 962912322.7355957,
-        "totalReturn126": 0.7219249305616033,
+        "totalReturn126": 0.7219250445115837,
         "return63": 0.6064088147842575,
         "ranges": [
           16.875342270696475,
@@ -1337,7 +1337,7 @@
       "name": "TD SYNNEX Corporation",
       "sector": "Distribution Services",
       "bucket": "watchlist",
-      "rs": 90.6484962406015,
+      "rs": 90.59708509637987,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1348,7 +1348,7 @@
         "sma200": 208.13724945068358,
         "trend": true,
         "medianDollarVolume20": 121321732.88574219,
-        "totalReturn126": 0.7166996363192175,
+        "totalReturn126": 0.7166994649974996,
         "return63": -0.07788506371167736,
         "ranges": [
           6.862200677941491,
@@ -1388,7 +1388,7 @@
       "name": "Frontline Plc",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 90.31954887218045,
+      "rs": 90.26798307475318,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1439,7 +1439,7 @@
       "name": "Aya Gold & Silver Inc.",
       "sector": "Non-Energy Minerals",
       "bucket": "watchlist",
-      "rs": 90.22556390977444,
+      "rs": 90.17395392571697,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1491,7 +1491,7 @@
       "name": "CMB.TECH NV",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 89.84962406015038,
+      "rs": 89.79783732957216,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1541,7 +1541,7 @@
       "name": "Halozyme Therapeutics, Inc.",
       "sector": "Health Technology",
       "bucket": "watchlist",
-      "rs": 89.61466165413533,
+      "rs": 89.56276445698167,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1591,7 +1591,7 @@
       "name": "Roku, Inc. Class A",
       "sector": "Technology Services",
       "bucket": "watchlist",
-      "rs": 89.47368421052632,
+      "rs": 89.42172073342736,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1641,7 +1641,7 @@
       "name": "Kiniksa Pharmaceuticals International, plc Class A",
       "sector": "Health Technology",
       "bucket": "watchlist",
-      "rs": 88.95676691729324,
+      "rs": 88.90456041372826,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1694,7 +1694,7 @@
       "name": "Preformed Line Products Company",
       "sector": "Producer Manufacturing",
       "bucket": "watchlist",
-      "rs": 88.90977443609023,
+      "rs": 88.85754583921016,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1705,7 +1705,7 @@
         "sma200": 315.5116500091553,
         "trend": true,
         "medianDollarVolume20": 29265367.59185791,
-        "totalReturn126": 0.615381934278584,
+        "totalReturn126": 0.6153820330560169,
         "return63": 0.06034301930877395,
         "ranges": [
           27.882462608725938,
@@ -1747,7 +1747,7 @@
       "name": "Nucor Corporation",
       "sector": "Non-Energy Minerals",
       "bucket": "watchlist",
-      "rs": 88.53383458646617,
+      "rs": 88.48142924306535,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1799,7 +1799,7 @@
       "name": "Par Pacific Holdings Inc",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 87.82894736842105,
+      "rs": 87.77621062529384,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1850,7 +1850,7 @@
       "name": "SM Energy Company",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 87.73496240601504,
+      "rs": 87.68218147625764,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1901,7 +1901,7 @@
       "name": "National Energy Services Reunited Corp.",
       "sector": "Industrial Services",
       "bucket": "watchlist",
-      "rs": 87.59398496240601,
+      "rs": 87.54113775270334,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -1954,7 +1954,7 @@
       "name": "Avnet, Inc.",
       "sector": "Distribution Services",
       "bucket": "watchlist",
-      "rs": 87.35902255639098,
+      "rs": 87.30606488011283,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2007,7 +2007,7 @@
       "name": "Phillips 66",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 87.21804511278195,
+      "rs": 87.16502115655854,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2057,7 +2057,7 @@
       "name": "Everpure, Inc. Class A",
       "sector": "Electronic Technology",
       "bucket": "watchlist",
-      "rs": 87.07706766917293,
+      "rs": 87.02397743300423,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2110,7 +2110,7 @@
       "name": "QuinStreet, Inc.",
       "sector": "Commercial Services",
       "bucket": "watchlist",
-      "rs": 86.79511278195488,
+      "rs": 86.74188998589563,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2163,7 +2163,7 @@
       "name": "Teekay Tankers Ltd Class A",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 86.46616541353383,
+      "rs": 86.41278796426893,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2215,7 +2215,7 @@
       "name": "TORM PLC Class A",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 85.94924812030075,
+      "rs": 85.89562764456981,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2267,7 +2267,7 @@
       "name": "Harmony Biosciences Holdings, Inc.",
       "sector": "Health Technology",
       "bucket": "ipo",
-      "rs": 85.85526315789474,
+      "rs": 85.80159849553361,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2319,7 +2319,7 @@
       "name": "Arrow Electronics, Inc.",
       "sector": "Distribution Services",
       "bucket": "watchlist",
-      "rs": 85.6672932330827,
+      "rs": 85.61354019746122,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2372,7 +2372,7 @@
       "name": "Corebridge Financial, Inc.",
       "sector": "Finance",
       "bucket": "ipo",
-      "rs": 85.6203007518797,
+      "rs": 85.56652562294312,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2423,7 +2423,7 @@
       "name": "Tsakos Energy Navigation Limited",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 85.43233082706767,
+      "rs": 85.37846732487071,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2475,7 +2475,7 @@
       "name": "Caris Life Sciences, Inc.",
       "sector": "Health Technology",
       "bucket": "ipo",
-      "rs": 85.29135338345864,
+      "rs": 85.23742360131641,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2528,7 +2528,7 @@
       "name": "WisdomTree, Inc.",
       "sector": "Finance",
       "bucket": "watchlist",
-      "rs": 85.15037593984962,
+      "rs": 85.0963798777621,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2581,7 +2581,7 @@
       "name": "Navios Maritime Partners LP",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 84.63345864661655,
+      "rs": 84.579219558063,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2632,7 +2632,7 @@
       "name": "Star Bulk Carriers Corp.",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 84.53947368421052,
+      "rs": 84.4851904090268,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2643,7 +2643,7 @@
         "sma200": 24.86264988899231,
         "trend": true,
         "medianDollarVolume20": 49674696.20628357,
-        "totalReturn126": 0.47510801183401874,
+        "totalReturn126": 0.4751078788547529,
         "return63": 0.1529368096165884,
         "ranges": [
           10.039763605058253,
@@ -2685,7 +2685,7 @@
       "name": "Slide Insurance Holdings, Inc.",
       "sector": "Technology Services",
       "bucket": "ipo",
-      "rs": 84.25751879699249,
+      "rs": 84.20310296191819,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2735,7 +2735,7 @@
       "name": "Cenovus Energy Inc.",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 84.16353383458646,
+      "rs": 84.10907381288199,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2784,7 +2784,7 @@
       "name": "Robinhood Markets, Inc. Class A",
       "sector": "Finance",
       "bucket": "ipo",
-      "rs": 84.11654135338345,
+      "rs": 84.06205923836389,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2838,7 +2838,7 @@
       "name": "Paymentus Holdings, Inc Class A",
       "sector": "Commercial Services",
       "bucket": "ipo",
-      "rs": 84.02255639097744,
+      "rs": 83.9680300893277,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2892,7 +2892,7 @@
       "name": "Oppenheimer Holdings Inc. Class A",
       "sector": "Finance",
       "bucket": "watchlist",
-      "rs": 82.89473684210526,
+      "rs": 82.83968030089328,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2946,7 +2946,7 @@
       "name": "Arista Networks Inc",
       "sector": "Electronic Technology",
       "bucket": "watchlist",
-      "rs": 82.33082706766918,
+      "rs": 82.27550540667607,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -2999,7 +2999,7 @@
       "name": "Ardmore Shipping Corp.",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 81.57894736842105,
+      "rs": 81.52327221438647,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3050,7 +3050,7 @@
       "name": "Madison Square Garden Entertainment Corp.",
       "sector": "Consumer Services",
       "bucket": "ipo",
-      "rs": 81.43796992481202,
+      "rs": 81.38222849083216,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3103,7 +3103,7 @@
       "name": "DHT Holdings, Inc.",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 81.39097744360902,
+      "rs": 81.33521391631406,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3154,7 +3154,7 @@
       "name": "Expeditors International of Washington, Inc.",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 79.4172932330827,
+      "rs": 79.36060178655383,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3205,7 +3205,7 @@
       "name": "Crescent Energy Company Class A",
       "sector": "Energy Minerals",
       "bucket": "ipo",
-      "rs": 76.2687969924812,
+      "rs": 76.21062529384109,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3255,7 +3255,7 @@
       "name": "Permian Resources Corporation Class A",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 73.91917293233082,
+      "rs": 73.85989656793606,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3266,7 +3266,7 @@
         "sma200": 18.907050013542175,
         "trend": true,
         "medianDollarVolume20": 220069475.06427765,
-        "totalReturn126": 0.29518059710510824,
+        "totalReturn126": 0.2951804664573636,
         "return63": 0.29576720981027127,
         "ranges": [
           10.865643887523877,
@@ -3304,7 +3304,7 @@
       "name": "Teck Resources Limited Class B",
       "sector": "Non-Energy Minerals",
       "bucket": "watchlist",
-      "rs": 73.6842105263158,
+      "rs": 73.62482369534555,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3315,7 +3315,7 @@
         "sma200": 57.44700008392334,
         "trend": true,
         "medianDollarVolume20": 201451767.96131134,
-        "totalReturn126": 0.29395080873404833,
+        "totalReturn126": 0.2939507099408516,
         "return63": -0.02282348930846967,
         "ranges": [
           7.165928579678944,
@@ -3357,7 +3357,7 @@
       "name": "AvePoint, Inc. Class A",
       "sector": "Technology Services",
       "bucket": "ipo",
-      "rs": 73.40225563909775,
+      "rs": 73.34273624823696,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3409,7 +3409,7 @@
       "name": "Scorpio Tankers Inc.",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 71.19360902255639,
+      "rs": 71.18006582040432,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3461,7 +3461,7 @@
       "name": "Kinetik Holdings Inc. Class A",
       "sector": "Industrial Services",
       "bucket": "watchlist",
-      "rs": 71.05263157894737,
+      "rs": 71.03902209685002,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3512,7 +3512,7 @@
       "name": "Sunoco LP",
       "sector": "Distribution Services",
       "bucket": "watchlist",
-      "rs": 70.91165413533835,
+      "rs": 70.89797837329573,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3563,7 +3563,7 @@
       "name": "monday.com Ltd.",
       "sector": "Technology Services",
       "bucket": "ipo",
-      "rs": 70.67669172932331,
+      "rs": 70.66290550070522,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3616,7 +3616,7 @@
       "name": "Plains All American Pipeline, L.P.",
       "sector": "Industrial Services",
       "bucket": "watchlist",
-      "rs": 69.9718045112782,
+      "rs": 69.95768688293371,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3666,7 +3666,7 @@
       "name": "Venture Global, Inc. Class A",
       "sector": "Industrial Services",
       "bucket": "ipo",
-      "rs": 69.45488721804512,
+      "rs": 69.4405265632346,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3718,7 +3718,7 @@
       "name": "GigaCloud Technology, Inc. Class A",
       "sector": "Distribution Services",
       "bucket": "ipo",
-      "rs": 68.703007518797,
+      "rs": 68.68829337094499,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3770,7 +3770,7 @@
       "name": "Ovintiv Inc",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 66.9172932330827,
+      "rs": 66.90173953925716,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3781,7 +3781,7 @@
         "sma200": 53.47575010299683,
         "trend": true,
         "medianDollarVolume20": 184799563.57192993,
-        "totalReturn126": 0.23325998966229355,
+        "totalReturn126": 0.23325990302816235,
         "return63": 0.23310623324046054,
         "ranges": [
           9.934601287516733,
@@ -3821,7 +3821,7 @@
       "name": "Suncor Energy Inc.",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 63.016917293233085,
+      "rs": 62.99952985425482,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3871,7 +3871,7 @@
       "name": "ConocoPhillips",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 60.10338345864662,
+      "rs": 60.08462623413258,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3921,7 +3921,7 @@
       "name": "Energy Transfer LP",
       "sector": "Industrial Services",
       "bucket": "watchlist",
-      "rs": 59.53947368421053,
+      "rs": 59.520451339915375,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -3971,7 +3971,7 @@
       "name": "Diamondback Energy, Inc.",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 58.787593984962406,
+      "rs": 58.76821814762577,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4022,7 +4022,7 @@
       "name": "FLEX LNG Ltd",
       "sector": "Transportation",
       "bucket": "watchlist",
-      "rs": 57.70676691729323,
+      "rs": 57.68688293370945,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4073,7 +4073,7 @@
       "name": "EOG Resources, Inc.",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 57.00187969924812,
+      "rs": 56.98166431593794,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4124,7 +4124,7 @@
       "name": "LTC Properties, Inc.",
       "sector": "Finance",
       "bucket": "watchlist",
-      "rs": 55.21616541353384,
+      "rs": 55.195110484250115,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4135,7 +4135,7 @@
         "sma200": 38.189999980926515,
         "trend": true,
         "medianDollarVolume20": 19594024.538612366,
-        "totalReturn126": 0.14794559278746022,
+        "totalReturn126": 0.147945708455405,
         "return63": 0.1864591268686211,
         "ranges": [
           7.253496634024287,
@@ -4174,7 +4174,7 @@
       "name": "FirstCash Holdings, Inc.",
       "sector": "Finance",
       "bucket": "watchlist",
-      "rs": 55.12218045112782,
+      "rs": 55.10108133521392,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4227,7 +4227,7 @@
       "name": "Bank First Corp",
       "sector": "Finance",
       "bucket": "watchlist",
-      "rs": 54.182330827067666,
+      "rs": 54.160789844851905,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4278,7 +4278,7 @@
       "name": "TotalEnergies SE",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 53.94736842105263,
+      "rs": 53.9257169722614,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4328,7 +4328,7 @@
       "name": "Palantir Technologies Inc. Class A",
       "sector": "Technology Services",
       "bucket": "ipo",
-      "rs": 52.77255639097744,
+      "rs": 52.750352609308884,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4381,7 +4381,7 @@
       "name": "Chevron Corporation",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 52.30263157894737,
+      "rs": 52.28020686412788,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4431,7 +4431,7 @@
       "name": "Occidental Petroleum Corporation",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 51.55075187969925,
+      "rs": 51.52797367183827,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4481,7 +4481,7 @@
       "name": "National Presto Industries, Inc.",
       "sector": "Electronic Technology",
       "bucket": "watchlist",
-      "rs": 51.03383458646616,
+      "rs": 51.01081335213917,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4534,7 +4534,7 @@
       "name": "Five Below, Inc.",
       "sector": "Retail Trade",
       "bucket": "watchlist",
-      "rs": 50.704887218045116,
+      "rs": 50.68171133051246,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4587,7 +4587,7 @@
       "name": "Beacon Financial Corporation",
       "sector": "Finance",
       "bucket": "watchlist",
-      "rs": 50.28195488721804,
+      "rs": 50.25858015984955,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4598,7 +4598,7 @@
         "sma200": 29.60650001525879,
         "trend": true,
         "medianDollarVolume20": 23534149.71523285,
-        "totalReturn126": 0.11223269944336023,
+        "totalReturn126": 0.11223277475481508,
         "return63": 0.0516951648489552,
         "ranges": [
           4.138560755137007,
@@ -4638,7 +4638,7 @@
       "name": "Imperial Oil Limited",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 49.71804511278196,
+      "rs": 49.69440526563235,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4689,7 +4689,7 @@
       "name": "Kimbell Royalty Partners LP",
       "sector": "Miscellaneous",
       "bucket": "watchlist",
-      "rs": 49.15413533834587,
+      "rs": 49.13023037141514,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4738,7 +4738,7 @@
       "name": "Exxonmobil Holdings Corporation",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 47.18045112781955,
+      "rs": 47.15561824165491,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4788,7 +4788,7 @@
       "name": "Canadian Natural Resources Limited",
       "sector": "Energy Minerals",
       "bucket": "watchlist",
-      "rs": 46.52255639097744,
+      "rs": 46.49741419840151,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4838,7 +4838,7 @@
       "name": "Cheniere Energy, Inc.",
       "sector": "Industrial Services",
       "bucket": "watchlist",
-      "rs": 45.817669172932334,
+      "rs": 45.79219558062999,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4891,7 +4891,7 @@
       "name": "Enterprise Products Partners L.P.",
       "sector": "Industrial Services",
       "bucket": "watchlist",
-      "rs": 44.21992481203007,
+      "rs": 44.19370004701457,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4941,7 +4941,7 @@
       "name": "XP Inc. Class A",
       "sector": "Finance",
       "bucket": "ipo",
-      "rs": 37.31203007518797,
+      "rs": 37.282557592853784,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -4994,7 +4994,7 @@
       "name": "Figure Technology Solutions, Inc. Class A",
       "sector": "Finance",
       "bucket": "ipo",
-      "rs": 23.49624060150376,
+      "rs": 23.460272684532207,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -5048,7 +5048,7 @@
       "name": "Triple Flag Precious Metals Corp.",
       "sector": "Non-Energy Minerals",
       "bucket": "ipo",
-      "rs": 17.340225563909776,
+      "rs": 17.348377997179124,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -5102,7 +5102,7 @@
       "name": "FIGS, Inc. Class A",
       "sector": "Consumer Non-Durables",
       "bucket": "ipo",
-      "rs": 17.105263157894736,
+      "rs": 17.11330512458862,
       "metrics": {
         "valid": true,
         "session": "2026-09-15",
@@ -9325,10 +9325,6 @@
       "close": 12.279999732971191,
       "date": "2026-09-15"
     },
-    "JBSS": {
-      "close": 68.30999755859375,
-      "date": "2026-09-15"
-    },
     "JBTM": {
       "close": 111.37999725341797,
       "date": "2026-09-15"
@@ -9675,6 +9671,10 @@
     },
     "LII": {
       "close": 362.19000244140625,
+      "date": "2026-09-15"
+    },
+    "LIME": {
+      "close": 30.489999771118164,
       "date": "2026-09-15"
     },
     "LIN": {
@@ -11587,10 +11587,6 @@
     },
     "REPX": {
       "close": 44.900001525878906,
-      "date": "2026-09-15"
-    },
-    "RETO": {
-      "close": 2.799999952316284,
       "date": "2026-09-15"
     },
     "REXR": {
@@ -13664,14 +13660,14 @@
     "configured": false,
     "lastAcceptedAt": null
   },
-  "integrity": "6a51e7f6165a8addc455b6828538ad5736b66e3fef97bda7c0cf55ddf3a64095",
+  "integrity": "29748df2a51c5dd542044368955fc0175bee9b180935122062cbfdb570e4e83e",
   "days": [
     {
       "date": "2026-09-15",
-      "observedAt": "2026-09-16T16:15:30.992Z",
+      "observedAt": "2026-09-16T16:26:42.348Z",
       "preview": true,
       "complete": false,
-      "analyzed": 2129,
+      "analyzed": 2128,
       "buyAlert": 0,
       "watchlist": 74,
       "ipo": 19,
