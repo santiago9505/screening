@@ -76,6 +76,17 @@
       "watchlist": 7,
       "ipo": 4,
       "armed": 0
+    },
+    {
+      "date": "2026-09-24",
+      "observedAt": "2026-09-24T22:41:55.017Z",
+      "preview": false,
+      "complete": false,
+      "analyzed": 2146,
+      "buyAlert": 0,
+      "watchlist": 7,
+      "ipo": 4,
+      "armed": 0
     }
   ],
   "movements": [
@@ -2420,9 +2431,9 @@
   "report": {
     "schemaVersion": 1,
     "ruleVersion": "1.0.0",
-    "generatedAt": "2026-09-23T22:41:48.465Z",
-    "session": "2026-09-23",
-    "nextSession": "2026-09-24",
+    "generatedAt": "2026-09-24T22:41:55.017Z",
+    "session": "2026-09-24",
+    "nextSession": "2026-09-25",
     "preview": false,
     "complete": false,
     "sources": [
@@ -2431,13 +2442,13 @@
       "Finnhub IPO profile when available"
     ],
     "coverage": {
-      "sourceTotal": 4973,
-      "sourceReceived": 4973,
-      "common": 3098,
-      "liquid": 2145,
-      "validHistory": 151,
-      "failedHistory": 1994,
-      "rsRanked": 144
+      "sourceTotal": 4953,
+      "sourceReceived": 4953,
+      "common": 3089,
+      "liquid": 2146,
+      "validHistory": 154,
+      "failedHistory": 1992,
+      "rsRanked": 147
     },
     "market": {
       "favorable": true,
@@ -2445,108 +2456,108 @@
         {
           "symbol": "SPY",
           "valid": true,
-          "session": "2026-09-23",
-          "close": 767.8099975585938,
-          "changePct": -0.7202161019229769,
-          "sma20": 765.2829986572266,
-          "sma50": 760.9057983398437,
-          "sma200": 717.6059497070313,
+          "session": "2026-09-24",
+          "close": 767.1799926757812,
+          "changePct": -0.0820521854125067,
+          "sma20": 765.3379974365234,
+          "sma50": 761.1531982421875,
+          "sma200": 718.0133996582031,
           "trend": false,
-          "medianDollarVolume20": 32931447794.6167,
-          "totalReturn126": 0.18145016590811913,
-          "return63": 0.0471469202234438,
+          "medianDollarVolume20": 33113531031.202545,
+          "totalReturn126": 0.17393872737505522,
+          "return63": 0.04477734635627262,
           "ranges": [
             2.223593055726757,
-            2.0405014282604665,
+            2.40680684100747,
             3.2948936424193773
           ],
           "contraction": false,
-          "dryVolumeRatio": 1.1531205391018968,
+          "dryVolumeRatio": 1.1230511830037697,
           "pivot": 775.3,
           "stop": 757.97,
-          "avgVolume50": 44239241.84,
-          "distanceToPivotPct": 0.9755004829568481,
+          "avgVolume50": 44220243.7,
+          "distanceToPivotPct": 1.0584211260341148,
           "firstTradeDate": "1993-01-29",
           "historyLength": 501
         },
         {
           "symbol": "QQQ",
           "valid": true,
-          "session": "2026-09-23",
-          "close": 741.2100219726562,
-          "changePct": -0.8361651213807164,
-          "sma20": 718.2184967041015,
-          "sma50": 711.4151977539062,
-          "sma200": 664.4076492309571,
+          "session": "2026-09-24",
+          "close": 741.0999755859375,
+          "changePct": -0.014846856283168286,
+          "sma20": 719.7049957275391,
+          "sma50": 711.8823974609375,
+          "sma200": 664.985749206543,
           "trend": true,
           "medianDollarVolume20": 23369671282.540894,
-          "totalReturn126": 0.27195763571440246,
-          "return63": 0.043046954864286,
+          "totalReturn126": 0.26346069621239065,
+          "return63": 0.03450678485529313,
           "ranges": [
             4.339895469673983,
             2.688748098683209,
             6.460877552388612
           ],
           "contraction": false,
-          "dryVolumeRatio": 1.1399435210907876,
+          "dryVolumeRatio": 1.0956007062501236,
           "pivot": 748.35,
-          "stop": 713.32,
-          "avgVolume50": 36065108.7,
-          "distanceToPivotPct": 0.9632834691413183,
+          "stop": 715.08,
+          "avgVolume50": 35989787.68,
+          "distanceToPivotPct": 0.9782755685922018,
           "firstTradeDate": "1999-03-10",
           "historyLength": 501
         },
         {
           "symbol": "IWM",
           "valid": true,
-          "session": "2026-09-23",
-          "close": 281.9200134277344,
-          "changePct": -1.8418502784472768,
-          "sma20": 290.3655044555664,
-          "sma50": 294.55740234375,
-          "sma200": 275.3716507720947,
+          "session": "2026-09-24",
+          "close": 281.6600036621094,
+          "changePct": -0.09222820418588462,
+          "sma20": 289.5020050048828,
+          "sma50": 294.27520263671875,
+          "sma200": 275.52610076904296,
           "trend": false,
-          "medianDollarVolume20": 6454713718.200684,
-          "totalReturn126": 0.13887170648822855,
-          "return63": -0.049782563929126056,
+          "medianDollarVolume20": 6604937024.853516,
+          "totalReturn126": 0.12408536873140186,
+          "return63": -0.05770967779151204,
           "ranges": [
             2.6672731916299557,
-            3.468828163256184,
-            3.5719199749191253
+            4.39762353223247,
+            4.253015684133436
           ],
           "contraction": false,
-          "dryVolumeRatio": 1.1947159186475262,
+          "dryVolumeRatio": 1.2336726842778483,
           "pivot": 300.39,
-          "stop": 281.84,
-          "avgVolume50": 20454413.32,
-          "distanceToPivotPct": 6.55150409370906,
+          "stop": 279.05,
+          "avgVolume50": 20621212.68,
+          "distanceToPivotPct": 6.649865349287354,
           "firstTradeDate": "2000-05-26",
           "historyLength": 501
         },
         {
           "symbol": "XLE",
           "valid": true,
-          "session": "2026-09-23",
-          "close": 62.369998931884766,
-          "changePct": 0.9550018845024821,
-          "sma20": 63.99749927520752,
-          "sma50": 61.53339988708496,
-          "sma200": 55.975449886322025,
+          "session": "2026-09-24",
+          "close": 62.599998474121094,
+          "changePct": 0.36876630780051656,
+          "sma20": 64.00599918365478,
+          "sma50": 61.655399856567385,
+          "sma200": 56.0588498878479,
           "trend": true,
-          "medianDollarVolume20": 1940854459.766388,
-          "totalReturn126": 0.038678476953296625,
-          "return63": 0.16427103392182363,
+          "medianDollarVolume20": 2072532947.3255157,
+          "totalReturn126": 0.04715592395054302,
+          "return63": 0.1573303438255962,
           "ranges": [
             6.908806208417145,
-            6.993320576010044,
-            7.17847987221081
+            6.982014598351627,
+            7.1082945892340845
           ],
           "contraction": false,
-          "dryVolumeRatio": 1.2075695965514965,
+          "dryVolumeRatio": 1.219085631574532,
           "pivot": 66.17,
           "stop": 61.42,
-          "avgVolume50": 29348893.1,
-          "distanceToPivotPct": 6.09267164043179,
+          "avgVolume50": 29440911.18,
+          "distanceToPivotPct": 5.702875050867706,
           "firstTradeDate": "1998-12-22",
           "historyLength": 501
         },
@@ -2568,27 +2579,27 @@
         {
           "symbol": "USO",
           "valid": true,
-          "session": "2026-09-23",
-          "close": 148.8300018310547,
-          "changePct": 3.296779525009841,
-          "sma20": 146.0564998626709,
-          "sma50": 134.41380020141602,
-          "sma200": 112.42740005493164,
+          "session": "2026-09-24",
+          "close": 153.08999633789062,
+          "changePct": 2.8623224178090823,
+          "sma20": 147.34349975585937,
+          "sma50": 135.04800018310547,
+          "sma200": 112.83325004577637,
           "trend": true,
-          "medianDollarVolume20": 825323842.0333862,
-          "totalReturn126": 0.2993714042382105,
-          "return63": 0.4002258025130274,
+          "medianDollarVolume20": 852424588.2629395,
+          "totalReturn126": 0.35011903308879,
+          "return63": 0.4005123022331911,
           "ranges": [
             9.359135367494188,
-            16.415616319745478,
+            19.76334375684283,
             12.659937044303076
           ],
           "contraction": false,
-          "dryVolumeRatio": 0.9855199971945516,
+          "dryVolumeRatio": 1.1549410426708298,
           "pivot": 163.35,
           "stop": 142.67,
-          "avgVolume50": 5786454.68,
-          "distanceToPivotPct": 9.75610031164511,
+          "avgVolume50": 5850990.96,
+          "distanceToPivotPct": 6.701946574601614,
           "firstTradeDate": "2006-04-10",
           "historyLength": 501
         }
@@ -2598,142 +2609,193 @@
           "count": 4,
           "above50": 0,
           "breadth": 0,
-          "return63": -0.1174616158041509
+          "return63": -0.1289150861327034
         },
         "Electronic Technology": {
-          "count": 32,
+          "count": 33,
           "above50": 22,
-          "breadth": 68.75,
-          "return63": -0.06611256815054671
+          "breadth": 66.66666666666667,
+          "return63": -0.04897987614121604
         },
         "Technology Services": {
           "count": 37,
-          "above50": 23,
-          "breadth": 62.16216216216216,
-          "return63": 0.08745267379257797
+          "above50": 21,
+          "breadth": 56.75675675675676,
+          "return63": 0.11856989220257773
         },
         "Non-Energy Minerals": {
-          "count": 5,
-          "above50": 4,
-          "breadth": 80,
-          "return63": 0.11984297475117116
+          "count": 6,
+          "above50": 3,
+          "breadth": 50,
+          "return63": 0.05096590214807839
         },
         "Producer Manufacturing": {
-          "count": 10,
+          "count": 11,
           "above50": 4,
-          "breadth": 40,
-          "return63": -0.19380188960734818
+          "breadth": 36.36363636363637,
+          "return63": -0.1855047876757557
         },
         "Retail Trade": {
           "count": 5,
-          "above50": 2,
-          "breadth": 40,
-          "return63": -0.021161300846228737
+          "above50": 1,
+          "breadth": 20,
+          "return63": 0.0025927379638508883
         },
         "Finance": {
           "count": 14,
           "above50": 5,
           "breadth": 35.714285714285715,
-          "return63": 0.2466208706424898
+          "return63": 0.2746196208757691
         },
         "Communications": {
           "count": 4,
           "above50": 2,
           "breadth": 50,
-          "return63": -0.0021731998515161777
+          "return63": 0.015076287413844786
         },
         "Consumer Services": {
-          "count": 12,
-          "above50": 0,
-          "breadth": 0,
-          "return63": -0.1399865134611578
+          "count": 13,
+          "above50": 1,
+          "breadth": 7.6923076923076925,
+          "return63": -0.12379969099252802
         },
         "Consumer Non-Durables": {
-          "count": 5,
+          "count": 4,
           "above50": 0,
           "breadth": 0,
-          "return63": -0.07284127758620776
+          "return63": -0.09322445404865817
         },
         "Health Technology": {
           "count": 8,
           "above50": 4,
           "breadth": 50,
-          "return63": 0.424269349342268
+          "return63": 0.4486157339377457
         },
         "Industrial Services": {
           "count": 2,
           "above50": 0,
           "breadth": 0,
-          "return63": 0.1722221977931523
+          "return63": 0.1407824417897634
         },
         "Consumer Durables": {
           "count": 4,
           "above50": 1,
           "breadth": 25,
-          "return63": -0.0650769660215319
+          "return63": -0.07145304840704783
         },
         "Utilities": {
           "count": 3,
           "above50": 0,
           "breadth": 0,
-          "return63": -0.308255917260073
+          "return63": -0.3101193404958991
         },
         "Commercial Services": {
           "count": 3,
           "above50": 2,
           "breadth": 66.66666666666667,
-          "return63": 0.15480911259417696
+          "return63": 0.3199101583778274
         },
         "Health Services": {
           "count": 1,
           "above50": 0,
           "breadth": 0,
-          "return63": -0.1318043202670428
+          "return63": -0.10486085276154467
         },
         "Distribution Services": {
           "count": 1,
           "above50": 0,
           "breadth": 0,
-          "return63": -0.2746603950611275
+          "return63": -0.31888887617323136
         },
         "Energy Minerals": {
           "count": 1,
           "above50": 1,
           "breadth": 100,
-          "return63": 0.16495101442148452
+          "return63": 0.1738630662057581
         }
       }
     },
     "candidates": [
       {
+        "symbol": "ALAB",
+        "name": "Astera Labs, Inc.",
+        "sector": "Electronic Technology",
+        "bucket": "ipo",
+        "rs": 6.75990675990676,
+        "metrics": {
+          "valid": true,
+          "session": "2026-09-24",
+          "close": 360.510009765625,
+          "changePct": 0.013876244724131404,
+          "sma20": 300.1840003967285,
+          "sma50": 304.1320989990234,
+          "sma200": 235.26679973602296,
+          "trend": false,
+          "medianDollarVolume20": 967558381.5872192,
+          "totalReturn126": 1.9960110053998585,
+          "return63": -0.09419595536275127,
+          "ranges": [
+            24.77118713034075,
+            18.40509336633324,
+            31.836650640563274
+          ],
+          "contraction": false,
+          "dryVolumeRatio": 1.1988043526120182,
+          "pivot": 369.15,
+          "stop": 293.48,
+          "avgVolume50": 4233877.02,
+          "distanceToPivotPct": 2.3966003430740734,
+          "firstTradeDate": "2024-03-20",
+          "historyLength": 501
+        },
+        "epsGrowth": 190.33379694019465,
+        "salesGrowth": 104.45486518171161,
+        "ipoDate": "2024-03-20",
+        "ipoSource": "Finnhub company profile",
+        "firstTradeDate": "2024-03-20",
+        "isIpo": true,
+        "earningsDate": "2026-11-10",
+        "sectorGood": false,
+        "blockers": [
+          "No cumple tendencia completa",
+          "RS por debajo de 90 o sin cobertura",
+          "Falta contracción de precio/volumen",
+          "Sector sin liderazgo confirmado",
+          "Stop fuera del rango permitido",
+          "No cabe una acción entera en el riesgo piloto"
+        ],
+        "plan": null,
+        "reason": "No cumple tendencia completa. RS por debajo de 90 o sin cobertura"
+      },
+      {
         "symbol": "DELL",
         "name": "Dell Technologies, Inc. Class C",
         "sector": "Electronic Technology",
         "bucket": "watchlist",
-        "rs": 6.623134328358209,
+        "rs": 6.713286713286713,
         "metrics": {
           "valid": true,
-          "session": "2026-09-23",
-          "close": 549.8300170898438,
-          "changePct": 0.16578630911974201,
-          "sma20": 521.0350036621094,
-          "sma50": 469.8248004150391,
-          "sma200": 278.81244972229,
+          "session": "2026-09-24",
+          "close": 536.02001953125,
+          "changePct": -2.5116849079444004,
+          "sma20": 524.6450042724609,
+          "sma50": 472.2916009521484,
+          "sma200": 280.79799980163574,
           "trend": true,
           "medianDollarVolume20": 5122203817.3828125,
-          "totalReturn126": 2.122732771402521,
-          "return63": 0.26671432562873343,
+          "totalReturn126": 1.926835706111055,
+          "return63": 0.3091220015893439,
           "ranges": [
             17.509727626459142,
             25.062608222785098,
-            14.988834495117064
+            13.096335738347964
           ],
           "contraction": false,
-          "dryVolumeRatio": 1.1830723230980107,
+          "dryVolumeRatio": 1.1626432907209692,
           "pivot": 595.51,
-          "stop": 542.23,
-          "avgVolume50": 7916163.38,
-          "distanceToPivotPct": 8.308020889357337,
+          "stop": 530.45,
+          "avgVolume50": 7816235.36,
+          "distanceToPivotPct": 11.098464248853812,
           "firstTradeDate": "2016-08-17",
           "historyLength": 501
         },
@@ -2761,30 +2823,30 @@
         "name": "Advanced Micro Devices, Inc.",
         "sector": "Electronic Technology",
         "bucket": "watchlist",
-        "rs": 6.576492537313433,
+        "rs": 6.62004662004662,
         "metrics": {
           "valid": true,
-          "session": "2026-09-23",
-          "close": 614.6099853515625,
-          "changePct": -1.4684954218497137,
-          "sma20": 512.989501953125,
-          "sma50": 500.11680297851564,
-          "sma200": 360.64950050354,
+          "session": "2026-09-24",
+          "close": 629.260009765625,
+          "changePct": 2.383629417553723,
+          "sma20": 520.4060028076171,
+          "sma50": 502.11920288085935,
+          "sma200": 362.70595054626466,
           "trend": true,
-          "medianDollarVolume20": 9608974801.016235,
-          "totalReturn126": 1.9926961092873179,
-          "return63": 0.18253356851453018,
+          "medianDollarVolume20": 9930806780.786133,
+          "totalReturn126": 1.856766684342856,
+          "return63": 0.18155360067534398,
           "ranges": [
             12.824969308405048,
             16.3803378246624,
-            23.109049519590727
+            23.852628718929317
           ],
           "contraction": false,
-          "dryVolumeRatio": 1.2391219607830297,
-          "pivot": 624.69,
-          "stop": 527.6,
-          "avgVolume50": 24110528.54,
-          "distanceToPivotPct": 1.6400473893644074,
+          "dryVolumeRatio": 1.2151975191350801,
+          "pivot": 630.79,
+          "stop": 541.53,
+          "avgVolume50": 24059402.64,
+          "distanceToPivotPct": 0.2431376915702277,
           "firstTradeDate": "1980-03-17",
           "historyLength": 501
         },
@@ -2807,135 +2869,34 @@
         "reason": "RS por debajo de 90 o sin cobertura. Falta contracción de precio/volumen"
       },
       {
-        "symbol": "ALAB",
-        "name": "Astera Labs, Inc.",
-        "sector": "Electronic Technology",
-        "bucket": "ipo",
-        "rs": 6.529850746268656,
-        "metrics": {
-          "valid": true,
-          "session": "2026-09-23",
-          "close": 360.4599914550781,
-          "changePct": -0.8254003385599007,
-          "sma20": 296.6734992980957,
-          "sma50": 303.9342987060547,
-          "sma200": 234.2703996658325,
-          "trend": false,
-          "medianDollarVolume20": 954617599.2462158,
-          "totalReturn126": 1.9604138069230612,
-          "return63": -0.09866978557647677,
-          "ranges": [
-            24.77118713034075,
-            18.40509336633324,
-            31.836650640563274
-          ],
-          "contraction": false,
-          "dryVolumeRatio": 1.2356218426600045,
-          "pivot": 369.15,
-          "stop": 278.25,
-          "avgVolume50": 4233409.3,
-          "distanceToPivotPct": 2.4108091459268843,
-          "firstTradeDate": "2024-03-20",
-          "historyLength": 501
-        },
-        "epsGrowth": 190.33379694019465,
-        "salesGrowth": 104.45486518171161,
-        "ipoDate": "2024-03-20",
-        "ipoSource": "Finnhub company profile",
-        "firstTradeDate": "2024-03-20",
-        "isIpo": true,
-        "earningsDate": "2026-11-10",
-        "sectorGood": false,
-        "blockers": [
-          "No cumple tendencia completa",
-          "RS por debajo de 90 o sin cobertura",
-          "Falta contracción de precio/volumen",
-          "Sector sin liderazgo confirmado",
-          "Stop fuera del rango permitido",
-          "No cabe una acción entera en el riesgo piloto"
-        ],
-        "plan": null,
-        "reason": "No cumple tendencia completa. RS por debajo de 90 o sin cobertura"
-      },
-      {
-        "symbol": "MRVL",
-        "name": "Marvell Technology, Inc.",
-        "sector": "Electronic Technology",
-        "bucket": "watchlist",
-        "rs": 6.436567164179104,
-        "metrics": {
-          "valid": true,
-          "session": "2026-09-23",
-          "close": 260.8999938964844,
-          "changePct": -0.5564840435258178,
-          "sma20": 231.1724998474121,
-          "sma50": 218.0429995727539,
-          "sma200": 160.86190017700196,
-          "trend": true,
-          "medianDollarVolume20": 4715839572.075653,
-          "totalReturn126": 1.8269270910273643,
-          "return63": -0.057101617685239026,
-          "ranges": [
-            16.402660172718225,
-            21.201889117151417,
-            19.687968089168233
-          ],
-          "contraction": false,
-          "dryVolumeRatio": 0.8672071872463202,
-          "pivot": 266,
-          "stop": 235.96,
-          "avgVolume50": 22967438.8,
-          "distanceToPivotPct": 1.9547743284114905,
-          "firstTradeDate": "2000-06-30",
-          "historyLength": 501
-        },
-        "epsGrowth": 49.41912421805183,
-        "salesGrowth": 36.54852699267235,
-        "ipoDate": null,
-        "ipoSource": null,
-        "firstTradeDate": "2000-06-30",
-        "isIpo": false,
-        "earningsDate": "2026-11-26",
-        "sectorGood": false,
-        "blockers": [
-          "RS por debajo de 90 o sin cobertura",
-          "Falta contracción de precio/volumen",
-          "Sector sin liderazgo confirmado",
-          "Stop fuera del rango permitido",
-          "No cabe una acción entera en el riesgo piloto"
-        ],
-        "plan": null,
-        "reason": "RS por debajo de 90 o sin cobertura. Falta contracción de precio/volumen"
-      },
-      {
         "symbol": "MU",
         "name": "Micron Technology, Inc.",
         "sector": "Electronic Technology",
         "bucket": "watchlist",
-        "rs": 6.2966417910447765,
+        "rs": 6.573426573426573,
         "metrics": {
           "valid": true,
-          "session": "2026-09-23",
-          "close": 1071.8800048828125,
-          "changePct": -2.2150077123588074,
-          "sma20": 979.6915008544922,
-          "sma50": 933.5086022949218,
-          "sma200": 652.704850769043,
+          "session": "2026-09-24",
+          "close": 1080.530029296875,
+          "changePct": 0.8069955941577778,
+          "sma20": 986.7980010986328,
+          "sma50": 937.0336022949218,
+          "sma200": 656.9214009094238,
           "trend": true,
-          "medianDollarVolume20": 23818819699.9115,
-          "totalReturn126": 1.7115395839142669,
-          "return63": 0.02228876682103542,
+          "medianDollarVolume20": 24089498606.260986,
+          "totalReturn126": 1.829569517426597,
+          "return63": -0.10961965034596444,
           "ranges": [
             14.334110471788508,
             12.999808767444701,
-            18.35367930783751
+            18.353688323298282
           ],
           "contraction": false,
-          "dryVolumeRatio": 0.8026131584129367,
+          "dryVolumeRatio": 0.8184056516132306,
           "pivot": 1105.5,
-          "stop": 953.5,
-          "avgVolume50": 34054829.42,
-          "distanceToPivotPct": 3.1365332773933607,
+          "stop": 977.83,
+          "avgVolume50": 33401379.8,
+          "distanceToPivotPct": 2.3109002087960073,
           "firstTradeDate": "1984-06-01",
           "historyLength": 501
         },
@@ -2959,34 +2920,84 @@
         "reason": "RS por debajo de 90 o sin cobertura. Falta contracción de precio/volumen"
       },
       {
+        "symbol": "MRVL",
+        "name": "Marvell Technology, Inc.",
+        "sector": "Electronic Technology",
+        "bucket": "watchlist",
+        "rs": 6.386946386946387,
+        "metrics": {
+          "valid": true,
+          "session": "2026-09-24",
+          "close": 258.95001220703125,
+          "changePct": -0.7474058011004758,
+          "sma20": 231.8645004272461,
+          "sma50": 219.09679992675783,
+          "sma200": 161.66210021972657,
+          "trend": true,
+          "medianDollarVolume20": 4715839572.075653,
+          "totalReturn126": 1.632235184868223,
+          "return63": -0.07932161268565963,
+          "ranges": [
+            16.402660172718225,
+            21.201889117151417,
+            19.687968089168233
+          ],
+          "contraction": false,
+          "dryVolumeRatio": 0.8111385779507899,
+          "pivot": 266,
+          "stop": 235.96,
+          "avgVolume50": 22699800.38,
+          "distanceToPivotPct": 2.7225284651974713,
+          "firstTradeDate": "2000-06-30",
+          "historyLength": 501
+        },
+        "epsGrowth": 49.41912421805183,
+        "salesGrowth": 36.54852699267235,
+        "ipoDate": null,
+        "ipoSource": null,
+        "firstTradeDate": "2000-06-30",
+        "isIpo": false,
+        "earningsDate": "2026-11-26",
+        "sectorGood": false,
+        "blockers": [
+          "RS por debajo de 90 o sin cobertura",
+          "Falta contracción de precio/volumen",
+          "Sector sin liderazgo confirmado",
+          "Stop fuera del rango permitido",
+          "No cabe una acción entera en el riesgo piloto"
+        ],
+        "plan": null,
+        "reason": "RS por debajo de 90 o sin cobertura. Falta contracción de precio/volumen"
+      },
+      {
         "symbol": "HPE",
         "name": "Hewlett Packard Enterprise Co.",
         "sector": "Electronic Technology",
         "bucket": "watchlist",
-        "rs": 6.2033582089552235,
+        "rs": 6.293706293706293,
         "metrics": {
           "valid": true,
-          "session": "2026-09-23",
-          "close": 62.33000183105469,
-          "changePct": 2.130104993871984,
-          "sma20": 56.52250022888184,
-          "sma50": 53.26620018005371,
-          "sma200": 35.509450130462646,
+          "session": "2026-09-24",
+          "close": 63.52000045776367,
+          "changePct": 1.9091907456291635,
+          "sma20": 56.9370002746582,
+          "sma50": 53.588800201416014,
+          "sma200": 35.710400133132936,
           "trend": true,
           "medianDollarVolume20": 1455198881.2992096,
-          "totalReturn126": 1.6221958567072958,
-          "return63": 0.2785641401241987,
+          "totalReturn126": 1.4773845164462687,
+          "return63": 0.35958901537048615,
           "ranges": [
             19.136191129325393,
             22.437199281811353,
-            13.842781190257217
+            15.974082582276075
           ],
           "contraction": false,
-          "dryVolumeRatio": 1.0163570075299957,
-          "pivot": 63.86,
-          "stop": 57.01,
-          "avgVolume50": 20576739.32,
-          "distanceToPivotPct": 2.4546746901178196,
+          "dryVolumeRatio": 0.972226652356986,
+          "pivot": 65.48,
+          "stop": 59.65,
+          "avgVolume50": 20606972.82,
+          "distanceToPivotPct": 3.085322562018411,
           "firstTradeDate": "2015-10-19",
           "historyLength": 501
         },
@@ -3013,30 +3024,30 @@
         "name": "Robinhood Markets, Inc. Class A",
         "sector": "Finance",
         "bucket": "ipo",
-        "rs": 5.7835820895522385,
+        "rs": 5.827505827505828,
         "metrics": {
           "valid": true,
-          "session": "2026-09-23",
-          "close": 122.69999694824219,
-          "changePct": -1.247487365599853,
-          "sma20": 113.61499977111816,
-          "sma50": 103.87439971923828,
-          "sma200": 94.76857494354248,
+          "session": "2026-09-24",
+          "close": 120.81999969482422,
+          "changePct": -1.5321901386933123,
+          "sma20": 114.228999710083,
+          "sma50": 103.97999969482422,
+          "sma200": 94.71292495727539,
           "trend": false,
-          "medianDollarVolume20": 2276319778.644966,
-          "totalReturn126": 0.7762014142432001,
-          "return63": 0.26247550021634547,
+          "medianDollarVolume20": 2281116796.375656,
+          "totalReturn126": 0.6655638016260685,
+          "return63": 0.2926072335180756,
           "ranges": [
             18.68385511518181,
             19.616766223412547,
-            19.746706275542564
+            19.753034917693856
           ],
           "contraction": false,
-          "dryVolumeRatio": 1.1676128247615705,
-          "pivot": 126.73,
-          "stop": 106.08,
-          "avgVolume50": 21346598.18,
-          "distanceToPivotPct": 3.284438882579077,
+          "dryVolumeRatio": 1.1075794949732691,
+          "pivot": 126.74,
+          "stop": 111.06,
+          "avgVolume50": 21221256.9,
+          "distanceToPivotPct": 4.899849514896926,
           "firstTradeDate": "2021-07-29",
           "historyLength": 501
         },
@@ -3064,30 +3075,30 @@
         "name": "NVIDIA Corporation",
         "sector": "Electronic Technology",
         "bucket": "watchlist",
-        "rs": 4.710820895522388,
+        "rs": 4.755244755244755,
         "metrics": {
           "valid": true,
-          "session": "2026-09-23",
-          "close": 225.50999450683594,
-          "changePct": -1.4680826154739757,
-          "sma20": 221.15399932861328,
-          "sma50": 215.38199920654296,
-          "sma200": 199.0647999572754,
+          "session": "2026-09-24",
+          "close": 224.5800018310547,
+          "changePct": -0.41239532545555013,
+          "sma20": 221.89999923706054,
+          "sma50": 215.62359924316405,
+          "sma200": 199.2756499481201,
           "trend": true,
-          "medianDollarVolume20": 26249786753.96881,
-          "totalReturn126": 0.2900996550021029,
-          "return63": 0.1332160527981705,
+          "medianDollarVolume20": 24416549975.061035,
+          "totalReturn126": 0.25975679576611577,
+          "return63": 0.1473382830721226,
           "ranges": [
             9.06897083845346,
-            10.874935839442385,
+            8.374505394166652,
             9.152971320469144
           ],
           "contraction": false,
-          "dryVolumeRatio": 0.9347367025057219,
+          "dryVolumeRatio": 0.917098680526125,
           "pivot": 234.76,
-          "stop": 217.15,
-          "avgVolume50": 123432165.54,
-          "distanceToPivotPct": 4.101813766715168,
+          "stop": 218.03,
+          "avgVolume50": 122518550.06,
+          "distanceToPivotPct": 4.532902570478825,
           "firstTradeDate": "1999-01-22",
           "historyLength": 501
         },
@@ -3114,30 +3125,30 @@
         "name": "Palantir Technologies Inc. Class A",
         "sector": "Technology Services",
         "bucket": "ipo",
-        "rs": 4.291044776119403,
+        "rs": 4.568764568764569,
         "metrics": {
           "valid": true,
-          "session": "2026-09-23",
-          "close": 191.7899932861328,
-          "changePct": 3.6758676636830634,
-          "sma20": 177.46099929809571,
-          "sma50": 161.64559936523438,
-          "sma200": 151.92857471466064,
+          "session": "2026-09-24",
+          "close": 192.58999633789062,
+          "changePct": 0.41712450063247086,
+          "sma20": 178.21549911499022,
+          "sma50": 162.82219940185547,
+          "sma200": 151.98272472381592,
           "trend": false,
-          "medianDollarVolume20": 4751692736.207581,
-          "totalReturn126": 0.23911354696163967,
-          "return63": 0.6897796765298045,
+          "medianDollarVolume20": 4544297534.382629,
+          "totalReturn126": 0.24283678364513106,
+          "return63": 0.7953761756767896,
           "ranges": [
-            7.7285715384947355,
-            12.029510532833655,
-            15.088493341966256
+            7.421622650586449,
+            12.645321804362181,
+            15.040065687725592
           ],
           "contraction": false,
-          "dryVolumeRatio": 0.7897479161090047,
-          "pivot": 193.79,
+          "dryVolumeRatio": 0.7858669295231546,
+          "pivot": 194.68,
           "stop": 172,
-          "avgVolume50": 35957274.24,
-          "distanceToPivotPct": 1.0428072735870986,
+          "avgVolume50": 35892457.54,
+          "distanceToPivotPct": 1.085205035376724,
           "firstTradeDate": "2020-09-30",
           "historyLength": 501
         },
@@ -3164,32 +3175,32 @@
         "name": "Forgent Power Solutions, Inc. Class A",
         "sector": "Producer Manufacturing",
         "bucket": "ipo",
-        "rs": 3.498134328358209,
+        "rs": 4.335664335664336,
         "metrics": {
           "valid": true,
-          "session": "2026-09-23",
-          "close": 39.880001068115234,
-          "changePct": 3.530634979723768,
-          "sma20": 32.91100025177002,
-          "sma50": 35.17960021972656,
+          "session": "2026-09-24",
+          "close": 38.95000076293945,
+          "changePct": -2.3319966907406453,
+          "sma20": 33.24800033569336,
+          "sma50": 35.106200256347655,
           "sma200": null,
           "trend": false,
-          "medianDollarVolume20": 229972047.62382507,
-          "totalReturn126": 0.11458922383168768,
-          "return63": -0.33665998375517614,
+          "medianDollarVolume20": 277739754.83148766,
+          "totalReturn126": 0.1995688111679106,
+          "return63": -0.3364565544004092,
           "ranges": [
             21.796463351236813,
             16.892289136094547,
             30.147242365131362
           ],
           "contraction": false,
-          "dryVolumeRatio": 1.6372793759720572,
+          "dryVolumeRatio": 1.3471892297309649,
           "pivot": 40.07,
-          "stop": 36.31,
-          "avgVolume50": 8607337.64,
-          "distanceToPivotPct": 0.4764258315451464,
+          "stop": 37,
+          "avgVolume50": 8621683.98,
+          "distanceToPivotPct": 2.875478587796154,
           "firstTradeDate": "2026-02-05",
-          "historyLength": 159
+          "historyLength": 160
         },
         "epsGrowth": 674.778761061947,
         "salesGrowth": 147.91219176905233,
@@ -3215,30 +3226,30 @@
         "name": "TotalEnergies SE",
         "sector": "Energy Minerals",
         "bucket": "watchlist",
-        "rs": 2.798507462686567,
+        "rs": 3.0303030303030303,
         "metrics": {
           "valid": true,
-          "session": "2026-09-23",
-          "close": 91.66999816894531,
-          "changePct": 2.0255979140037628,
-          "sma20": 90.0239990234375,
-          "sma50": 87.76859970092774,
-          "sma200": 82.07354993820191,
+          "session": "2026-09-24",
+          "close": 91.88999938964844,
+          "changePct": 0.23999260946603318,
+          "sma20": 90.26199913024902,
+          "sma50": 87.99959976196288,
+          "sma200": 82.20889993667602,
           "trend": true,
-          "medianDollarVolume20": 132106007.7583313,
-          "totalReturn126": 0.04353830840136674,
-          "return63": 0.16495101442148452,
+          "medianDollarVolume20": 133333982.37609863,
+          "totalReturn126": 0.04053471718743196,
+          "return63": 0.1738630662057581,
           "ranges": [
             6.911895066689317,
             6.307877609518465,
             4.879090095509474
           ],
           "contraction": true,
-          "dryVolumeRatio": 0.9354972850078307,
+          "dryVolumeRatio": 1.005030275646328,
           "pivot": 93.46,
           "stop": 88.9,
-          "avgVolume50": 1581684.12,
-          "distanceToPivotPct": 1.9526573047688123,
+          "avgVolume50": 1577786.3,
+          "distanceToPivotPct": 1.7085642673331902,
           "firstTradeDate": "1991-10-25",
           "historyLength": 501
         },
@@ -3263,607 +3274,619 @@
     "prices": {
       "AAL": {
         "close": 13.350000381469727,
-        "date": "2026-09-23"
+        "date": "2026-09-24"
       },
       "AAOI": {
-        "close": 101.05999755859375,
-        "date": "2026-09-23"
+        "close": 101.02999877929688,
+        "date": "2026-09-24"
       },
       "AAPL": {
-        "close": 337.0199890136719,
-        "date": "2026-09-23"
+        "close": 335.9200134277344,
+        "date": "2026-09-24"
       },
       "ADBE": {
-        "close": 240.69000244140625,
-        "date": "2026-09-23"
+        "close": 238.92999267578125,
+        "date": "2026-09-24"
       },
       "ADEA": {
-        "close": 25.049999237060547,
-        "date": "2026-09-23"
+        "close": 25.010000228881836,
+        "date": "2026-09-24"
       },
       "AG": {
-        "close": 19.049999237060547,
-        "date": "2026-09-23"
+        "close": 18.760000228881836,
+        "date": "2026-09-24"
       },
       "ALAB": {
-        "close": 360.4599914550781,
-        "date": "2026-09-23"
+        "close": 360.510009765625,
+        "date": "2026-09-24"
       },
       "AMAT": {
-        "close": 474.3800048828125,
-        "date": "2026-09-23"
+        "close": 474.25,
+        "date": "2026-09-24"
       },
       "AMD": {
-        "close": 614.6099853515625,
-        "date": "2026-09-23"
+        "close": 629.260009765625,
+        "date": "2026-09-24"
       },
       "AMSC": {
-        "close": 31.049999237060547,
-        "date": "2026-09-23"
+        "close": 30.420000076293945,
+        "date": "2026-09-24"
       },
       "AMZN": {
-        "close": 249.27000427246094,
-        "date": "2026-09-23"
+        "close": 249.3800048828125,
+        "date": "2026-09-24"
       },
       "APLD": {
-        "close": 27.229999542236328,
-        "date": "2026-09-23"
+        "close": 27.059999465942383,
+        "date": "2026-09-24"
       },
       "ASST": {
-        "close": 28.989999771118164,
-        "date": "2026-09-23"
+        "close": 29.940000534057617,
+        "date": "2026-09-24"
       },
       "ASTS": {
-        "close": 59.97999954223633,
-        "date": "2026-09-23"
+        "close": 61.060001373291016,
+        "date": "2026-09-24"
       },
       "AVGO": {
-        "close": 354.989990234375,
-        "date": "2026-09-23"
+        "close": 350.3599853515625,
+        "date": "2026-09-24"
       },
       "AXTI": {
-        "close": 72.9800033569336,
-        "date": "2026-09-23"
+        "close": 75.9000015258789,
+        "date": "2026-09-24"
       },
       "B": {
-        "close": 42.4900016784668,
-        "date": "2026-09-23"
+        "close": 42.31999969482422,
+        "date": "2026-09-24"
+      },
+      "BA": {
+        "close": 196.8000030517578,
+        "date": "2026-09-24"
       },
       "BAC": {
-        "close": 56,
-        "date": "2026-09-23"
+        "close": 56.029998779296875,
+        "date": "2026-09-24"
       },
       "BBW": {
-        "close": 25.959999084472656,
-        "date": "2026-09-23"
+        "close": 25.100000381469727,
+        "date": "2026-09-24"
       },
       "BE": {
-        "close": 275.19000244140625,
-        "date": "2026-09-23"
-      },
-      "BH": {
-        "close": 346.9599914550781,
-        "date": "2026-09-23"
+        "close": 266.6499938964844,
+        "date": "2026-09-24"
       },
       "BH.A": {
-        "close": 1749.1099853515625,
-        "date": "2026-09-23"
+        "close": 1721.4100341796875,
+        "date": "2026-09-24"
       },
       "BKNG": {
-        "close": 155.89999389648438,
-        "date": "2026-09-23"
+        "close": 157.41000366210938,
+        "date": "2026-09-24"
       },
       "BMNR": {
-        "close": 27.459999084472656,
-        "date": "2026-09-23"
+        "close": 28.030000686645508,
+        "date": "2026-09-24"
       },
       "CART": {
-        "close": 42.959999084472656,
-        "date": "2026-09-23"
+        "close": 43.2599983215332,
+        "date": "2026-09-24"
       },
       "CBRS": {
-        "close": 205.24000549316406,
-        "date": "2026-09-23"
+        "close": 206.41000366210938,
+        "date": "2026-09-24"
       },
       "CCL": {
-        "close": 21.799999237060547,
-        "date": "2026-09-23"
+        "close": 21.790000915527344,
+        "date": "2026-09-24"
       },
       "CCXI": {
-        "close": 12.720000267028809,
-        "date": "2026-09-23"
+        "close": 12.229999542236328,
+        "date": "2026-09-24"
       },
       "CELH": {
-        "close": 29.18000030517578,
-        "date": "2026-09-23"
+        "close": 28.43000030517578,
+        "date": "2026-09-24"
       },
       "CHWY": {
-        "close": 18.549999237060547,
-        "date": "2026-09-23"
+        "close": 18.31999969482422,
+        "date": "2026-09-24"
       },
       "CIFR": {
-        "close": 18.350000381469727,
-        "date": "2026-09-23"
+        "close": 18.100000381469727,
+        "date": "2026-09-24"
       },
       "CLDX": {
-        "close": 31.1200008392334,
-        "date": "2026-09-23"
+        "close": 31.479999542236328,
+        "date": "2026-09-24"
       },
       "CLF": {
-        "close": 12.869999885559082,
-        "date": "2026-09-23"
+        "close": 12.5,
+        "date": "2026-09-24"
       },
       "CLSK": {
-        "close": 14.460000038146973,
-        "date": "2026-09-23"
+        "close": 14.260000228881836,
+        "date": "2026-09-24"
       },
       "CMCSA": {
-        "close": 22.549999237060547,
-        "date": "2026-09-23"
+        "close": 22.1299991607666,
+        "date": "2026-09-24"
       },
       "CMG": {
-        "close": 32.709999084472656,
-        "date": "2026-09-23"
+        "close": 32.0099983215332,
+        "date": "2026-09-24"
       },
       "COHR": {
-        "close": 300.6000061035156,
-        "date": "2026-09-23"
+        "close": 290.6099853515625,
+        "date": "2026-09-24"
       },
       "COIN": {
-        "close": 198.1300048828125,
-        "date": "2026-09-23"
+        "close": 199.2100067138672,
+        "date": "2026-09-24"
       },
       "CRCL": {
-        "close": 91.72000122070312,
-        "date": "2026-09-23"
+        "close": 93,
+        "date": "2026-09-24"
       },
       "CRDO": {
-        "close": 193.8699951171875,
-        "date": "2026-09-23"
+        "close": 195.97000122070312,
+        "date": "2026-09-24"
       },
       "CRWV": {
-        "close": 86.9000015258789,
-        "date": "2026-09-23"
+        "close": 90.12999725341797,
+        "date": "2026-09-24"
       },
       "CSCO": {
-        "close": 106.43000030517578,
-        "date": "2026-09-23"
+        "close": 106.97000122070312,
+        "date": "2026-09-24"
       },
       "DELL": {
-        "close": 549.8300170898438,
-        "date": "2026-09-23"
+        "close": 536.02001953125,
+        "date": "2026-09-24"
       },
       "DKNG": {
-        "close": 21.25,
-        "date": "2026-09-23"
+        "close": 21.270000457763672,
+        "date": "2026-09-24"
       },
       "DX": {
-        "close": 11.729999542236328,
-        "date": "2026-09-23"
+        "close": 11.34000015258789,
+        "date": "2026-09-24"
       },
       "ENPH": {
-        "close": 33.06999969482422,
-        "date": "2026-09-23"
+        "close": 32.81999969482422,
+        "date": "2026-09-24"
       },
       "ET": {
-        "close": 20.489999771118164,
-        "date": "2026-09-23"
+        "close": 20.329999923706055,
+        "date": "2026-09-24"
       },
       "F": {
-        "close": 12.9399995803833,
-        "date": "2026-09-23"
+        "close": 12.600000381469727,
+        "date": "2026-09-24"
       },
       "FCEL": {
-        "close": 17.18000030517578,
-        "date": "2026-09-23"
+        "close": 16.389999389648438,
+        "date": "2026-09-24"
       },
       "FIG": {
-        "close": 21.760000228881836,
-        "date": "2026-09-23"
+        "close": 21.34000015258789,
+        "date": "2026-09-24"
       },
       "FPS": {
-        "close": 39.880001068115234,
-        "date": "2026-09-23"
+        "close": 38.95000076293945,
+        "date": "2026-09-24"
       },
       "FRVO": {
-        "close": 16.350000381469727,
-        "date": "2026-09-23"
+        "close": 16.709999084472656,
+        "date": "2026-09-24"
       },
       "FSLY": {
-        "close": 29.649999618530273,
-        "date": "2026-09-23"
+        "close": 26.68000030517578,
+        "date": "2026-09-24"
       },
       "FUN": {
-        "close": 12.430000305175781,
-        "date": "2026-09-23"
-      },
-      "GIS": {
-        "close": 35.81999969482422,
-        "date": "2026-09-23"
+        "close": 12.399999618530273,
+        "date": "2026-09-24"
       },
       "GLW": {
-        "close": 154.47999572753906,
-        "date": "2026-09-23"
+        "close": 154.14999389648438,
+        "date": "2026-09-24"
       },
       "GME": {
-        "close": 24.200000762939453,
-        "date": "2026-09-23"
+        "close": 25.020000457763672,
+        "date": "2026-09-24"
       },
       "GOOG": {
-        "close": 334.9800109863281,
-        "date": "2026-09-23"
+        "close": 339.010009765625,
+        "date": "2026-09-24"
       },
       "GOOGL": {
-        "close": 337.8299865722656,
-        "date": "2026-09-23"
+        "close": 342.3599853515625,
+        "date": "2026-09-24"
       },
       "GRML": {
-        "close": 11.1899995803833,
-        "date": "2026-09-23"
+        "close": 14.890000343322754,
+        "date": "2026-09-24"
       },
       "HIMS": {
-        "close": 28.389999389648438,
-        "date": "2026-09-23"
+        "close": 29.280000686645508,
+        "date": "2026-09-24"
       },
       "HL": {
-        "close": 18.270000457763672,
-        "date": "2026-09-23"
+        "close": 17.940000534057617,
+        "date": "2026-09-24"
       },
       "HOOD": {
-        "close": 122.69999694824219,
-        "date": "2026-09-23"
+        "close": 120.81999969482422,
+        "date": "2026-09-24"
       },
       "HPE": {
-        "close": 62.33000183105469,
-        "date": "2026-09-23"
+        "close": 63.52000045776367,
+        "date": "2026-09-24"
       },
       "HUBB": {
-        "close": 463.70001220703125,
-        "date": "2026-09-23"
+        "close": 465.8800048828125,
+        "date": "2026-09-24"
       },
       "INFQ": {
-        "close": 13.829999923706055,
-        "date": "2026-09-23"
+        "close": 14.300000190734863,
+        "date": "2026-09-24"
       },
       "INOD": {
-        "close": 71.98999786376953,
-        "date": "2026-09-23"
+        "close": 71.87000274658203,
+        "date": "2026-09-24"
       },
       "INTC": {
-        "close": 122.5999984741211,
-        "date": "2026-09-23"
+        "close": 127.38999938964844,
+        "date": "2026-09-24"
       },
       "IONQ": {
-        "close": 42.540000915527344,
-        "date": "2026-09-23"
+        "close": 44.97999954223633,
+        "date": "2026-09-24"
       },
       "IOVA": {
-        "close": 10.1899995803833,
-        "date": "2026-09-23"
+        "close": 10.800000190734863,
+        "date": "2026-09-24"
       },
       "IREN": {
-        "close": 47.04999923706055,
-        "date": "2026-09-23"
+        "close": 46.150001525878906,
+        "date": "2026-09-24"
       },
       "JPM": {
-        "close": 337.5299987792969,
-        "date": "2026-09-23"
+        "close": 338.55999755859375,
+        "date": "2026-09-24"
       },
       "KBH": {
-        "close": 47.150001525878906,
-        "date": "2026-09-23"
+        "close": 47.650001525878906,
+        "date": "2026-09-24"
       },
       "KKR": {
-        "close": 97.20999908447266,
-        "date": "2026-09-23"
+        "close": 95.63999938964844,
+        "date": "2026-09-24"
       },
       "KTOS": {
-        "close": 46.15999984741211,
-        "date": "2026-09-23"
+        "close": 47.02000045776367,
+        "date": "2026-09-24"
       },
       "KURA": {
-        "close": 11.039999961853027,
-        "date": "2026-09-23"
+        "close": 10.859999656677246,
+        "date": "2026-09-24"
       },
       "LITE": {
-        "close": 937,
-        "date": "2026-09-23"
+        "close": 929.0399780273438,
+        "date": "2026-09-24"
       },
       "LRCX": {
-        "close": 307.2799987792969,
-        "date": "2026-09-23"
+        "close": 307.1600036621094,
+        "date": "2026-09-24"
       },
       "LULU": {
-        "close": 102.27999877929688,
-        "date": "2026-09-23"
+        "close": 101.63999938964844,
+        "date": "2026-09-24"
       },
       "LUNR": {
-        "close": 15.239999771118164,
-        "date": "2026-09-23"
+        "close": 15.699999809265137,
+        "date": "2026-09-24"
       },
       "MARA": {
-        "close": 13.350000381469727,
-        "date": "2026-09-23"
+        "close": 12.920000076293945,
+        "date": "2026-09-24"
       },
       "MCD": {
-        "close": 238.32000732421875,
-        "date": "2026-09-23"
+        "close": 237.02000427246094,
+        "date": "2026-09-24"
       },
       "META": {
-        "close": 744.0999755859375,
-        "date": "2026-09-23"
+        "close": 777.5900268554688,
+        "date": "2026-09-24"
+      },
+      "MP": {
+        "close": 49.29999923706055,
+        "date": "2026-09-24"
       },
       "MRNA": {
-        "close": 182.11000061035156,
-        "date": "2026-09-23"
+        "close": 194.82000732421875,
+        "date": "2026-09-24"
       },
       "MRVL": {
-        "close": 260.8999938964844,
-        "date": "2026-09-23"
+        "close": 258.95001220703125,
+        "date": "2026-09-24"
       },
       "MSFT": {
-        "close": 500.5899963378906,
-        "date": "2026-09-23"
+        "close": 497.92999267578125,
+        "date": "2026-09-24"
       },
       "MSTR": {
-        "close": 162.1999969482422,
-        "date": "2026-09-23"
+        "close": 161.61000061035156,
+        "date": "2026-09-24"
       },
       "MU": {
-        "close": 1071.8800048828125,
-        "date": "2026-09-23"
+        "close": 1080.530029296875,
+        "date": "2026-09-24"
       },
       "NBIS": {
-        "close": 226.61000061035156,
-        "date": "2026-09-23"
+        "close": 243.47999572753906,
+        "date": "2026-09-24"
       },
       "NCLH": {
-        "close": 14.180000305175781,
-        "date": "2026-09-23"
+        "close": 14.1899995803833,
+        "date": "2026-09-24"
       },
       "NFLX": {
-        "close": 71.36000061035156,
-        "date": "2026-09-23"
+        "close": 71.72000122070312,
+        "date": "2026-09-24"
       },
       "NKE": {
-        "close": 36.04999923706055,
-        "date": "2026-09-23"
+        "close": 35.9900016784668,
+        "date": "2026-09-24"
       },
       "NOW": {
-        "close": 140.77999877929688,
-        "date": "2026-09-23"
+        "close": 137.77999877929688,
+        "date": "2026-09-24"
       },
       "NVDA": {
-        "close": 225.50999450683594,
-        "date": "2026-09-23"
+        "close": 224.5800018310547,
+        "date": "2026-09-24"
       },
       "NVTS": {
         "close": 11.84000015258789,
-        "date": "2026-09-23"
+        "date": "2026-09-24"
+      },
+      "NYT": {
+        "close": 63.04999923706055,
+        "date": "2026-09-24"
       },
       "OKLO": {
-        "close": 38.81999969482422,
-        "date": "2026-09-23"
+        "close": 38.290000915527344,
+        "date": "2026-09-24"
       },
       "ONON": {
-        "close": 30.15999984741211,
-        "date": "2026-09-23"
+        "close": 30.459999084472656,
+        "date": "2026-09-24"
       },
       "ORCL": {
-        "close": 144.55999755859375,
-        "date": "2026-09-23"
+        "close": 139.5399932861328,
+        "date": "2026-09-24"
       },
       "PATH": {
-        "close": 13.039999961853027,
-        "date": "2026-09-23"
+        "close": 12.600000381469727,
+        "date": "2026-09-24"
       },
       "PCG": {
-        "close": 12.40999984741211,
-        "date": "2026-09-23"
+        "close": 12.319999694824219,
+        "date": "2026-09-24"
       },
       "PL": {
-        "close": 16.3799991607666,
-        "date": "2026-09-23"
+        "close": 17.6200008392334,
+        "date": "2026-09-24"
       },
       "PLTR": {
-        "close": 191.7899932861328,
-        "date": "2026-09-23"
+        "close": 192.58999633789062,
+        "date": "2026-09-24"
+      },
+      "PSKY": {
+        "close": 10.180000305175781,
+        "date": "2026-09-24"
       },
       "PURR": {
-        "close": 13.9399995803833,
-        "date": "2026-09-23"
+        "close": 14.09000015258789,
+        "date": "2026-09-24"
       },
       "PYPL": {
-        "close": 52.5099983215332,
-        "date": "2026-09-23"
+        "close": 52.599998474121094,
+        "date": "2026-09-24"
       },
       "QBTS": {
-        "close": 16.809999465942383,
-        "date": "2026-09-23"
+        "close": 17.479999542236328,
+        "date": "2026-09-24"
       },
       "QCOM": {
-        "close": 197.24000549316406,
-        "date": "2026-09-23"
+        "close": 194.25999450683594,
+        "date": "2026-09-24"
       },
       "QNT": {
-        "close": 50.11000061035156,
-        "date": "2026-09-23"
+        "close": 49.38999938964844,
+        "date": "2026-09-24"
       },
       "QXO": {
-        "close": 12.279999732971191,
-        "date": "2026-09-23"
+        "close": 12.260000228881836,
+        "date": "2026-09-24"
       },
       "RARE": {
-        "close": 14.880000114440918,
-        "date": "2026-09-23"
+        "close": 14.770000457763672,
+        "date": "2026-09-24"
       },
       "RBLX": {
-        "close": 48.9900016784668,
-        "date": "2026-09-23"
+        "close": 48.83000183105469,
+        "date": "2026-09-24"
       },
       "RCL": {
-        "close": 230.3000030517578,
-        "date": "2026-09-23"
+        "close": 238.97999572753906,
+        "date": "2026-09-24"
       },
       "RDW": {
-        "close": 11.270000457763672,
-        "date": "2026-09-23"
+        "close": 11.600000381469727,
+        "date": "2026-09-24"
       },
       "RGTI": {
-        "close": 16.0049991607666,
-        "date": "2026-09-23"
+        "close": 16.5,
+        "date": "2026-09-24"
       },
       "RIOT": {
-        "close": 24.690000534057617,
-        "date": "2026-09-23"
+        "close": 23.479999542236328,
+        "date": "2026-09-24"
       },
       "RIVN": {
-        "close": 15.020000457763672,
-        "date": "2026-09-23"
+        "close": 15.289999961853027,
+        "date": "2026-09-24"
       },
       "RKLB": {
-        "close": 70.30999755859375,
-        "date": "2026-09-23"
+        "close": 73.61000061035156,
+        "date": "2026-09-24"
       },
       "RKT": {
-        "close": 12.149999618530273,
-        "date": "2026-09-23"
+        "close": 11.930000305175781,
+        "date": "2026-09-24"
       },
       "SAIL": {
-        "close": 21.40999984741211,
-        "date": "2026-09-23"
+        "close": 22.1200008392334,
+        "date": "2026-09-24"
       },
       "SCHW": {
-        "close": 99.5,
-        "date": "2026-09-23"
+        "close": 99.48999786376953,
+        "date": "2026-09-24"
       },
       "SECZ": {
-        "close": 14.359999656677246,
-        "date": "2026-09-23"
+        "close": 16.530000686645508,
+        "date": "2026-09-24"
       },
       "SHOP": {
-        "close": 142.33999633789062,
-        "date": "2026-09-23"
+        "close": 145.16000366210938,
+        "date": "2026-09-24"
       },
       "SLS": {
-        "close": 11.520000457763672,
-        "date": "2026-09-23"
+        "close": 11.979999542236328,
+        "date": "2026-09-24"
       },
       "SMCI": {
-        "close": 41.439998626708984,
-        "date": "2026-09-23"
+        "close": 41.5099983215332,
+        "date": "2026-09-24"
       },
       "SMMT": {
-        "close": 16.450000762939453,
-        "date": "2026-09-23"
+        "close": 16.3799991607666,
+        "date": "2026-09-24"
       },
       "SNDK": {
-        "close": 1816.5699462890625,
-        "date": "2026-09-23"
+        "close": 1753.6199951171875,
+        "date": "2026-09-24"
       },
       "SOFI": {
-        "close": 16.549999237060547,
-        "date": "2026-09-23"
+        "close": 16.799999237060547,
+        "date": "2026-09-24"
       },
       "SPCX": {
-        "close": 148.36000061035156,
-        "date": "2026-09-23"
+        "close": 148.02999877929688,
+        "date": "2026-09-24"
       },
       "T": {
-        "close": 25.299999237060547,
-        "date": "2026-09-23"
+        "close": 25.450000762939453,
+        "date": "2026-09-24"
       },
       "TEM": {
-        "close": 76.58999633789062,
-        "date": "2026-09-23"
+        "close": 82.23999786376953,
+        "date": "2026-09-24"
       },
       "TSLA": {
-        "close": 380.1199951171875,
-        "date": "2026-09-23"
+        "close": 377.94000244140625,
+        "date": "2026-09-24"
       },
       "TTD": {
-        "close": 12.680000305175781,
-        "date": "2026-09-23"
+        "close": 12.630000114440918,
+        "date": "2026-09-24"
       },
       "TTE": {
-        "close": 91.66999816894531,
-        "date": "2026-09-23"
+        "close": 91.88999938964844,
+        "date": "2026-09-24"
       },
       "UBER": {
-        "close": 69.41999816894531,
-        "date": "2026-09-23"
+        "close": 69.22000122070312,
+        "date": "2026-09-24"
       },
       "UHAL.B": {
-        "close": 54.130001068115234,
-        "date": "2026-09-23"
+        "close": 53.4900016784668,
+        "date": "2026-09-24"
       },
       "UMAC": {
-        "close": 22.690000534057617,
-        "date": "2026-09-23"
+        "close": 23.93000030517578,
+        "date": "2026-09-24"
       },
       "UPS": {
-        "close": 95.81999969482422,
-        "date": "2026-09-23"
+        "close": 92.05000305175781,
+        "date": "2026-09-24"
       },
       "USAR": {
-        "close": 15.829999923706055,
-        "date": "2026-09-23"
+        "close": 15.380000114440918,
+        "date": "2026-09-24"
       },
       "USDE": {
-        "close": 12.869999885559082,
-        "date": "2026-09-23"
+        "close": 14.220000267028809,
+        "date": "2026-09-24"
       },
       "UUUU": {
-        "close": 11.600000381469727,
-        "date": "2026-09-23"
+        "close": 11.319999694824219,
+        "date": "2026-09-24"
       },
       "VG": {
-        "close": 13.270000457763672,
-        "date": "2026-09-23"
+        "close": 13.229999542236328,
+        "date": "2026-09-24"
       },
       "VIAV": {
-        "close": 36.43000030517578,
-        "date": "2026-09-23"
+        "close": 37.22999954223633,
+        "date": "2026-09-24"
       },
       "VKTX": {
-        "close": 41.650001525878906,
-        "date": "2026-09-23"
+        "close": 36.75,
+        "date": "2026-09-24"
       },
       "VOYG": {
-        "close": 31.399999618530273,
-        "date": "2026-09-23"
+        "close": 31.100000381469727,
+        "date": "2026-09-24"
       },
       "VST": {
-        "close": 137.97000122070312,
-        "date": "2026-09-23"
+        "close": 137.94000244140625,
+        "date": "2026-09-24"
       },
       "VZ": {
-        "close": 46.52000045776367,
-        "date": "2026-09-23"
+        "close": 47.31999969482422,
+        "date": "2026-09-24"
       },
       "WDC": {
-        "close": 473.69000244140625,
-        "date": "2026-09-23"
+        "close": 450.30999755859375,
+        "date": "2026-09-24"
       },
       "WLY": {
-        "close": 47.75,
-        "date": "2026-09-23"
+        "close": 48.61000061035156,
+        "date": "2026-09-24"
       },
       "WMT": {
-        "close": 110.52999877929688,
-        "date": "2026-09-23"
+        "close": 107.58999633789062,
+        "date": "2026-09-24"
+      },
+      "WOR": {
+        "close": 60.33000183105469,
+        "date": "2026-09-24"
       },
       "WULF": {
-        "close": 16.350000381469727,
-        "date": "2026-09-23"
+        "close": 16.290000915527344,
+        "date": "2026-09-24"
       },
       "XE": {
-        "close": 16.3799991607666,
-        "date": "2026-09-23"
+        "close": 15.720000267028809,
+        "date": "2026-09-24"
       },
       "ZETA": {
-        "close": 29.790000915527344,
-        "date": "2026-09-23"
+        "close": 29.56999969482422,
+        "date": "2026-09-24"
       }
     },
     "risk": {
@@ -3880,7 +3903,7 @@
       "configured": false,
       "lastAcceptedAt": null
     },
-    "integrity": "c02142b0133de856097e19587e784fc3c6560fbc2b7f43a303f95b165c41f289"
+    "integrity": "b216623d4c3f270d4d68a3f6bf91872abff451949ebf8b7be5145f99e0cecab3"
   },
   "monitorStatus": {
     "checkedAt": "2026-09-24T19:51:09.191Z",
