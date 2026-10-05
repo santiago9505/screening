@@ -26,6 +26,14 @@ Precedencia: posición registrada > venta reciente > Buy Alert > IPO > Watchlist
 Los cambios automáticos de investigación guardan fecha, origen, destino y motivo.
 Los cambios por compra/venta quedan en el registro de operaciones privado del navegador.
 
+Seguimiento integra el mismo gráfico de TradingView del screener. Seleccionar una
+acción actualiza el gráfico y sus niveles sin abrir otra página. Espacio o flecha
+abajo avanza, flecha arriba o Mayús+Espacio retrocede; los botones junto al gráfico
+ofrecen la misma navegación. Se respeta la lista filtrada y sus extremos. Los
+atajos no capturan campos, botones de otras funciones ni el formulario de operaciones.
+Después de interactuar con el iframe del gráfico, seleccionar una fila devuelve
+el foco a la navegación de la lista. El screener conserva su componente y atajos.
+
 ## Screening
 
 `scripts/trading-desk/nightly.mjs` pagina todo el universo que devuelve TradingView
@@ -88,7 +96,21 @@ El workflow `Daily screening and buy alerts` corre en la rama por defecto:
 La rama `trading-data` conserva el estado, el historial de movimientos y las
 observaciones. `public.json` solo publica investigación de mercado, sin correo,
 claves ni operaciones personales. La web lo consulta cada minuto y conserva un
-fallback generado durante el despliegue. No requiere que el PC esté encendido.
+fallback generado durante el despliegue. Esto aplica también al abrir la aplicación
+local: ya no se limita a la captura incluida en el repositorio. Ambas fuentes se
+consultan con timeout; se elige la más reciente por sesión, cierre definitivo,
+fecha de análisis y revisión del monitor, sin retroceder ante una réplica antigua.
+No requiere que el PC esté encendido.
+
+La interfaz muestra por separado último screening, última revisión del monitor,
+cambios del último cierre y cantidad de planes preparados. Un monitor sin planes
+puede ejecutarse correctamente con cero comprobaciones. No se confunde con una
+alerta disparada ni con una operación real. Durante la sesión, más de 45 minutos
+sin comprobación se marca como falta de señal reciente. Los fines de semana,
+festivos y cierres anticipados usan el mismo calendario que el motor; el screening
+se considera atrasado tras las 23:37 UTC (una hora de margen para GitHub).
+Fuera de los años cubiertos por el calendario se pide revisión, sin asumir frescura.
+El enlace «Ver ejecuciones» permite inspeccionar fallos o retrasos en GitHub.
 
 Secretos requeridos en **Settings > Secrets and variables > Actions**:
 
