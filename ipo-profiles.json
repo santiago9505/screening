@@ -488,5 +488,15 @@
     "date": "2012-06-13",
     "source": "Finnhub company profile",
     "checkedAt": "2026-09-22T22:41:36.333Z"
+  },
+  "SUN": {
+    "date": "2012-09-20",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-10-12T22:46:28.046Z"
+  },
+  "USAC": {
+    "date": "2013-01-15",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-10-12T22:46:28.046Z"
   }
 }
