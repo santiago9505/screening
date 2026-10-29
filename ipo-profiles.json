@@ -518,5 +518,10 @@
     "date": "2020-06-29",
     "source": "Finnhub company profile",
     "checkedAt": "2026-10-28T22:41:24.854Z"
+  },
+  "MAX": {
+    "date": "2020-10-28",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-10-29T22:41:36.961Z"
   }
 }
