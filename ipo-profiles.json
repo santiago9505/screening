@@ -523,5 +523,35 @@
     "date": "2020-10-28",
     "source": "Finnhub company profile",
     "checkedAt": "2026-10-29T22:41:36.961Z"
+  },
+  "ALGM": {
+    "date": "2020-10-29",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-10-30T22:41:16.096Z"
+  },
+  "APG": {
+    "date": "2017-10-10",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-10-30T22:41:16.096Z"
+  },
+  "BBIO": {
+    "date": "2019-06-27",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-10-30T22:41:16.096Z"
+  },
+  "DASH": {
+    "date": "2020-12-09",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-10-30T22:41:16.096Z"
+  },
+  "PWP": {
+    "date": "2020-09-25",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-10-30T22:41:16.096Z"
+  },
+  "RSI": {
+    "date": "2020-02-20",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-10-30T22:41:16.096Z"
   }
 }
