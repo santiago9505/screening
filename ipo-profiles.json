@@ -553,5 +553,15 @@
     "date": "2020-02-20",
     "source": "Finnhub company profile",
     "checkedAt": "2026-10-30T22:41:16.096Z"
+  },
+  "INGM": {
+    "date": "2024-10-24",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-02T22:41:22.615Z"
+  },
+  "SNDK": {
+    "date": "2025-02-13",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-02T22:41:22.615Z"
   }
 }
