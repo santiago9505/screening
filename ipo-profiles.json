@@ -563,5 +563,25 @@
     "date": "2025-02-13",
     "source": "Finnhub company profile",
     "checkedAt": "2026-11-02T22:41:22.615Z"
+  },
+  "BETA": {
+    "date": "2025-11-04",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-03T22:41:32.851Z"
+  },
+  "FOX": {
+    "date": "2019-02-27",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-03T22:41:32.851Z"
+  },
+  "FOXA": {
+    "date": "2019-02-27",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-03T22:41:32.851Z"
+  },
+  "TEM": {
+    "date": "2025-05-30",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-03T22:41:32.851Z"
   }
 }
