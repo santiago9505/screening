@@ -588,5 +588,20 @@
     "date": "2021-09-14",
     "source": "Finnhub company profile",
     "checkedAt": "2026-11-04T22:41:37.782Z"
+  },
+  "NAMS": {
+    "date": "2022-11-23",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-05T22:41:34.024Z"
+  },
+  "SN": {
+    "date": "2023-07-31",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-05T22:41:34.024Z"
+  },
+  "TRIN": {
+    "date": "2021-01-29",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-05T22:41:34.024Z"
   }
 }
