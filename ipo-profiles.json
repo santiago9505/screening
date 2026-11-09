@@ -608,5 +608,60 @@
     "date": "2021-01-27",
     "source": "Finnhub company profile",
     "checkedAt": "2026-11-06T22:41:30.735Z"
+  },
+  "BLLN": {
+    "date": "2025-11-06",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "CDRE": {
+    "date": "2021-11-04",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "CEG": {
+    "date": "2022-01-19",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "CTRI": {
+    "date": "2024-04-18",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "FIG": {
+    "date": "2025-07-31",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "LB": {
+    "date": "2024-06-28",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "LFST": {
+    "date": "2021-06-10",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "MAIR": {
+    "date": "2026-04-16",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "PLMR": {
+    "date": "2019-04-17",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "STEP": {
+    "date": "2020-09-16",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
+  },
+  "TIC": {
+    "date": "2023-10-12",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-09T22:41:06.335Z"
   }
 }
