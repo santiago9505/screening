@@ -698,5 +698,30 @@
     "date": "2026-06-04",
     "source": "Finnhub company profile",
     "checkedAt": "2026-11-12T22:41:12.939Z"
+  },
+  "HTFL": {
+    "date": "2025-08-08",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-13T22:41:45.355Z"
+  },
+  "LIME": {
+    "date": "2026-07-01",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-13T22:41:45.355Z"
+  },
+  "LUNR": {
+    "date": "2021-09-22",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-13T22:41:45.355Z"
+  },
+  "MWH": {
+    "date": "2026-02-11",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-13T22:41:45.355Z"
+  },
+  "NBIS": {
+    "date": "2011-05-01",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-13T22:41:45.355Z"
   }
 }
