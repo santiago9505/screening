@@ -723,5 +723,10 @@
     "date": "2011-05-01",
     "source": "Finnhub company profile",
     "checkedAt": "2026-11-13T22:41:45.355Z"
+  },
+  "OFRM": {
+    "date": "2026-02-06",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-17T22:41:21.319Z"
   }
 }
