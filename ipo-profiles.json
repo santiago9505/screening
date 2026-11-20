@@ -733,5 +733,10 @@
     "date": "2021-01-28",
     "source": "Finnhub company profile",
     "checkedAt": "2026-11-19T22:41:20.064Z"
+  },
+  "BSP": {
+    "date": "2026-07-01",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-20T22:41:40.524Z"
   }
 }
