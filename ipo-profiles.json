@@ -738,5 +738,10 @@
     "date": "2026-07-01",
     "source": "Finnhub company profile",
     "checkedAt": "2026-11-20T22:41:40.524Z"
+  },
+  "RSKD": {
+    "date": "2021-07-29",
+    "source": "Finnhub company profile",
+    "checkedAt": "2026-11-23T22:41:24.042Z"
   }
 }
